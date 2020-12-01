@@ -1,4 +1,3 @@
-// UNIT.16
 #include "shader.h"
 #include "texture.h"
 #include "misc.h"
@@ -10,7 +9,6 @@ using namespace fbxsdk;
 #include <vector>
 #include <functional>
 
-// UNIT.19
 void fbxamatrix_to_xmfloat4x4(const FbxAMatrix &fbxamatrix, DirectX::XMFLOAT4X4 &xmfloat4x4)
 {
 	for (int row = 0; row < 4; row++)
@@ -24,32 +22,24 @@ void fbxamatrix_to_xmfloat4x4(const FbxAMatrix &fbxamatrix, DirectX::XMFLOAT4X4 
 
 skinned_mesh::skinned_mesh(ID3D11Device *device, const char *fbx_filename)
 {
-	// Create the FBX SDK manager
 	FbxManager* manager = FbxManager::Create();
 
-	// Create an IOSettings object. IOSROOT is defined in Fbxiosettingspath.h.
 	manager->SetIOSettings(FbxIOSettings::Create(manager, IOSROOT));
 
-	// Create an importer.
 	FbxImporter* importer = FbxImporter::Create(manager, "");
 
-	// Initialize the importer.
 	bool import_status = false;
 	import_status = importer->Initialize(fbx_filename, -1, manager->GetIOSettings());
 	_ASSERT_EXPR_A(import_status, importer->GetStatus().GetErrorString());
 
-	// Create a new scene so it can be populated by the imported file.
 	FbxScene* scene = FbxScene::Create(manager, "");
 
-	// Import the contents of the file into the scene.
 	import_status = importer->Import(scene);
 	_ASSERT_EXPR_A(import_status, importer->GetStatus().GetErrorString());
 
-	// Convert mesh, NURBS and patch into triangle mesh
 	fbxsdk::FbxGeometryConverter geometry_converter(manager);
-	geometry_converter.Triangulate(scene, /*replace*/true);
+	geometry_converter.Triangulate(scene, true);
 
-	// Fetch node attributes and materials under this node recursively. Currently only mesh.	
 	std::vector<FbxNode*> fetched_meshes;
 	std::function<void(FbxNode*)> traverse = [&](FbxNode* node)
 	{
@@ -73,34 +63,21 @@ skinned_mesh::skinned_mesh(ID3D11Device *device, const char *fbx_filename)
 	};
 	traverse(scene->GetRootNode());
 
-	// UNIT.19
 	meshes.resize(fetched_meshes.size());
 
-	// UNIT.19
-	//FbxMesh *fbx_mesh = fetched_meshes.at(0)->GetMesh();  // Currently only one mesh.
 	for (size_t i = 0; i < fetched_meshes.size(); i++)
 	{
-		// UNIT.19
 		FbxMesh *fbx_mesh = fetched_meshes.at(i)->GetMesh();
 		mesh &mesh = meshes.at(i);
 
-		// UNIT.19
 		FbxAMatrix global_transform = fbx_mesh->GetNode()->EvaluateGlobalTransform(0);
 		fbxamatrix_to_xmfloat4x4(global_transform, mesh.global_transform);
 		
-		// UNIT.17
-		// Fetch material properties.
 		const int number_of_materials = fbx_mesh->GetNode()->GetMaterialCount();
-		// UNIT.18
-		//subsets.resize(number_of_materials);
-		//subsets.resize(number_of_materials > 0 ? number_of_materials : 1);
-		// UNIT.19
+
 		mesh.subsets.resize(number_of_materials > 0 ? number_of_materials : 1);
 		for (int index_of_material = 0; index_of_material < number_of_materials; ++index_of_material)
 		{
-			// UNIT.18
-			//subset &subset = subsets.at(index_of_material);
-			// UNIT.19
 			subset &subset = mesh.subsets.at(index_of_material);
 
 			const FbxSurfaceMaterial *surface_material = fbx_mesh->GetNode()->GetMaterial(index_of_material);
@@ -125,11 +102,6 @@ skinned_mesh::skinned_mesh(ID3D11Device *device, const char *fbx_filename)
 					if (file_texture)
 					{
 						const char *filename = file_texture->GetRelativeFileName();
-						// Create "diffuse.shader_resource_view" from "filename".
-						//wchar_t texture_unicode[256];
-						//MultiByteToWideChar(CP_ACP, 0, filename, strlen(filename) + 1, texture_unicode, 1024);
-						//D3D11_TEXTURE2D_DESC texture2d_desc;
-						//load_texture_from_file(device, texture_unicode, subset.diffuse.shader_resource_view.GetAddressOf(), &texture2d_desc);
 
 						wchar_t fbx_unicode[256];
 						MultiByteToWideChar(CP_ACP, 0, fbx_filename, strlen(fbx_filename) + 1, fbx_unicode, 1024);
@@ -137,16 +109,12 @@ skinned_mesh::skinned_mesh(ID3D11Device *device, const char *fbx_filename)
 						MultiByteToWideChar(CP_ACP, 0, file_texture->GetFileName(), strlen(file_texture->GetFileName()) + 1, texture_unicode, 1024);
 						combine_resource_path(texture_unicode, fbx_unicode, texture_unicode);
 
-						//material.texture_filename = texture_unicode;
 						D3D11_TEXTURE2D_DESC texture2d_desc;
 						load_texture_from_file(device, texture_unicode, subset.diffuse.shader_resource_view.GetAddressOf(), &texture2d_desc);
 					}
 				}
 			}
 		}
-		// UNIT.18
-		//for (subset &subset : subsets)
-		// UNIT.19
 		for (subset &subset : mesh.subsets)
 		{
 			if (!subset.diffuse.shader_resource_view)
@@ -155,61 +123,44 @@ skinned_mesh::skinned_mesh(ID3D11Device *device, const char *fbx_filename)
 			}
 		}
 
-		// UNIT.18
-		// Count the polygon count of each material
 		if (number_of_materials > 0)
 		{
-			// Count the faces of each material
 			const int number_of_polygons = fbx_mesh->GetPolygonCount();
 			for (int index_of_polygon = 0; index_of_polygon < number_of_polygons; ++index_of_polygon)
 			{
 				const u_int material_index = fbx_mesh->GetElementMaterial()->GetIndexArray().GetAt(index_of_polygon);
-				// UNIT.19
-				//subsets.at(material_index).index_count += 3;
 				mesh.subsets.at(material_index).index_count += 3;
 
 			}
 
-			// Record the offset (how many vertex)
 			int offset = 0;
-			// UNIT.19
-			//for (subset &subset : subsets)
 			for (subset &subset : mesh.subsets)
 			{
 				subset.index_start = offset;
 				offset += subset.index_count;
-				// This will be used as counter in the following procedures, reset to zero
 				subset.index_count = 0;
 			}
 		}
 
-		// Fetch mesh data
 		std::vector<vertex> vertices;
 		std::vector<u_int> indices;
 		u_int vertex_count = 0;
 
-		// UNIT.17
 		FbxStringList uv_names;
 		fbx_mesh->GetUVSetNames(uv_names);
 
 		const FbxVector4 *array_of_control_points = fbx_mesh->GetControlPoints();
 		const int number_of_polygons = fbx_mesh->GetPolygonCount();
-		// UNIT.18
 		indices.resize(number_of_polygons * 3);
 
 		for (int index_of_polygon = 0; index_of_polygon < number_of_polygons; index_of_polygon++)
 		{
-			// UNIT.18
-			// The material for current face.
 			int index_of_material = 0;
 			if (number_of_materials > 0)
 			{
 				index_of_material = fbx_mesh->GetElementMaterial()->GetIndexArray().GetAt(index_of_polygon);
 			}
 
-			// Where should I save the vertex attribute index, according to the material
-			// UNIT.19
-			//subset &subset = subsets.at(index_of_material);
 			subset &subset = mesh.subsets.at(index_of_material);
 			const int index_offset = subset.index_start + subset.index_count;
 
@@ -221,7 +172,6 @@ skinned_mesh::skinned_mesh(ID3D11Device *device, const char *fbx_filename)
 				vertex.position.y = static_cast<float>(array_of_control_points[index_of_control_point][1]);
 				vertex.position.z = static_cast<float>(array_of_control_points[index_of_control_point][2]);
 
-				// UNIT.17
 				if (fbx_mesh->GetElementNormalCount() > 0)
 				{
 					FbxVector4 normal;
@@ -231,7 +181,6 @@ skinned_mesh::skinned_mesh(ID3D11Device *device, const char *fbx_filename)
 					vertex.normal.z = static_cast<float>(normal[2]);
 				}
 
-				// UNIT.17
 				if (fbx_mesh->GetElementUVCount() > 0)
 				{
 					FbxVector2 uv;
@@ -243,15 +192,11 @@ skinned_mesh::skinned_mesh(ID3D11Device *device, const char *fbx_filename)
 
 				vertices.push_back(vertex);
 
-				// UNIT.18
-				//indices.push_back(vertex_count);
 				indices.at(index_offset + index_of_vertex) = static_cast<u_int>(vertex_count);
 				vertex_count += 1;
 			}
 			subset.index_count += 3;
 		}
-		// UNIT.19
-		//create_buffers(device, vertices.data(), vertices.size(), indices.data(), indices.size());
 		mesh.create_buffers(device, vertices.data(), vertices.size(), indices.data(), indices.size());
 	}
 	manager->Destroy();
@@ -262,7 +207,6 @@ skinned_mesh::skinned_mesh(ID3D11Device *device, const char *fbx_filename)
 	{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		// UNIT.17
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 	create_vs_from_cso(device, "skinned_mesh_vs.cso", vertex_shader.GetAddressOf(), input_layout.GetAddressOf(), input_element_desc, ARRAYSIZE(input_element_desc));
@@ -333,7 +277,6 @@ skinned_mesh::skinned_mesh(ID3D11Device *device, const char *fbx_filename)
 		_ASSERT_EXPR(SUCCEEDED(hr), hr_trace(hr));
 	}
 
-	// UNIT.17
 	// create sampler state
 	D3D11_SAMPLER_DESC sampler_desc = {};
 	sampler_desc.Filter = D3D11_FILTER_ANISOTROPIC;
@@ -392,12 +335,10 @@ void skinned_mesh::mesh::create_buffers(ID3D11Device *device, vertex *vertices, 
 
 void skinned_mesh::render(ID3D11DeviceContext *immediate_context, const DirectX::XMFLOAT4X4 &world_view_projection, const DirectX::XMFLOAT4X4 &world_inverse_transpose, const DirectX::XMFLOAT4 &light_direction, const DirectX::XMFLOAT4 &material_color, bool wireframe)
 {
-	// UNIT.19
 	for (mesh &mesh : meshes)
 	{
 		u_int stride = sizeof(vertex);
 		u_int offset = 0;
-		// UNIT.19
 		//immediate_context->IASetVertexBuffers(0, 1, vertex_buffer.GetAddressOf(), &stride, &offset);
 		//immediate_context->IASetIndexBuffer(index_buffer.Get(), DXGI_FORMAT_R32_UINT, 0);
 		immediate_context->IASetVertexBuffers(0, 1, mesh.vertex_buffer.GetAddressOf(), &stride, &offset);
@@ -418,30 +359,12 @@ void skinned_mesh::render(ID3D11DeviceContext *immediate_context, const DirectX:
 			immediate_context->RSSetState(rasterizer_states[0].Get());
 		}
 
-		// UNIT.17
-		//immediate_context->PSSetShaderResources(0, 1, diffuse.shader_resource_view.GetAddressOf());
-		//immediate_context->PSSetSamplers(0, 1, sampler_state.GetAddressOf());
-
-		//D3D11_BUFFER_DESC buffer_desc;
-		//index_buffer->GetDesc(&buffer_desc);
-		//immediate_context->DrawIndexed(buffer_desc.ByteWidth / sizeof(u_int), 0, 0);
-
 		cbuffer data;
-		// UNIT.19
-		//data.world_view_projection = world_view_projection;
-		//data.world_inverse_transpose = world_inverse_transpose;
 		DirectX::XMStoreFloat4x4(&data.world_view_projection, DirectX::XMLoadFloat4x4(&mesh.global_transform)* DirectX::XMLoadFloat4x4(&world_view_projection));
 		DirectX::XMStoreFloat4x4(&data.world_inverse_transpose, DirectX::XMLoadFloat4x4(&mesh.global_transform) * DirectX::XMLoadFloat4x4(&world_inverse_transpose));
 
 		data.light_direction = light_direction;
-		// UNIT.18
-		//data.material_color = material_color;
-		//immediate_context->UpdateSubresource(constant_buffer.Get(), 0, 0, &data, 0, 0);
-		//immediate_context->VSSetConstantBuffers(0, 1, constant_buffer.GetAddressOf());
 
-		// UNIT.18
-		//for (subset &subset : subsets)
-		// UNIT.18
 		for (subset &subset : mesh.subsets)
 		{
 			data.material_color.x = subset.diffuse.color.x * material_color.x;
@@ -456,6 +379,4 @@ void skinned_mesh::render(ID3D11DeviceContext *immediate_context, const DirectX:
 			immediate_context->DrawIndexed(subset.index_count, subset.index_start, 0);
 		}
 	}
-
-
 }

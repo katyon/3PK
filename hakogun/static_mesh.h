@@ -1,6 +1,5 @@
 #pragma once
 
-// UNIT.12
 #include <d3d11.h>
 #include <wrl.h>
 #include <directxmath.h>
@@ -13,7 +12,6 @@ public:
 	{
 		DirectX::XMFLOAT3 position;
 		DirectX::XMFLOAT3 normal;
-		// UNIT.13
 		DirectX::XMFLOAT2 texcoord;
 	};
 	struct cbuffer
@@ -24,7 +22,6 @@ public:
 		DirectX::XMFLOAT4 light_direction;
 	};
 
-	// UNIT.14
 	struct subset
 	{
 		std::wstring usemtl;
@@ -33,7 +30,6 @@ public:
 	};
 	std::vector<subset> subsets;
 
-	// UNIT.14
 	struct material
 	{
 		std::wstring newmtl;
@@ -58,12 +54,10 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizer_states[2];
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depth_stencil_state;
 
-	//UNIT.13
-	//Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> shader_resource_view;
 	Microsoft::WRL::ComPtr<ID3D11SamplerState> sampler_state;
 
 public:
-	static_mesh(ID3D11Device *device, const wchar_t *obj_filename, bool flipping_v_coordinates/*UNIT.13*/);
+	static_mesh(ID3D11Device *device, const wchar_t *obj_filename, bool flipping_v_coordinates);
 	virtual ~static_mesh();
 
 	void render(ID3D11DeviceContext *immediate_context, const DirectX::XMFLOAT4X4 &world_view_projection, const DirectX::XMFLOAT4X4 &world_inverse_transpose, const DirectX::XMFLOAT4 &light_direction, const DirectX::XMFLOAT4 &material_color, bool wireframe = false);

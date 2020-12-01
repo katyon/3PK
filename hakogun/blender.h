@@ -1,4 +1,3 @@
-// UNIT.07
 #pragma once
 
 #include <d3d11.h>

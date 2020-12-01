@@ -1,4 +1,3 @@
-// UNIT.10
 #include "geometric_primitive.hlsli"
 
 VS_OUT main(float4 position : POSITION, float4 normal : NORMAL)

@@ -1,16 +1,13 @@
-// UNIT.02
 #include "shader.h"
 #include "misc.h"
 
 #include<memory>
 
-//UNIT.05
 #include<map>
 #include <wrl.h>
 
 HRESULT create_vs_from_cso(ID3D11Device *device, const char *cso_name, ID3D11VertexShader **vertex_shader, ID3D11InputLayout **input_layout, D3D11_INPUT_ELEMENT_DESC *input_element_desc, UINT num_elements)
 {
-	// UNIT.05
 	struct set_of_vertex_shader_and_input_layout
 	{
 		set_of_vertex_shader_and_input_layout(ID3D11VertexShader  *vertex_shader, ID3D11InputLayout *input_layout) : vertex_shader(vertex_shader), input_layout(input_layout) {}
@@ -29,7 +26,6 @@ HRESULT create_vs_from_cso(ID3D11Device *device, const char *cso_name, ID3D11Ver
 		return S_OK;
 	}
 
-	// UNIT.02
 	FILE* fp = nullptr;
 	fopen_s(&fp, cso_name, "rb");
 	_ASSERT_EXPR_A(fp, "CSO File not found");
@@ -48,7 +44,6 @@ HRESULT create_vs_from_cso(ID3D11Device *device, const char *cso_name, ID3D11Ver
 	hr = device->CreateInputLayout(input_element_desc, num_elements, cso_data.get(), cso_sz, input_layout);
 	_ASSERT_EXPR(SUCCEEDED(hr), hr_trace(hr));
 
-	// UNIT.05
 	cache.insert(std::make_pair(cso_name, set_of_vertex_shader_and_input_layout(*vertex_shader, *input_layout)));
 
 	return hr;
@@ -56,7 +51,6 @@ HRESULT create_vs_from_cso(ID3D11Device *device, const char *cso_name, ID3D11Ver
 
 HRESULT create_ps_from_cso(ID3D11Device *device, const char *cso_name, ID3D11PixelShader **pixel_shader)
 {
-	// UNIT.05
 	static std::map<std::string, Microsoft::WRL::ComPtr<ID3D11PixelShader>> cache;
 	auto it = cache.find(cso_name);
 	if (it != cache.end())
@@ -67,7 +61,6 @@ HRESULT create_ps_from_cso(ID3D11Device *device, const char *cso_name, ID3D11Pix
 		return S_OK;
 	}
 
-	// UNIT.02
 	FILE* fp = nullptr;
 	fopen_s(&fp, cso_name, "rb");
 	_ASSERT_EXPR_A(fp, "CSO File not found");
@@ -83,7 +76,6 @@ HRESULT create_ps_from_cso(ID3D11Device *device, const char *cso_name, ID3D11Pix
 	HRESULT hr = device->CreatePixelShader(cso_data.get(), cso_sz, nullptr, pixel_shader);
 	_ASSERT_EXPR(SUCCEEDED(hr), hr_trace(hr));
 
-	// UNIT.05
 	cache.insert(std::make_pair(cso_name, *pixel_shader));
 
 	return hr;

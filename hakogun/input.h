@@ -1,65 +1,60 @@
 #pragma once
-
+#include <dinput.h>
 #include <directxmath.h>
 
-
-
-/** @brief マウスボタンの種類 */
+// マウスボタンの種類
 enum MouseButton
 {
-	Left,		//!< 左
-	Right,		//!< 右
-	Center,		//!< 真ん中
+    Left,
+    Right,
+    Center,
 };
 
-/**
-* @brief Input機能初期化関数@n
-* デバイスの入力取得に必要な初期化を行う
-* ※InitEngineで実行されるので開発側が実行する必要はない
-* @return 初期化結果(成功はtrue)
-*/
-bool InitInput();
+class input_mouse
+{
+private:
 
-/**
-* @brief Input機能終了関数@n
-* Input機能を終了させる@n
-* ※EndEngineで実行されるので開発側が実行する必要はない
-*/
-void ReleaseInput();
+public:
+    // Input機能初期化関数
+    bool InitInput();
 
-/**
-* @brief 入力情報の更新@n
-* デバイスの入力情報の更新を行う@n
-* 毎フレームに１度必ず実行する必要がある
-*/
-void UpdateInput();
+    // Input機能終了関数
+    void ReleaseInput();
 
-/**
-* @brief ボタンが押されているかの判定関数
-* @retval true：押されている
-* @retval false：押されていない
-* @param[in] button 判定したいボタンの種類
-*/
-bool OnMousePush(MouseButton button_type);
+    // 入力情報の更新
+    void UpdateInput();
 
-/**
-* @brief ボタンが押された瞬間の判定関数
-* @retval true：押した瞬間
-* @retval false：押した瞬間ではない
-* @param[in] button 判定したいボタンの種類
-*/
-bool OnMouseDown(MouseButton button_type);
+    // ボタンが押されているかの判定関数
+    // true：押されている false：押されていない
+    // button_type：判定したいボタンの種類
+    bool OnMousePush(MouseButton button_type);
 
-/**
-* @brief ボタンを離した瞬間の判定関数
-* @retval true：離した瞬間
-* @retval false：瞬間ではない
-* @param[in] button 判定したいボタンの種類
-*/
-bool OnMouseUp(MouseButton button_type);
+    // ボタンが押された瞬間の判定関数
+    // true：押した瞬間 false：押した瞬間ではない
+    // button_type：判定したいボタンの種類
+    bool OnMouseDown(MouseButton button_type);
 
-DirectX::XMFLOAT2 GetMousePos();
+    // ボタンを離した瞬間の判定関数
+    // true：離した瞬間 false：瞬間ではない
+    // button_type：判定したいボタンの種類
+    bool OnMouseUp(MouseButton button_type);
 
-DirectX::XMFLOAT2 GetMouseVelocity();
+    // 入力インターフェースの作成
+    bool CreateInputInterface();
 
-DirectX::XMFLOAT2 GetMouseVelocity02();
+    // マウスデバイスの作成
+    bool CreateMouseDevice();
+
+    // マウスの更新
+    void UpdateMouse();
+
+    // 協調レベルの設定
+    BOOL SetUpCooperativeLevel(LPDIRECTINPUTDEVICE8 device);
+
+    // マウスの制御起動
+    BOOL StartMouseControl();
+
+    DirectX::XMFLOAT2 GetMousePos();
+
+    DirectX::XMFLOAT2 GetMouseVelocity();
+};

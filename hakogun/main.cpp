@@ -17,7 +17,6 @@ LRESULT CALLBACK fnWndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 
 INT WINAPI wWinMain(HINSTANCE instance, HINSTANCE prev_instance, LPWSTR cmd_line, INT cmd_show)
 {
-	// UNIT.07
 	srand(static_cast<unsigned int>(time(nullptr)));
 
 #if defined(DEBUG) | defined(_DEBUG)

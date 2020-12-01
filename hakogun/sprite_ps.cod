@@ -41,11 +41,9 @@
     dcl t1.xy  // pin<8,9>
     dcl_2d s0
 
-#line 17 "C:\Users\21900162\Desktop\test\sprite_ps.hlsl"
+#line 7 "D:\gp\SourceTree\3PK\hakogun\sprite_ps.hlsl"
     texld r0, t1, s0
     mul r0, r0, t0  // ::main<0,1,2,3>
-
-#line 12
     mov oC0, r0  // ::main<0,1,2,3>
 
 // approximately 3 instruction slots used (1 texture, 2 arithmetic)
@@ -63,7 +61,7 @@ dcl_temps 1
 //   v2.x <- pin.texcoord.x; v2.y <- pin.texcoord.y; 
 //   o0.x <- <main return value>.x; o0.y <- <main return value>.y; o0.z <- <main return value>.z; o0.w <- <main return value>.w
 //
-#line 17 "C:\Users\21900162\Desktop\test\sprite_ps.hlsl"
+#line 7 "D:\gp\SourceTree\3PK\hakogun\sprite_ps.hlsl"
 sample r0.xyzw, v2.xyxx, t0.xyzw, s0
 mul o0.xyzw, r0.xyzw, v1.xyzw
 ret 

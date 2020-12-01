@@ -1,5 +1,4 @@
 #define DIRECTINPUT_VERSION 0x0800
-#include <dinput.h>
 #include <Windows.h>
 #include <stdio.h>
 #include <math.h>
@@ -10,30 +9,15 @@
 #pragma comment(lib, "dinput8.lib")
 #pragma comment(lib, "dxguid.lib")
 
-#define MOUSE_ON_VALUE (0x80)					//!< オン状態の値
+#define MOUSE_ON_VALUE (0x80)					// オン状態の値
 
-static LPDIRECTINPUT8 g_InputInterface;			//!< DIRECTINPUT8のポインタ
-static LPDIRECTINPUTDEVICE8 g_MouseDevice;		//!< DIRECTINPUTDEVICE8のポインタ
-static DIMOUSESTATE g_CurrentMouseState;		//!< マウスの現在の入力情報
-static DIMOUSESTATE g_PrevMouseState;			//!< マウスの現在の入力情報
-static DirectX::XMFLOAT2 g_MousePos;			//!< マウス座標
+static LPDIRECTINPUT8 g_InputInterface;			// DIRECTINPUT8のポインタ
+static LPDIRECTINPUTDEVICE8 g_MouseDevice;		// DIRECTINPUTDEVICE8のポインタ
+static DIMOUSESTATE g_CurrentMouseState;		// マウスの現在の入力情報
+static DIMOUSESTATE g_PrevMouseState;			// マウスの現在の入力情報
+static DirectX::XMFLOAT2 g_MousePos;			// マウス座標
 
-//!< 入力インターフェースの作成
-bool CreateInputInterface();
-
-//!< マウスデバイスの作成
-bool CreateMouseDevice();
-
-//!< マウスの更新
-void UpdateMouse();
-
-//!< 協調レベルの設定
-BOOL SetUpCooperativeLevel(LPDIRECTINPUTDEVICE8 device);
-
-//!< マウスの制御起動
-BOOL StartMouseControl();
-
-bool InitInput()
+bool input_mouse::InitInput()
 {
 	// インターフェース作成
 	if (CreateInputInterface() == false)
@@ -55,7 +39,7 @@ bool InitInput()
 	return true;
 }
 
-void ReleaseInput()
+void input_mouse::ReleaseInput()
 {
 	// デバイスの解放
 	if (g_MouseDevice != nullptr)
@@ -74,23 +58,23 @@ void ReleaseInput()
 	}
 }
 
-void UpdateInput()
+void input_mouse::UpdateInput()
 {
 	UpdateMouse();
 }
 
-DirectX::XMFLOAT2 GetMousePos()
+DirectX::XMFLOAT2 input_mouse::GetMousePos()
 {
 	return g_MousePos;
 }
 
-DirectX::XMFLOAT2 GetMouseVelocity()
+DirectX::XMFLOAT2 input_mouse::GetMouseVelocity()
 {
 	return DirectX::XMFLOAT2((float)g_CurrentMouseState.lX, (float)g_CurrentMouseState.lY);
 }
 
 
-bool OnMouseDown(MouseButton button_type)
+bool input_mouse::OnMouseDown(MouseButton button_type)
 {
 	if (!(g_PrevMouseState.rgbButtons[button_type] & MOUSE_ON_VALUE) &&
 		g_CurrentMouseState.rgbButtons[button_type] & MOUSE_ON_VALUE)
@@ -101,7 +85,7 @@ bool OnMouseDown(MouseButton button_type)
 	return false;
 }
 
-bool OnMousePush(MouseButton button_type)
+bool input_mouse::OnMousePush(MouseButton button_type)
 {
 	if (g_PrevMouseState.rgbButtons[button_type] & MOUSE_ON_VALUE &&
 		g_CurrentMouseState.rgbButtons[button_type] & MOUSE_ON_VALUE)
@@ -112,7 +96,7 @@ bool OnMousePush(MouseButton button_type)
 	return false;
 }
 
-bool OnMouseUp(MouseButton button_type)
+bool input_mouse::OnMouseUp(MouseButton button_type)
 {
 	if (g_PrevMouseState.rgbButtons[button_type] & MOUSE_ON_VALUE &&
 		!(g_CurrentMouseState.rgbButtons[button_type] & MOUSE_ON_VALUE))
@@ -123,7 +107,7 @@ bool OnMouseUp(MouseButton button_type)
 	return false;
 }
 
-bool CreateInputInterface()
+bool input_mouse::CreateInputInterface()
 {
 	// インターフェース作成
 	HRESULT ret = DirectInput8Create(
@@ -142,7 +126,7 @@ bool CreateInputInterface()
 	return true;
 }
 
-bool CreateMouseDevice()
+bool input_mouse::CreateMouseDevice()
 {
 	g_MouseDevice = nullptr;
 
@@ -185,7 +169,7 @@ bool CreateMouseDevice()
 	return true;
 }
 
-void UpdateMouse()
+void input_mouse::UpdateMouse()
 {
 	if (g_MouseDevice == nullptr)
 	{
@@ -216,7 +200,7 @@ void UpdateMouse()
 	g_MousePos.y = (float)p.y;
 }
 
-BOOL SetUpCooperativeLevel(LPDIRECTINPUTDEVICE8 device)
+BOOL input_mouse::SetUpCooperativeLevel(LPDIRECTINPUTDEVICE8 device)
 {
 	// 協調モードの設定
 	if (FAILED(device->SetCooperativeLevel(
@@ -230,7 +214,7 @@ BOOL SetUpCooperativeLevel(LPDIRECTINPUTDEVICE8 device)
 	return true;
 }
 
-BOOL StartMouseControl()
+BOOL input_mouse::StartMouseControl()
 {
 	// デバイスが生成されてない
 	if (g_MouseDevice == nullptr)

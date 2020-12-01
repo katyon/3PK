@@ -3,23 +3,17 @@
 
 #include <memory>
 
-// UNIT.07
 #include "blender.h"
 
-// UNIT.08
 #include <algorithm>
 #include <vector>
 #include <queue>
 
-// UNIT.10
 #include "geometric_primitive.h"
 #include <stdlib.h>
 
-#include "input.h"
-
 bool framework::initialize()
 {
-	// UNIT.01
 	HRESULT hr = S_OK;
 
 	RECT rc;
@@ -59,7 +53,6 @@ bool framework::initialize()
 			}
 		}
 		_ASSERT_EXPR(SUCCEEDED(hr), hr_trace(hr));
-		//_ASSERT_EXPR(!(feature_level < D3D_FEATURE_LEVEL_11_0), L"Direct3D Feature Level 11 unsupported.");
 	}
 	// Create Swap Chain
 	BOOL enable_4x_msaa = TRUE;
@@ -82,10 +75,7 @@ bool framework::initialize()
 		swap_chain_desc.Windowed = TRUE;
 		swap_chain_desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 		swap_chain_desc.Flags = 0;
-#if 0
-		Microsoft::WRL::ComPtr<IDXGIFactory> dxgi_factory;
-		CreateDXGIFactory(__uuidof(IDXGIFactory), reinterpret_cast<void**>(dxgi_factory.GetAddressOf()));
-#else
+
 		Microsoft::WRL::ComPtr<IDXGIFactory1> dxgi_factory;
 		Microsoft::WRL::ComPtr<IDXGIDevice> dxgi_device;
 
@@ -98,7 +88,7 @@ bool framework::initialize()
 
 		hr = adapter->GetParent(__uuidof(IDXGIFactory1), reinterpret_cast<void**>(dxgi_factory.GetAddressOf()));
 		_ASSERT_EXPR(SUCCEEDED(hr), hr_trace(hr));
-#endif
+
 		hr = dxgi_factory->CreateSwapChain(device.Get(), &swap_chain_desc, swap_chain.GetAddressOf());
 		_ASSERT_EXPR(SUCCEEDED(hr), hr_trace(hr));
 	}
@@ -146,52 +136,13 @@ bool framework::initialize()
 	viewport.MaxDepth = 1.0f;
 	immediate_context->RSSetViewports(1, &viewport);
 
-	if (InitInput() == false)
+	if (mouse->InitInput() == false)
 	{
 		return false;
 	}
 
-	// UNIT.02
-	//sprites[0] = std::make_unique<sprite>(device.Get());
-	// UNIT.04
 	//sprites[0] = std::make_unique<sprite>(device.Get(), L"player-sprites.png");
-	// UNIT.05
-	//for (auto &p : sprites)
-	//{
-	//	p = std::make_unique<sprite>(device.Get(), L"player-sprites.png");
-	//}
-	// UNIT.07
-	//sprites[0] = std::make_unique<sprite>(device.Get(), L"logos.jpg");
-	//sprites[1] = std::make_unique<sprite>(device.Get(), L"n64.png");
-	// UNIT.08
-	//particle = std::make_unique<sprite>(device.Get(), L"particle-smoke.png");
 	font = std::make_unique<sprite>(device.Get(), L"./fonts/font0.png");
-
-	// UNIT.10
-	//cube = std::make_unique<geometric_primitive>(device.Get());
-	// UNIT.11
-	//cube = std::make_unique<geometric_cube>(device.Get());
-	//cylinder = std::make_unique<geometric_cylinder>(device.Get(), 32);
-	//sphere = std::make_unique<geometric_sphere>(device.Get(), 32, 32);
-
-	// UNIT.12
-	//mesh = std::make_unique<static_mesh>(device.Get(), L"Cup\\cup.obj", false/*UNIT.13*/);
-	//mesh = std::make_unique<static_mesh>(device.Get(), L"Bison\\bison.obj", true/*UNIT.13*/);
-	
-	// UNIT.14
-	//mesh = std::make_unique<static_mesh>(device.Get(), L"Mr.Incredible\\Mr.Incredible.obj", true);
-	//mesh = std::make_unique<static_mesh>(device.Get(), L"Mig-29_Fulcrum\\Mig-29_Fulcrum.obj", true);
-
-	// UNIT.16
-	//fbx_mesh = std::make_unique<skinned_mesh>(device.Get(), "000_cube.fbx");
-	// UNIT.17
-	//fbx_mesh = std::make_unique<skinned_mesh>(device.Get(), "001_cube.fbx");
-	//fbx_mesh = std::make_unique<skinned_mesh>(device.Get(), "002_cube.fbx");
-	// UNIT.18
-	//fbx_mesh = std::make_unique<skinned_mesh>(device.Get(), "003_cube.fbx");
-	// UNIT.19
-	//fbx_mesh = std::make_unique<skinned_mesh>(device.Get(), "004_cube.fbx");
-	//fbx_mesh = std::make_unique<skinned_mesh>(device.Get(), "BLue Falcon\\BLue Falcon.fbx");
 
 	fbx_mesh = std::make_unique<skinned_mesh>(device.Get(), "kikagaku100.fbx");
 	//fbx_mesh = std::make_unique<skinned_mesh>(device.Get(), "tank.fbx");
@@ -202,11 +153,10 @@ bool framework::initialize()
 }
 void framework::update(float elapsed_time/*Elapsed seconds from last frame*/)
 {
-	UpdateInput();
+	mouse->UpdateInput();
 }
 void framework::render(float elapsed_time/*Elapsed seconds from last frame*/)
 {
-	// UNIT.01
 	HRESULT hr = S_OK;
 
 	FLOAT color[] = { 0.2f, 0.2f, 0.2f, 1.0f };
@@ -214,72 +164,13 @@ void framework::render(float elapsed_time/*Elapsed seconds from last frame*/)
 	immediate_context->ClearDepthStencilView(depth_stencil_view.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 	immediate_context->OMSetRenderTargets(1, render_target_view.GetAddressOf(), depth_stencil_view.Get());
 
-	// UNIT.03
 	static float angle = 0;
 	angle += 6.0f * elapsed_time; // 1 round per 60 seconds
 
-	// UNIT.02
-	//sprites[0]->render(immediate_context.Get(), 200, 200, 200, 200);
-	// UNIT.03
-	//sprites[0]->render(immediate_context.Get(), 200, 200, 200, 200, angle, 1, 0, 0);
-	// UNIT.04
-	//sprites[0]->render(immediate_context.Get(), 200, 200, 200, 200, 140*0, 240*0, 140, 240, angle, 1, 0, 0);
-	// UNIT.05
-	//float x = 0;
-	//float y = 0;
-	//for (auto &p : sprites)
-	//{
-	//	p->render(immediate_context.Get(), x, static_cast<int>(y) % 720, 64, 64, 140 * 0, 240 * 0, 140, 240, angle, 1, 1, 1, 1);
-	//	x += 32;
-	//	if (x > 1280 - 64)
-	//	{
-	//		x = 0;
-	//		y += 24;
-	//	}
-	//}
 
-	// UNIT.07
 	static blender blender(device.Get());
-	//immediate_context->OMSetBlendState(blender.states[blender::BS_NONE].Get(), nullptr, 0xFFFFFFFF);
-	//sprites[0]->render(immediate_context.Get(), 0, 0, 1280, 720, 0, 0, 1920, 1080, 0, 1, 1, 1, 1);
-	//immediate_context->OMSetBlendState(blender.states[blender::BS_SUBTRACT].Get(), nullptr, 0xFFFFFFFF);
-	//sprites[1]->render(immediate_context.Get(), 8, 8, 1280, 720, 0, 0, 900, 877, 0, 1, 1, 1, 1);
 
-	// UNIT.08
-	//static DirectX::XMFLOAT2 sprite_position[1024] = {}; // screen space
-	//static float timer = 0; // 0 - 4(sec)
-	//timer += elapsed_time;
-	//if (timer > 4.0f) // update positions once in four seconds
-	//{
-	//	for (auto &p : sprite_position)
-	//	{
-	//		float a = static_cast<float>(rand()) / RAND_MAX * 360.0f; // angle(degree) : 0 - 360 
-	//		float r = static_cast<float>(rand()) / RAND_MAX * 256.0f; // radius(screen space) : 0 - 128
-	//		p.x = cosf(a*0.01745f)*r;
-	//		p.y = sinf(a*0.01745f)*r;
-	//	}
-	//	timer = 0;
-	//}
 
-	//static benchmark bm;
-	//bm.begin();
-
-	//immediate_context->OMSetBlendState(blender.states[blender::BS_ADD].Get(), nullptr, 0xFFFFFFFF);
-	//for (auto &p : sprite_position)
-	//{
-	//	particle->render(immediate_context.Get(), p.x + 256, p.y + 256, 128, 128, 0, 0, 420, 420, angle * 4, 0.2f, 0.05f*timer, 0.01f*timer, fabsf(sinf(3.141592f*timer*0.5f*0.5f)));
-	//}
-
-	//float t = bm.end();
-	//static const int N = 10;
-	//static std::deque<float> queue(N, FLT_MAX);
-	//queue.push_back(t);
-	//queue.pop_front();
-	//decltype(queue)::iterator best = std::min_element(queue.begin(), queue.end());
-	//immediate_context->OMSetBlendState(blender.states[blender::BS_ADD].Get(), nullptr, 0xFFFFFFFF);
-	//font->textout(immediate_context.Get(), "benchmark t=" + std::to_string(*std::min_element(queue.begin(), queue.end())), 0, 0, 16, 16, 1, 1, 1, 1);
-
-	// UNIT.10
 	DirectX::XMFLOAT4 light_direction(0, 0, 1, 0);
 
 	DirectX::XMMATRIX P;	// projection matrix
@@ -333,40 +224,26 @@ void framework::render(float elapsed_time/*Elapsed seconds from last frame*/)
 		DirectX::XMStoreFloat4x4(&world, W);
 
 		DirectX::XMFLOAT4 material_color(1.0f, 1.0f, 1.0f, 1.0f);
-		//cube->render(immediate_context.Get(), world_view_projection, world, light_direction, material_color, wireframe);
-		// UNIT.11
-		//cylinder->render(immediate_context.Get(), world_view_projection, world, light_direction, material_color, wireframe);
-		//sphere->render(immediate_context.Get(), world_view_projection, world, light_direction, material_color, wireframe);
-		
-		// UNIT.12
-		//mesh->render(immediate_context.Get(), world_view_projection, world, light_direction, material_color, wireframe);
-		
-		// UNIT.16
+
 		fbx_mesh->render(immediate_context.Get(), world_view_projection, world, light_direction, material_color, wireframe);
 
 		DirectX::XMFLOAT2 pos = {};
-		pos = GetMousePos();
+		pos = mouse->GetMousePos();
 		char str[128];
 
-		//sprintf_s(str, 128, "posx = %.2f", pos.x);
 		sprintf_s(str, 128, "posx = %.2f", pos.x);
 		font->textout(immediate_context.Get(), str, 0, 0, 16, 16, 1, 1, 1, 1);
-		//DrawFont(0.0f, 0.0f, str, FontSize::Regular, FontColor::Red);
 		sprintf_s(str, 128, "posy = %.2f", pos.y);
 		font->textout(immediate_context.Get(), str, 0, 40, 16, 16, 1, 1, 1, 1);
-		//DrawFont(0.0f, 40.0f, str, FontSize::Regular, FontColor::Red);
 
-		DirectX::XMFLOAT2 velocity = GetMouseVelocity();
+		DirectX::XMFLOAT2 velocity = mouse->GetMouseVelocity();
 
 		sprintf_s(str, 128, "velocity_x = %.2f", velocity.x);
 		font->textout(immediate_context.Get(), str, 0, 80, 16, 16, 1, 1, 1, 1);
-		//DrawFont(0.0f, 80.0f, str, FontSize::Regular, FontColor::Red);
 		sprintf_s(str, 128, "velocity_y = %.2f", velocity.y);
 		font->textout(immediate_context.Get(), str, 0, 120, 16, 16, 1, 1, 1, 1);
-		//DrawFont(0.0f, 120.0f, str, FontSize::Regular, FontColor::Red);
 	}
 
-	// UNIT.01
 	swap_chain->Present(0, 0);
 }
 

@@ -61,7 +61,7 @@
     dcl_texcoord v0  // position<0,1,2,3>
     dcl_texcoord1 v1  // normal<0,1,2,3>
 
-#line 7 "C:\Users\21900162\Desktop\test\geometric_primitive_vs.hlsl"
+#line 6 "D:\gp\SourceTree\3PK\hakogun\geometric_primitive_vs.hlsl"
     mul r0, v0.x, c1
     mul r1, v0.y, c2
     add r0, r0, r1
@@ -70,7 +70,7 @@
     mul r1, v0.w, c4
     add r0, r0, r1  // ::vout<0,1,2,3>
 
-#line 10
+#line 9
     mul r1, v1.x, c5
     mul r2, v1.y, c6
     add r1, r1, r2
@@ -92,7 +92,7 @@
     mov oT0.w, r1.w  // ::main<7>
     mov r0, r0  // ::main<0,1,2,3>
 
-#line 4
+#line 3
     mul r1.xy, r0.w, c0
     add oPos.xy, r0, r1  // ::main<0,1>
     mov oPos.zw, r0  // ::main<2,3>
@@ -112,7 +112,7 @@ dcl_temps 4
 //   o1.x <- <main return value>.color.x; o1.y <- <main return value>.color.y; o1.z <- <main return value>.color.z; o1.w <- <main return value>.color.w; 
 //   o0.x <- <main return value>.position.x; o0.y <- <main return value>.position.y; o0.z <- <main return value>.position.z; o0.w <- <main return value>.position.w
 //
-#line 7 "C:\Users\21900162\Desktop\test\geometric_primitive_vs.hlsl"
+#line 6 "D:\gp\SourceTree\3PK\hakogun\geometric_primitive_vs.hlsl"
 mul r0.xyzw, v0.xxxx, cb0[0].xyzw
 mul r1.xyzw, v0.yyyy, cb0[1].xyzw
 add r0.xyzw, r0.xyzw, r1.xyzw

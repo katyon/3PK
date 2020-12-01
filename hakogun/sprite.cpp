@@ -1,15 +1,10 @@
-// UNIT.02
 #include "sprite.h"
 
 #include "shader.h"
 #include "misc.h"
 
-// UNIT.04
 #include "texture.h"
 
-// UNIT.02
-//sprite::sprite(ID3D11Device *device)
-// UNIT.04
 sprite::sprite(ID3D11Device *device, const wchar_t *file_name)
 {
 	HRESULT hr = S_OK;
@@ -22,9 +17,9 @@ sprite::sprite(ID3D11Device *device, const wchar_t *file_name)
 	};
 	D3D11_BUFFER_DESC buffer_desc = {};
 	buffer_desc.ByteWidth = sizeof(vertices);
-	buffer_desc.Usage = D3D11_USAGE_DYNAMIC; // UNIT.03
+	buffer_desc.Usage = D3D11_USAGE_DYNAMIC;
 	buffer_desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	buffer_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE; // UNIT.03
+	buffer_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	buffer_desc.MiscFlags = 0;
 	buffer_desc.StructureByteStride = 0;
 	D3D11_SUBRESOURCE_DATA subresource_data = {};
@@ -39,17 +34,16 @@ sprite::sprite(ID3D11Device *device, const wchar_t *file_name)
 	{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		// UNIT.04
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 	create_vs_from_cso(device, "sprite_vs.cso", vertex_shader.GetAddressOf(), input_layout.GetAddressOf(), input_element_desc, ARRAYSIZE(input_element_desc));
 	create_ps_from_cso(device, "sprite_ps.cso", pixel_shader.GetAddressOf());
 
-	D3D11_RASTERIZER_DESC rasterizer_desc = {}; //https://msdn.microsoft.com/en-us/library/windows/desktop/ff476198(v=vs.85).aspx
-	rasterizer_desc.FillMode = D3D11_FILL_SOLID; //D3D11_FILL_WIREFRAME, D3D11_FILL_SOLID
-	rasterizer_desc.CullMode = D3D11_CULL_NONE; //D3D11_CULL_NONE, D3D11_CULL_FRONT, D3D11_CULL_BACK   
+	D3D11_RASTERIZER_DESC rasterizer_desc = {};
+	rasterizer_desc.FillMode = D3D11_FILL_SOLID;
+	rasterizer_desc.CullMode = D3D11_CULL_NONE;
 	rasterizer_desc.FrontCounterClockwise = FALSE;
-	rasterizer_desc.DepthBias = 0; //https://msdn.microsoft.com/en-us/library/windows/desktop/cc308048(v=vs.85).aspx
+	rasterizer_desc.DepthBias = 0;
 	rasterizer_desc.DepthBiasClamp = 0;
 	rasterizer_desc.SlopeScaledDepthBias = 0;
 	rasterizer_desc.DepthClipEnable = FALSE;
@@ -59,11 +53,10 @@ sprite::sprite(ID3D11Device *device, const wchar_t *file_name)
 	hr = device->CreateRasterizerState(&rasterizer_desc, rasterizer_state.GetAddressOf());
 	_ASSERT_EXPR(SUCCEEDED(hr), hr_trace(hr));
 
-	// UNIT.04
 	hr = load_texture_from_file(device, file_name, &shader_resource_view, &texture2d_desc);
 
 	D3D11_SAMPLER_DESC sampler_desc;
-	sampler_desc.Filter = D3D11_FILTER_ANISOTROPIC; //UNIT.06
+	sampler_desc.Filter = D3D11_FILTER_ANISOTROPIC;
 	sampler_desc.AddressU = D3D11_TEXTURE_ADDRESS_BORDER;
 	sampler_desc.AddressV = D3D11_TEXTURE_ADDRESS_BORDER;
 	sampler_desc.AddressW = D3D11_TEXTURE_ADDRESS_BORDER;
@@ -76,7 +69,6 @@ sprite::sprite(ID3D11Device *device, const wchar_t *file_name)
 	hr = device->CreateSamplerState(&sampler_desc, sampler_state.GetAddressOf());
 	_ASSERT_EXPR(SUCCEEDED(hr), hr_trace(hr));
 
-	// UNIT.06
 	D3D11_DEPTH_STENCIL_DESC depth_stencil_desc;
 	depth_stencil_desc.DepthEnable = FALSE;
 	depth_stencil_desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
@@ -94,39 +86,10 @@ sprite::sprite(ID3D11Device *device, const wchar_t *file_name)
 	depth_stencil_desc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
 	hr = device->CreateDepthStencilState(&depth_stencil_desc, depth_stencil_state.GetAddressOf());
 	_ASSERT_EXPR(SUCCEEDED(hr), hr_trace(hr));
-
-	// Reference web pages for blending
-	// https://msdn.microsoft.com/en-us/library/bb976070.aspx
-	// https://en.wikipedia.org/wiki/Alpha_compositing
-	// https://love2d.org/wiki/BlendMode_Formulas
-	// UNIT.07
-	//D3D11_BLEND_DESC blend_desc = {}; //https://msdn.microsoft.com/en-us/library/windows/desktop/ff476087(v=vs.85).aspx
-	//blend_desc.AlphaToCoverageEnable = FALSE; //https://msdn.microsoft.com/en-us/library/windows/desktop/bb205072(v=vs.85).aspx
-	//blend_desc.IndependentBlendEnable = FALSE; //Set to TRUE to enable independent blending. If set to FALSE, only the RenderTarget[0] members are used; RenderTarget[1..7] are ignored.
-	//blend_desc.RenderTarget[0].BlendEnable = TRUE;
-	//blend_desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
-	//blend_desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
-	//blend_desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
-	//blend_desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
-	//blend_desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
-	//blend_desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-	//blend_desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-	//hr = device->CreateBlendState(&blend_desc, blend_state.GetAddressOf());
-	//_ASSERT_EXPR(SUCCEEDED(hr), hr_trace(hr));
 }
 
-// UNIT.02
-//void sprite::render(ID3D11DeviceContext *immediate_context) const
-// UNIT.03
-//void sprite::render(ID3D11DeviceContext *immediate_context, float dx, float dy, float dw, float dh, float angle/*degree*/, float r, float g, float b) const
-// UNIT.04
 void sprite::render(ID3D11DeviceContext *immediate_context, float dx, float dy, float dw, float dh, float sx, float sy, float sw, float sh, float angle/*degree*/, float r, float g, float b, float a) const
-// dx, dy : Coordinate of sprite's left-top corner in screen space 
-// dw, dh : Size of sprite in screen space 
-// angle : Raotation angle (Rotation centre is sprite's centre), unit is degree
-// r, g, b : Color of sprite's each vertices 
 {
-	// UNIT.03
 	D3D11_VIEWPORT viewport;
 	UINT num_viewports = 1;
 	immediate_context->RSGetViewports(&num_viewports, &viewport);
@@ -220,15 +183,6 @@ void sprite::render(ID3D11DeviceContext *immediate_context, float dx, float dy, 
 	DirectX::XMFLOAT4 color(r, g, b, a);
 	vertices[0].color = vertices[1].color = vertices[2].color = vertices[3].color = color;
 
-	// UNIT.04
-	//vertices[0].texcoord.x = 0;
-	//vertices[0].texcoord.y = 0;
-	//vertices[1].texcoord.x = 1;
-	//vertices[1].texcoord.y = 0;
-	//vertices[2].texcoord.x = 0;
-	//vertices[2].texcoord.y = 1;
-	//vertices[3].texcoord.x = 1;
-	//vertices[3].texcoord.y = 1;
 	vertices[0].texcoord.x = static_cast<FLOAT>(sx) / texture2d_desc.Width;
 	vertices[0].texcoord.y = static_cast<FLOAT>(sy) / texture2d_desc.Height;
 	vertices[1].texcoord.x = static_cast<FLOAT>(sx + sw) / texture2d_desc.Width;
@@ -240,7 +194,6 @@ void sprite::render(ID3D11DeviceContext *immediate_context, float dx, float dy, 
 
 	immediate_context->Unmap(vertex_buffer.Get(), 0);
 
-	// UNIT.02
 	UINT stride = sizeof(vertex);
 	UINT offset = 0;
 	immediate_context->IASetVertexBuffers(0, 1, vertex_buffer.GetAddressOf(), &stride, &offset);
@@ -252,14 +205,10 @@ void sprite::render(ID3D11DeviceContext *immediate_context, float dx, float dy, 
 	immediate_context->VSSetShader(vertex_shader.Get(), nullptr, 0);
 	immediate_context->PSSetShader(pixel_shader.Get(), nullptr, 0);
 
-	// UNIT.04
 	immediate_context->PSSetShaderResources(0, 1, shader_resource_view.GetAddressOf());
 	immediate_context->PSSetSamplers(0, 1, sampler_state.GetAddressOf());
 
-	// UNIT.06
 	immediate_context->OMSetDepthStencilState(depth_stencil_state.Get(), 1);
-	// UNIT.07
-	//immediate_context->OMSetBlendState(blend_state.Get(), nullptr, 0xFFFFFFFF);
 
 	immediate_context->Draw(4, 0);
 }
@@ -277,7 +226,6 @@ void sprite::textout(ID3D11DeviceContext *immediate_context, std::string s, floa
 	}
 }
 
-// UNIT.09
 sprite_batch::sprite_batch(ID3D11Device *device, const wchar_t *file_name, size_t max_instance) : MAX_INSTANCES(max_instance)
 {
 	HRESULT hr = S_OK;
@@ -338,8 +286,8 @@ sprite_batch::sprite_batch(ID3D11Device *device, const wchar_t *file_name, size_
 	delete[] instances;
 
 	D3D11_RASTERIZER_DESC rasterizer_desc = {};
-	rasterizer_desc.FillMode = D3D11_FILL_SOLID; //D3D11_FILL_WIREFRAME, D3D11_FILL_SOLID
-	rasterizer_desc.CullMode = D3D11_CULL_NONE; //D3D11_CULL_NONE, D3D11_CULL_FRONT, D3D11_CULL_BACK   
+	rasterizer_desc.FillMode = D3D11_FILL_SOLID;
+	rasterizer_desc.CullMode = D3D11_CULL_NONE;
 	rasterizer_desc.FrontCounterClockwise = FALSE;
 	rasterizer_desc.DepthBias = 0;
 	rasterizer_desc.DepthBiasClamp = 0;
@@ -354,7 +302,7 @@ sprite_batch::sprite_batch(ID3D11Device *device, const wchar_t *file_name, size_
 	hr = load_texture_from_file(device, file_name, &shader_resource_view, &texture2d_desc);
 
 	D3D11_SAMPLER_DESC sampler_desc;
-	sampler_desc.Filter = D3D11_FILTER_ANISOTROPIC; //UNIT.06
+	sampler_desc.Filter = D3D11_FILTER_ANISOTROPIC;
 	sampler_desc.AddressU = D3D11_TEXTURE_ADDRESS_BORDER;
 	sampler_desc.AddressV = D3D11_TEXTURE_ADDRESS_BORDER;
 	sampler_desc.AddressW = D3D11_TEXTURE_ADDRESS_BORDER;
@@ -418,19 +366,8 @@ void sprite_batch::render(ID3D11DeviceContext *immediate_context, float dx, floa
 {
 	_ASSERT_EXPR(count_instance < MAX_INSTANCES, L"Number of instances must be less than MAX_INSTANCES.");
 
-	float cx = dw*0.5f, cy = dh*0.5f; /*Center of Rotation*/
-#if 0
-	DirectX::XMVECTOR scaling = DirectX::XMVectorSet(dw, dh, 1.0f, 0.0f);
-	DirectX::XMVECTOR origin = DirectX::XMVectorSet(cx, cy, 0.0f, 0.0f);
-	DirectX::XMVECTOR translation = DirectX::XMVectorSet(dx, dy, 0.0f, 0.0f);
-	DirectX::XMMATRIX M = DirectX::XMMatrixAffineTransformation2D(scaling, origin, angle*0.01745f, translation);
-	DirectX::XMMATRIX N(
-		2.0f / viewport.Width, 0.0f, 0.0f, 0.0f,
-		0.0f, -2.0f / viewport.Height, 0.0f, 0.0f,
-		0.0f, 0.0f, 1.0f, 0.0f,
-		-1.0f, 1.0f, 0.0f, 1.0f);
-	XMStoreFloat4x4(&instances[count_instance].ndc_transform, DirectX::XMMatrixTranspose(M*N)); //column_major
-#else
+	float cx = dw*0.5f, cy = dh*0.5f;
+
 	FLOAT c = cosf(angle*0.01745f);
 	FLOAT s = sinf(angle*0.01745f);
 	FLOAT w = 2.0f / viewport.Width;
@@ -451,7 +388,7 @@ void sprite_batch::render(ID3D11DeviceContext *immediate_context, float dx, floa
 	instances[count_instance].ndc_transform._24 = h*(-cx*s + -cy*c + cy + dy) + 1.0f;
 	instances[count_instance].ndc_transform._34 = 0.0f;
 	instances[count_instance].ndc_transform._44 = 1.0f;
-#endif
+
 	float tw = static_cast<float>(texture2d_desc.Width);
 	float th = static_cast<float>(texture2d_desc.Height);
 	instances[count_instance].texcoord_transform = DirectX::XMFLOAT4( sx / tw, sy / th, sw / tw, sh / th);

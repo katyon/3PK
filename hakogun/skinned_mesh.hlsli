@@ -1,9 +1,7 @@
-// UNIT.16
 struct VS_OUT
 {
 	float4 position : SV_POSITION;
 	float4 color : COLOR;
-	// UNIT.17
 	float2 texcoord : TEXCOORD;
 };
 

@@ -1,7 +1,6 @@
-// UNIT.16
 #include "skinned_mesh.hlsli"
 
-VS_OUT main(float4 position : POSITION, float4 normal : NORMAL, float2 texcoord : TEXCOORD/*UNIT.17*/)
+VS_OUT main(float4 position : POSITION, float4 normal : NORMAL, float2 texcoord : TEXCOORD)
 {
 	VS_OUT vout;
 	vout.position = mul(position, world_view_projection);
@@ -13,7 +12,6 @@ VS_OUT main(float4 position : POSITION, float4 normal : NORMAL, float2 texcoord 
 	vout.color = material_color * max(0, dot(L, N));
 	vout.color.a = material_color.a;
 
-	// UNIT.17
 	vout.texcoord = texcoord;
 
 	return vout;

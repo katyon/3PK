@@ -1,39 +1,31 @@
-// UNIT.04
 #include "texture.h"
 #include "misc.h"
 
 #include <WICTextureLoader11.h>
 #include <wrl.h>
 
-// UNIT.05
 #include <map>
 
 HRESULT load_texture_from_file(ID3D11Device *device, const wchar_t *file_name, ID3D11ShaderResourceView **shader_resource_view, D3D11_TEXTURE2D_DESC *texture2d_desc)
 {
-	// UNIT.04
 	HRESULT hr = S_OK;
 	Microsoft::WRL::ComPtr<ID3D11Resource> resource;
 
-	// UNIT.05
 	static std::map<std::wstring, Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> cache;
 	auto it = cache.find(file_name);
 	if (it != cache.end())
 	{
-		//it->second.Attach(*shader_resource_view);
 		*shader_resource_view = it->second.Get();
 		(*shader_resource_view)->AddRef();
 		(*shader_resource_view)->GetResource(resource.GetAddressOf());
 	}
 	else
 	{
-		// UNIT.04
 		hr = DirectX::CreateWICTextureFromFile(device, file_name, resource.GetAddressOf(), shader_resource_view);
 		_ASSERT_EXPR(SUCCEEDED(hr), hr_trace(hr));
-		// UNIT.05
 		cache.insert(std::make_pair(file_name, *shader_resource_view));
 	}
 
-	// UNIT.04
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> texture2d;
 	hr = resource.Get()->QueryInterface<ID3D11Texture2D>(texture2d.GetAddressOf());
 	_ASSERT_EXPR(SUCCEEDED(hr), hr_trace(hr));
@@ -42,7 +34,6 @@ HRESULT load_texture_from_file(ID3D11Device *device, const wchar_t *file_name, I
 	return hr;
 }
 
-// UNIT.16
 HRESULT make_dummy_texture(ID3D11Device *device, ID3D11ShaderResourceView **shader_resource_view)
 {
 	HRESULT hr = S_OK;
@@ -83,13 +74,6 @@ HRESULT make_dummy_texture(ID3D11Device *device, ID3D11ShaderResourceView **shad
 	return hr;
 }
 
-// UNIT.13
-/*
-e.g.
-referrer_filename <= L"data/bison.obj"
-referent_filename <= L"/user/textures/bison.png"
-combined_resource_path => L"/data/bison.png"
-*/
 void combine_resource_path(wchar_t(&combined_resource_path)[256], const wchar_t *referrer_filename, const wchar_t *referent_filename)
 {
 	const wchar_t delimiters[] = { L'\\', L'/' };

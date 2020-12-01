@@ -8,56 +8,38 @@
 #include "misc.h"
 #include "high_resolution_timer.h"
 
-// UNIT.01
 #include <d3d11.h>
 #include <wrl.h>
 
-//UNIT.02
 #include "sprite.h"
 
-// UNIT.10
 #include "geometric_primitive.h"
 
-// UNIT.12
 #include "static_mesh.h"
-
-// UNIT.16
 #include "skinned_mesh.h"
 
-#define WINDOW_CLASS_NAME "3dgp"	//!< ウィンドウクラス名
+#include "input.h"
+
+#define WINDOW_CLASS_NAME "3dgp"	// ウィンドウクラス名
 
 class framework
 {
 public:
 	const HWND hwnd;
 
-	// UNIT.01
 	Microsoft::WRL::ComPtr<ID3D11Device> device;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> immediate_context;
 	Microsoft::WRL::ComPtr<IDXGISwapChain> swap_chain;
 	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> render_target_view;
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> depth_stencil_view;
 
-	// UNIT.02
 	//std::unique_ptr<sprite> sprites[1024];
 
-	// UNIT.08
-	//std::unique_ptr<sprite> particle;
 	std::unique_ptr<sprite> font;
 
-	// UNIT.10
-	//std::unique_ptr<geometric_primitive> cube;
-	// UNIT.11
-	//std::unique_ptr<geometric_primitive> cube;
-	//std::unique_ptr<geometric_primitive> cylinder;
-	//std::unique_ptr<geometric_primitive> sphere;
-	//std::unique_ptr<geometric_primitive> capsule;
-
-	// UNIT.12
-	//std::unique_ptr<static_mesh> mesh;
-
-	// UNIT.16
 	std::unique_ptr<skinned_mesh> fbx_mesh;
+
+	std::unique_ptr<input_mouse> mouse;
 
 	framework(HWND hwnd) : hwnd(hwnd)
 	{
