@@ -49,6 +49,42 @@
     <ClCompile Include="input.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="collision.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="my_mesh.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="particle.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="resource_manager.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="shot.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Util.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="wave.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="wave_data.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -82,6 +118,39 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="input.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="collision.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="my_mesh.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="particle.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="resource_manager.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="shot.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="wave.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
