@@ -144,7 +144,7 @@ bool framework::initialize()
 	//sprites[0] = std::make_unique<sprite>(device.Get(), L"player-sprites.png");
 	font = std::make_unique<sprite>(device.Get(), L"./fonts/font0.png");
 
-	fbx_mesh = std::make_unique<skinned_mesh>(device.Get(), "kikagaku100.fbx");
+	fbx_mesh = std::make_unique<skinned_mesh>(device.Get(), "./Data/Fbx/kikagaku100.fbx");
 	//fbx_mesh = std::make_unique<skinned_mesh>(device.Get(), "tank.fbx");
 
 	//fbx_mesh = std::make_unique<skinned_mesh>(device.Get(), "kikagaku500.fbx");
@@ -244,6 +244,6 @@ void framework::render(float elapsed_time/*Elapsed seconds from last frame*/)
 		font->textout(immediate_context.Get(), str, 0, 120, 16, 16, 1, 1, 1, 1);
 	}
 
-	swap_chain->Present(0, 0);
+	swap_chain->Present(1, 0);
 }
 

@@ -26,28 +26,8 @@
 // -------------------- ----- ------ -------- -------- ------- ------
 // SV_TARGET                0   xyzw        0   TARGET   float   xyzw
 //
-//
-// Sampler/Resource to DX9 shader sampler mappings:
-//
-// Target Sampler Source Sampler  Source Resource
-// -------------- --------------- ----------------
-// s0             s0              t0               
-//
-//
-// Level9 shader bytecode:
-//
-    ps_2_x
-    dcl t0  // pin<4,5,6,7>
-    dcl t1.xy  // pin<8,9>
-    dcl_2d s0
-
-#line 8 "D:\gp\SourceTree\3PK\hakogun\skinned_mesh_ps.hlsl"
-    texld r0, t1, s0
-    mul r0, r0, t0  // ::main<0,1,2,3>
-    mov oC0, r0  // ::main<0,1,2,3>
-
-// approximately 3 instruction slots used (1 texture, 2 arithmetic)
-ps_4_0
+ps_5_0
+dcl_globalFlags refactoringAllowed | skipOptimization
 dcl_sampler s0, mode_default
 dcl_resource_texture2d (float,float,float,float) t0
 dcl_input_ps linear v1.xyzw
@@ -62,7 +42,7 @@ dcl_temps 1
 //   o0.x <- <main return value>.x; o0.y <- <main return value>.y; o0.z <- <main return value>.z; o0.w <- <main return value>.w
 //
 #line 8 "D:\gp\SourceTree\3PK\hakogun\skinned_mesh_ps.hlsl"
-sample r0.xyzw, v2.xyxx, t0.xyzw, s0
+sample_indexable(texture2d)(float,float,float,float) r0.xyzw, v2.xyxx, t0.xyzw, s0
 mul o0.xyzw, r0.xyzw, v1.xyzw
 ret 
 // Approximately 3 instruction slots used
