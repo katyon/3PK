@@ -2,7 +2,6 @@
 
 #include	"framework.h"
 
-
 /*******************************************************************************
 	パーティクル管理クラスの更新関数
 *******************************************************************************/
@@ -59,7 +58,7 @@ void	ParticleManager::Render(const DirectX::XMMATRIX& view, const DirectX::XMMAT
 		DirectX::XMStoreFloat4x4(&world, W);					//	ワールド変換行列を4x4に変換
 		W = inv_view2 * W * VP;									//	WorldViewProjection行列合成(view逆行列による打消し)
 		DirectX::XMStoreFloat4x4(&wvp, W);						//	WorldViewProjection行列を4x4に変換
-		polygon->render( FRAMEWORK.getContext(), wvp, world, light_dir, pd.color ); 		//	描画
+		polygon->render(pFramework.immediate_context.Get(), wvp, world, light_dir, pd.color ); 		//	描画
 	}
 
 	blender::Set(blender::ALPHA);

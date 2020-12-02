@@ -20,11 +20,24 @@
 
 #include "input.h"
 
+#include	"blender.h"
+
+const LONG SCREEN_WIDTH = 1280;
+const LONG SCREEN_HEIGHT = 720;
+const LONG FRAME_RATE = 60;
+
 #define WINDOW_CLASS_NAME "3dgp"	// ウィンドウクラス名
 
+#define	pFramework framework::getInstance()
 class framework
 {
 public:
+	static framework& getInstance(HWND hwnd = nullptr)
+	{
+		static framework instance(hwnd);
+		return instance;
+	}
+
 	const HWND hwnd;
 
 	Microsoft::WRL::ComPtr<ID3D11Device> device;

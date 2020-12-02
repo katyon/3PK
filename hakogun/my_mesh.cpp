@@ -29,7 +29,7 @@ void	MyMesh::Initialize()
 bool	MyMesh::Load(const char* fbx_filename)
 {
 	//	ƒ‚ƒfƒ‹“Ç‚Ýž‚Ý
-	obj = new StaticMesh(FRAMEWORK.getDevice(), fbx_filename);
+	obj = new StaticMesh(pFramework.device.Get(), fbx_filename);
 	bLoad = true;
 
 	return	true;
@@ -92,7 +92,7 @@ void	MyMesh::Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& proj
 	DirectX::XMStoreFloat4x4(&world, worldM);
 
 	//	•`‰æ
-	obj->render(FRAMEWORK.getContext(), world_view_projection, world, light_dir, color);
+	obj->render(pFramework.immediate_context.Get(), world_view_projection, world, light_dir, color);
 }
 
 

@@ -168,7 +168,7 @@ void framework::render(float elapsed_time/*Elapsed seconds from last frame*/)
 	angle += 6.0f * elapsed_time; // 1 round per 60 seconds
 
 
-	static blender blender(device.Get());
+	//static blender blender(device.Get());
 
 
 	DirectX::XMFLOAT4 light_direction(0, 0, 1, 0);
@@ -215,7 +215,7 @@ void framework::render(float elapsed_time/*Elapsed seconds from last frame*/)
 		wireframe = !wireframe;
 	}
 
-	immediate_context->OMSetBlendState(blender.states[blender::BS_ALPHA].Get(), nullptr, 0xFFFFFFFF);
+	//immediate_context->OMSetBlendState(blender.states[blender::BS_ALPHA].Get(), nullptr, 0xFFFFFFFF);
 	{
 		DirectX::XMFLOAT4X4 world_view_projection;
 		DirectX::XMFLOAT4X4 world;

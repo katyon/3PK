@@ -22,6 +22,7 @@ public:
 	void	Initialize();
 	bool	Load(const char* fbx_filename);
 	void	SetPrimitive(GeometricPrimitive* primitive);
+
 	void	SetMesh(MyMesh& org);
 	void	Release();
 	void	Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir);

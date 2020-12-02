@@ -2,7 +2,7 @@
 
 #include	<stdio.h>
 
-#include	"../DirectXTK-master/Inc/WICTextureLoader.h"
+#include	"./DirectXTK-master/Inc/WICTextureLoader.h"
 
 
 

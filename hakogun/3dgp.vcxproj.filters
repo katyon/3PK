@@ -76,13 +76,13 @@
     <ClCompile Include="shot.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="Util.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="wave.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="wave_data.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="blender.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>

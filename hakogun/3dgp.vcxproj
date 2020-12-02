@@ -164,6 +164,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="blender.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="enemy.cpp" />
@@ -183,7 +184,6 @@
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="static_mesh.cpp" />
     <ClCompile Include="texture.cpp" />
-    <ClCompile Include="Util.cpp" />
     <ClCompile Include="wave.cpp" />
     <ClCompile Include="wave_data.cpp" />
   </ItemGroup>

@@ -19,7 +19,7 @@ char*	modelNames01[] =
 };
 
 //WAVEフラグ込み敵設定構造体 
-	Wave waveData01[] = 
+	Wave waveData01[11] = 
 	{
 //	  番号    ﾓﾃﾞﾙ 座標X,Z    角度   色
 	{ 0,	  0,	-5,	+5,	  180,	 DirectX::XMFLOAT4(1.0f,0,0,1.0f) },
@@ -37,5 +37,5 @@ char*	modelNames01[] =
 	{ 3,	  0,	 0,	+5,	  180,	 DirectX::XMFLOAT4(0,0,1.0f,1.0f) },
 	{ 3,	  0,	+5,	+5,	  180,	 DirectX::XMFLOAT4(0,0,1.0f,1.0f) },
 
-	{ -1,	-1,	0, 0, 0,	DirectX::XMFLOAT4(0,0,0,0) }		//	終端
+	//{ -1,	-1,	0, 0, 0,	DirectX::XMFLOAT4(0,0,0,0) }		//	終端
 };
