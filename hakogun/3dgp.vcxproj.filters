@@ -82,6 +82,15 @@
     <ClCompile Include="texture.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="scene_manager.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="title.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="clear.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="skinned_mesh.h">
@@ -148,6 +157,15 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="texture.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="scene_manager.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="title.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="clear.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

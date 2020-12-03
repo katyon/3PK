@@ -78,12 +78,12 @@ void	Game::Initialize(ID3D11Device* device)
 
 
     //	「プレイヤー」を初期化
-    player.Initialize(device, "./Data/Fbx/tank.fbx");
-    player_after_image.Initialize(device, "./Data/Fbx/tank.fbx");
+    player.Initialize(device, "./Data/Fbx/kikagaku100.fbx");
+    player_after_image.Initialize(device, "./Data/Fbx/kikagaku100.fbx");
 
     //	敵を生成
     enemyManager.Initialize();
-    const char* tank = "./Data/Fbx/tank.fbx";
+    const char* tank = "./Data/Fbx/kikagaku100.fbx";
     float				angle = DirectX::XMConvertToRadians(180.0f);
     DirectX::XMFLOAT4	color = DirectX::XMFLOAT4(1.0f, .0f, .0f, 1.0f);
     //enemyManager.Set(tank, DirectX::XMFLOAT3(-5.0f, .0f, +5.0f), angle, color);
@@ -218,5 +218,5 @@ void	Game::Render(ID3D11DeviceContext* context)
     /*******************************************************************************
         パーティクル管理を描画
     *******************************************************************************/
-    pParticleManager->Render(context, view, projection);
+    //pParticleManager->Render(context, view, projection);
 }

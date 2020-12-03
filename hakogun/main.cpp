@@ -5,6 +5,7 @@
 #include <time.h>
 
 #include "framework.h"
+#include "input.h"
 
 LRESULT CALLBACK fnWndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
@@ -38,8 +39,13 @@ INT WINAPI wWinMain(HINSTANCE instance, HINSTANCE prev_instance, LPWSTR cmd_line
 	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
 	HWND hwnd = CreateWindow(_T(WINDOW_CLASS_NAME), _T(""), WS_OVERLAPPEDWINDOW ^ WS_MAXIMIZEBOX ^ WS_THICKFRAME | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, NULL, NULL, instance, NULL);
 	ShowWindow(hwnd, cmd_show);
+	//UpdateWindow(hwnd);
 
-	framework f(hwnd);
+	pInputManager->InitializeManager(instance, hwnd);
+	pInputManager->InitializeKeyboard();
+
+	//framework f(hwnd);
+	framework& f = framework::getInstance(hwnd);
 	SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(&f));
 	return f.run();
 }

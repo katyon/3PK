@@ -166,6 +166,7 @@
   <ItemGroup>
     <ClCompile Include="blender.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="clear.cpp" />
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="framework.cpp" />
@@ -177,18 +178,21 @@
     <ClCompile Include="particle.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="resource_manager.cpp" />
+    <ClCompile Include="scene_manager.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="shot.cpp" />
     <ClCompile Include="skinned_mesh.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="static_mesh.cpp" />
     <ClCompile Include="texture.cpp" />
+    <ClCompile Include="title.cpp" />
     <ClCompile Include="wave.cpp" />
     <ClCompile Include="wave_data.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blender.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="clear.h" />
     <ClInclude Include="collision.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="framework.h" />
@@ -201,12 +205,14 @@
     <ClInclude Include="particle.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="resource_manager.h" />
+    <ClInclude Include="scene_manager.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="shot.h" />
     <ClInclude Include="skinned_mesh.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="static_mesh.h" />
     <ClInclude Include="texture.h" />
+    <ClInclude Include="title.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="wave.h" />
   </ItemGroup>

@@ -50,9 +50,9 @@ public:
 
 	std::unique_ptr<sprite> font;
 
-	std::unique_ptr<skinned_mesh> fbx_mesh;
+	//std::unique_ptr<skinned_mesh> fbx_mesh;
 
-	std::unique_ptr<input_mouse> mouse;
+	//std::unique_ptr<input_mouse> mouse;
 
 	framework(HWND hwnd) : hwnd(hwnd)
 	{

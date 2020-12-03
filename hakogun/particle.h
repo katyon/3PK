@@ -41,6 +41,7 @@ private:
         if (polygon)		delete	polygon;
     }
 
+
 public:
     void	Update();
     void	Render(ID3D11DeviceContext* context,const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection);
