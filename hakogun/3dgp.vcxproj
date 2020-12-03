@@ -168,12 +168,11 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="framework.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="geometric_primitive.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="framework.cpp" />
-    <ClCompile Include="mock.cpp" />
     <ClCompile Include="my_mesh.cpp" />
     <ClCompile Include="particle.cpp" />
     <ClCompile Include="player.cpp" />

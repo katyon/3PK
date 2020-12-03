@@ -41,7 +41,7 @@ private:
 	};
 
 public:
-	MyMesh				obj;		//	「モデルオブジェクト」
+	MyMesh				skinned_obj;		//	「モデルオブジェクト」
 	DirectX::XMFLOAT3	pos;		//	「位置(座標)」
 	float				angle;		//	「回転角度」
 
@@ -55,7 +55,7 @@ public:
 
 	float               tank_rotate;
 
-	void	Initialize( const char* );																							//	初期化関数
+	void	Initialize(ID3D11Device* device, const char* fbx_filename);																							//	初期化関数
 
 	void	Release();																											//	解放関数
 	void	Move();																												//	移動関数
@@ -83,7 +83,7 @@ public:
 
 	bool    AP();
 
-	Enemy*	Set(const char* filename, DirectX::XMFLOAT3 pos, float angle, DirectX::XMFLOAT4 color);								//	敵設定関数
+	Enemy*	Set(ID3D11Device* device,const char* filename, DirectX::XMFLOAT3 pos, float angle, DirectX::XMFLOAT4 color);								//	敵設定関数
 	Enemy* EnemyManager::Set(MyMesh& mesh, DirectX::XMFLOAT3 pos, float angle, DirectX::XMFLOAT4 color);
 
 	Enemy*	Get(int no){

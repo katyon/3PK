@@ -3,7 +3,7 @@
 #include <directxmath.h>
 
 #include "static_mesh.h"
-
+#include "skinned_mesh.h"
 
 class MyMesh
 {
@@ -11,7 +11,8 @@ private:
 	bool				bLoad;
 
 public:
-	GeometricPrimitive*	obj;
+	static_mesh*	obj;
+	skinned_mesh* skinned_obj;
 
 	DirectX::XMFLOAT3	pos;				//	「位置」
 	DirectX::XMFLOAT3	angle;				//	「(回転)角度」
@@ -20,8 +21,8 @@ public:
 	DirectX::XMFLOAT4	color;
 
 	void	Initialize();
-	bool	Load(const char* fbx_filename);
-	void	SetPrimitive(GeometricPrimitive* primitive);
+	bool	Load(ID3D11Device* device,const char* fbx_filename);
+	void	SetPrimitive(static_mesh* primitive);
 
 	void	SetMesh(MyMesh& org);
 	void	Release();

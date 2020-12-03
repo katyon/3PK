@@ -1,212 +1,69 @@
 #pragma once
 
-#include	<d3d11.h>
-#include	<DirectXMath.h>
+#include <d3d11.h>
+#include <wrl.h>
+#include <directxmath.h>
 
-class GeometricPrimitive
+class geometric_primitive
 {
-protected:
-	struct Vertex
+public:
+	struct vertex
 	{
-		DirectX::XMFLOAT3 pos;
+		DirectX::XMFLOAT3 position;
 		DirectX::XMFLOAT3 normal;
 	};
-
-	struct Cbuffer
+	struct cbuffer
 	{
-		DirectX::XMFLOAT4X4	wvp;				//	world_view_projection
-		DirectX::XMFLOAT4X4	world;				//	
-		DirectX::XMFLOAT4	material_color;		//	
-		DirectX::XMFLOAT4	light_direction;	//	
+		DirectX::XMFLOAT4X4 world_view_projection;
+		DirectX::XMFLOAT4X4 world_inverse_transpose;
+		DirectX::XMFLOAT4 material_color;
+		DirectX::XMFLOAT4 light_direction;
 	};
 
-	ID3D11VertexShader* vertex_shader;
-	ID3D11PixelShader* pixel_shader;
-	ID3D11InputLayout* input_layout;
-	ID3D11Buffer* vertex_buffer;
-	ID3D11Buffer* index_buffer;
-	ID3D11Buffer* constant_buffer;
-	ID3D11RasterizerState* wireframe_rasterizer_state;
-	ID3D11RasterizerState* solid_rasterizer_state;
-	ID3D11DepthStencilState* depth_stencil_state;
+private:
+//protected:
+	Microsoft::WRL::ComPtr<ID3D11Buffer> vertex_buffer;
+	Microsoft::WRL::ComPtr<ID3D11Buffer> index_buffer;
+	Microsoft::WRL::ComPtr<ID3D11Buffer> constant_buffer;
 
-	int							numIndices;
-	bool						isMakeBuffer;
+	Microsoft::WRL::ComPtr<ID3D11VertexShader> vertex_shader;
+	Microsoft::WRL::ComPtr<ID3D11PixelShader> pixel_shader;
+	Microsoft::WRL::ComPtr<ID3D11InputLayout> input_layout;
 
-	bool	CreateBuffers(ID3D11Device* device,
-		Vertex* vertices, int numV,
-		unsigned int* indices, int numI);
+	Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizer_states[2];
+	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depth_stencil_state;
 
-	void	_init(ID3D11Device* device,
-		const char* vsName, D3D11_INPUT_ELEMENT_DESC* inputElementDescs, int numElement,
-		const char* psName);
+public:
+	geometric_primitive(ID3D11Device *device);
+	virtual ~geometric_primitive() {}
+
+	void render(ID3D11DeviceContext *immediate_context, const DirectX::XMFLOAT4X4 &world_view_projection, const DirectX::XMFLOAT4X4 &world_inverse_transpose, const DirectX::XMFLOAT4 &light_direction, const DirectX::XMFLOAT4 &material_color, bool wireframe = false);
 
 protected:
-	GeometricPrimitive() :
-		vertex_shader(nullptr), pixel_shader(nullptr), input_layout(nullptr),
-		vertex_buffer(nullptr), index_buffer(nullptr), constant_buffer(nullptr),
-		wireframe_rasterizer_state(nullptr), solid_rasterizer_state(nullptr),
-		depth_stencil_state(nullptr), numIndices(0), isMakeBuffer(false)
-	{}
-
-public:
-	GeometricPrimitive(ID3D11Device* device) :
-		vertex_shader(nullptr), pixel_shader(nullptr), input_layout(nullptr),
-		vertex_buffer(nullptr), index_buffer(nullptr), constant_buffer(nullptr),
-		wireframe_rasterizer_state(nullptr), solid_rasterizer_state(nullptr),
-		depth_stencil_state(nullptr), numIndices(0), isMakeBuffer(false)
-	{
-		// 入力レイアウトの定義
-		D3D11_INPUT_ELEMENT_DESC layout[] =
-		{
-			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,                         D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, sizeof(DirectX::XMFLOAT3), D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		};
-		const char* vsName = "./Data/Shader/geometric_primitive_vs.cso";
-		const char* psName = "./Data/Shader/geometric_primitive_ps.cso";
-
-		//	初期化
-		_init(device, vsName, layout, ARRAYSIZE(layout), psName);
-	}
-	GeometricPrimitive(ID3D11Device* device,
-		const char* vsName, D3D11_INPUT_ELEMENT_DESC* inputElementDescs, int numElement,
-		const char* psName) :
-		vertex_shader(nullptr), pixel_shader(nullptr), input_layout(nullptr),
-		vertex_buffer(nullptr), index_buffer(nullptr), constant_buffer(nullptr),
-		wireframe_rasterizer_state(nullptr), solid_rasterizer_state(nullptr),
-		depth_stencil_state(nullptr), numIndices(0), isMakeBuffer(false)
-
-	{
-		_init(device, vsName, inputElementDescs, numElement, psName);
-	}
-	virtual ~GeometricPrimitive();
-
-	virtual void render(ID3D11DeviceContext* context,
-		const DirectX::XMFLOAT4X4& wvp,
-		const DirectX::XMFLOAT4X4& world,
-		const DirectX::XMFLOAT4& light_direction,
-		const DirectX::XMFLOAT4& material_color = DirectX::XMFLOAT4(1, 1, 1, 1),
-		bool bSolid = true);
+	void create_buffers(ID3D11Device *device, vertex *vertices, int num_vertices, u_int *indices, int num_indices);
 };
 
-
-class GeometricRect : public GeometricPrimitive
+class geometric_cube : public geometric_primitive
 {
 public:
-	GeometricRect(ID3D11Device* device);
-	~GeometricRect() {};
+	geometric_cube(ID3D11Device *device);
 };
 
-
-class GeometricBoard : public GeometricPrimitive
+class geometric_cylinder : public geometric_primitive
 {
 public:
-	GeometricBoard(ID3D11Device* device);
-	~GeometricBoard() {};
+	geometric_cylinder(ID3D11Device *device, u_int slices);
 };
 
-
-class GeometricCube : public GeometricPrimitive
+class geometric_sphere : public geometric_primitive
 {
 public:
-	GeometricCube(ID3D11Device* device);
-	~GeometricCube() {};
+	geometric_sphere(ID3D11Device *device, u_int slices, u_int stacks);
 };
 
-
-class GeometricSphere : public GeometricPrimitive
+class geometric_capsule : public geometric_primitive
 {
 public:
-	GeometricSphere(ID3D11Device* device, u_int slices = 16, u_int stacks = 16);
-	~GeometricSphere() {};
+	geometric_capsule(ID3D11Device *device);
 };
 
-
-class GeometricSphere2 : public GeometricPrimitive
-{
-private:
-	int		numVertices;
-	inline Vertex _makeVertex(const DirectX::XMFLOAT3& p);
-public:
-	//	形状は slices = (div-1) * 4, stacks = (div-1) * 2 と同じ
-	GeometricSphere2(ID3D11Device* device, u_int div = 8);
-	~GeometricSphere2() {};
-
-	virtual void render(ID3D11DeviceContext* context,
-		const DirectX::XMFLOAT4X4& wvp,
-		const DirectX::XMFLOAT4X4& world,
-		const DirectX::XMFLOAT4& light_direction,
-		const DirectX::XMFLOAT4& material_color = DirectX::XMFLOAT4(1, 1, 1, 1),
-		bool bSolid = true);
-};
-
-
-
-//#pragma once
-//
-//#include <d3d11.h>
-//#include <wrl.h>
-//#include <directxmath.h>
-//
-//class geometric_primitive
-//{
-//public:
-//	struct vertex
-//	{
-//		DirectX::XMFLOAT3 position;
-//		DirectX::XMFLOAT3 normal;
-//	};
-//	struct cbuffer
-//	{
-//		DirectX::XMFLOAT4X4 world_view_projection;
-//		DirectX::XMFLOAT4X4 world_inverse_transpose;
-//		DirectX::XMFLOAT4 material_color;
-//		DirectX::XMFLOAT4 light_direction;
-//	};
-//
-//private:
-//	Microsoft::WRL::ComPtr<ID3D11Buffer> vertex_buffer;
-//	Microsoft::WRL::ComPtr<ID3D11Buffer> index_buffer;
-//	Microsoft::WRL::ComPtr<ID3D11Buffer> constant_buffer;
-//
-//	Microsoft::WRL::ComPtr<ID3D11VertexShader> vertex_shader;
-//	Microsoft::WRL::ComPtr<ID3D11PixelShader> pixel_shader;
-//	Microsoft::WRL::ComPtr<ID3D11InputLayout> input_layout;
-//
-//	Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizer_states[2];
-//	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depth_stencil_state;
-//
-//public:
-//	geometric_primitive(ID3D11Device *device);
-//	virtual ~geometric_primitive() {}
-//
-//	void render(ID3D11DeviceContext *immediate_context, const DirectX::XMFLOAT4X4 &world_view_projection, const DirectX::XMFLOAT4X4 &world_inverse_transpose, const DirectX::XMFLOAT4 &light_direction, const DirectX::XMFLOAT4 &material_color, bool wireframe = false);
-//
-//protected:
-//	void create_buffers(ID3D11Device *device, vertex *vertices, int num_vertices, u_int *indices, int num_indices);
-//};
-//
-//class geometric_cube : public geometric_primitive
-//{
-//public:
-//	geometric_cube(ID3D11Device *device);
-//};
-//
-//class geometric_cylinder : public geometric_primitive
-//{
-//public:
-//	geometric_cylinder(ID3D11Device *device, u_int slices);
-//};
-//
-//class geometric_sphere : public geometric_primitive
-//{
-//public:
-//	geometric_sphere(ID3D11Device *device, u_int slices, u_int stacks);
-//};
-//
-//class geometric_capsule : public geometric_primitive
-//{
-//public:
-//	geometric_capsule(ID3D11Device *device);
-//};
-//

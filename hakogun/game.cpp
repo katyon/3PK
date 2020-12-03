@@ -59,7 +59,7 @@ TODO:09 WAVE全滅検知に伴う増援呼び出し
 *******************************************************************************/
 
 
-void	Game::Initialize()
+void	Game::Initialize(ID3D11Device* device)
 {
 	srand((unsigned)time(NULL));
 
@@ -72,14 +72,14 @@ void	Game::Initialize()
 
 	//	「地面」を初期化
 	field.Initialize();
-	field.SetPrimitive( new GeometricRect(pFramework.device.Get()));
+	field.SetPrimitive( new GeometricRect(pFramework.getDevice().Get()));
 	field.color = DirectX::XMFLOAT4(0.4f, 0.2f, 0.6f, 1.0f);
 	field.scale = DirectX::XMFLOAT3(40.0f, 20.0f, 40.0f);
 
 
 	//	「プレイヤー」を初期化
-	player.Initialize( "./Data/tank.fbx" );
-	player_after_image.Initialize("./Data/tank.fbx");
+	player.Initialize( device,"./Data/tank.fbx" );
+	player_after_image.Initialize(device,"./Data/tank.fbx");
 
 	//	敵を生成
 	enemyManager.Initialize();
@@ -157,11 +157,11 @@ bool	Game::Update()
 			Enemy* e = enemyManager.Get(en);
 			if (!e || !e->exist)	continue;
 
-			if (Collision::HitSphere(s->pos, 0.2f, e->pos, e->obj.scale.x))
+			if (Collision::HitSphere(s->pos, 0.2f, e->pos, e->skinned_obj.scale.x))
 			{
 				s->obj.Release();
 				s->exist = false;
-				e->obj.Release();
+				e->skinned_obj.Release();
 				e->exist = false;
 				
 				/*******************************************************************************
@@ -191,7 +191,7 @@ bool	Game::Update()
 			}
 		}
 	}
-	if (Collision::HitSphere(portal.pos, 1.0f, player.pos, player.obj.scale.x))
+	if (Collision::HitSphere(portal.pos, 1.0f, player.pos, player.skinned_obj.scale.x))
 	{
 		player.angle++;
 	}

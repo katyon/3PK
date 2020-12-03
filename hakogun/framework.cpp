@@ -152,7 +152,7 @@ bool framework::initialize()
 	//fbx_mesh = std::make_unique<skinned_mesh>(device.Get(), "kikagaku500.fbx");
 
 	{
-		pGame.Initialize();
+		pGame.Initialize(device.Get());
 	}
 
 	return true;
@@ -232,7 +232,7 @@ void framework::render(float elapsed_time/*Elapsed seconds from last frame*/)
 
 		DirectX::XMFLOAT4 material_color(1.0f, 1.0f, 1.0f, 1.0f);
 
-		//fbx_mesh->render(immediate_context.Get(), world_view_projection, world, light_direction, material_color, wireframe);
+		fbx_mesh->render(immediate_context.Get(), world_view_projection, world, light_direction, material_color, wireframe);
 
 		pGame.Render();
 

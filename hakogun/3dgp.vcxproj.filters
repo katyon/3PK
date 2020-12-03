@@ -19,34 +19,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="framework.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="mock.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="shader.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="sprite.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="texture.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="geometric_primitive.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="static_mesh.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="skinned_mesh.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="input.cpp">
+    <ClCompile Include="blender.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="camera.cpp">
@@ -58,7 +34,19 @@
     <ClCompile Include="enemy.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="framework.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
     <ClCompile Include="game.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="geometric_primitive.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="my_mesh.cpp">
@@ -76,48 +64,30 @@
     <ClCompile Include="shot.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="sprite.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="static_mesh.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
     <ClCompile Include="wave.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="wave_data.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="blender.cpp">
+    <ClCompile Include="shader.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="texture.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="high_resolution_timer.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="sprite.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="misc.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="shader.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="texture.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="blender.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="geometric_primitive.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="static_mesh.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="skinned_mesh.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="input.h">
+    <ClInclude Include="blender.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="camera.h">
@@ -129,7 +99,22 @@
     <ClInclude Include="enemy.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
     <ClInclude Include="game.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="geometric_primitive.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="high_resolution_timer.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="misc.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="my_mesh.h">
@@ -147,10 +132,22 @@
     <ClInclude Include="shot.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="sprite.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="static_mesh.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
     <ClInclude Include="Util.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="wave.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="shader.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

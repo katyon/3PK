@@ -12,9 +12,9 @@
 class Player
 {
 public:
-	MyMesh				obj;				//	「モデルオブジェクト」
-	MyMesh				obj1;				//	 残像用
-	MyMesh				obj2;				//	 残像用
+	MyMesh				skinned_obj;				//	「モデルオブジェクト」
+	MyMesh				skinned_obj1;				//	 残像用
+	MyMesh				skinned_obj2;				//	 残像用
 
 	DirectX::XMFLOAT3	pos;				//	「位置(座標)」
 	float				angle;				//	「回転角度」
@@ -36,7 +36,7 @@ public:
 
 	void	Dash();
 
-	void	Initialize( const char* );																							//	初期化関数
+	void	Initialize(ID3D11Device* device, const char* fbx_filename);																							//	初期化関数
 	void	Release();																											//	解放関数
 	void	Move();																												//	移動関数
 	void	Render( const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir );	//	描画関数
