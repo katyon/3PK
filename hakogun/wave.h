@@ -1,5 +1,6 @@
 #pragma once
 
+#include	<d3d11.h>
 #include	<directxmath.h>
 #include	"my_mesh.h"
 
@@ -57,7 +58,7 @@ private:
 	int ThisWave;
 
 public:
-	void init(char** filename, Wave* ed);
+	void init(ID3D11Device* device,char** filename, Wave* ed);
 	void release();
 	bool create();
 	void WaveProceed()

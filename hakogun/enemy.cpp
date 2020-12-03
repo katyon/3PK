@@ -25,7 +25,7 @@ void	Enemy::Release()
     skinned_obj.Release();
 }
 
-void	Enemy::Move()
+void	Enemy::Move(ID3D11Device* device)
 {
     //	行動を確率で分岐
     const float dangle = DirectX::XMConvertToRadians(1.0f);
@@ -131,7 +131,7 @@ void	Enemy::Move()
         p.y += OFS_HEIGHT + 0.5;
 
         if (timer % 20 == 0)
-            shotManager.Set(p, angle + (rand() % 12 - 6) * DirectX::XM_PI / 180, SHOT_SPEED, 0.2f);
+            shotManager.Set(device, p, angle + (rand() % 12 - 6) * DirectX::XM_PI / 180, SHOT_SPEED, 0.2f);
 
         timer--;
         if (timer < 0)		state = SELECT;	//	行動選択へ
@@ -151,7 +151,7 @@ void	Enemy::Move()
         p.y += OFS_HEIGHT + 0.5;
 
         if (timer % 20 == 0)
-            shotManager.Set(p, angle, SHOT_SPEED, 0.2f);
+            shotManager.Set(device, p, angle, SHOT_SPEED, 0.2f);
 
         timer--;
         //angle++;  // Toooooooooorrrnado!!!
@@ -183,13 +183,13 @@ void	Enemy::Move()
 
 }
 
-void	Enemy::Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir)
+void	Enemy::Render(ID3D11DeviceContext* context, const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir)
 {
     skinned_obj.pos = this->pos;
     skinned_obj.angle.y = this->angle;
     skinned_obj.color = this->color;
 
-    skinned_obj.Render(view, projection, light_dir);
+    skinned_obj.Render(context, view, projection, light_dir);
 }
 
 
@@ -211,23 +211,23 @@ void	EnemyManager::Release()
     }
 }
 
-void	EnemyManager::Update()
+void	EnemyManager::Update(ID3D11Device* device)
 {
     for (auto& d : data)
     {
         if (d.exist)
         {
-            d.Move();
+            d.Move(device);
 
         }
     }
 }
 
-void	EnemyManager::Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir)
+void	EnemyManager::Render(ID3D11DeviceContext* context, const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir)
 {
     for (auto& d : data)
     {
-        if (d.exist)	d.Render(view, projection, light_dir);
+        if (d.exist)	d.Render(context, view, projection, light_dir);
     }
 }
 

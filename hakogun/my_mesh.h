@@ -11,7 +11,7 @@ private:
 	bool				bLoad;
 
 public:
-	static_mesh*	obj;
+	GeometricPrimitive*	obj;
 	skinned_mesh* skinned_obj;
 
 	DirectX::XMFLOAT3	pos;				//	Åuà íuÅv
@@ -22,11 +22,11 @@ public:
 
 	void	Initialize();
 	bool	Load(ID3D11Device* device,const char* fbx_filename);
-	void	SetPrimitive(static_mesh* primitive);
+	void	SetPrimitive(GeometricPrimitive* primitive);
 
 	void	SetMesh(MyMesh& org);
 	void	Release();
-	void	Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir);
+	void	Render(ID3D11DeviceContext* context,const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir);
 
 	DirectX::XMMATRIX	GetWorldMatrix();
 

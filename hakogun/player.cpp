@@ -32,22 +32,22 @@ void	Player::Release()
 /*******************************************************************************
     「プレイヤー」クラスの描画
 *******************************************************************************/
-void	Player::Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir)
+void	Player::Render(ID3D11DeviceContext* context, const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir)
 {
     skinned_obj.pos = this->pos;
     skinned_obj.angle.y = this->angle;
-    skinned_obj.Render(view, projection, light_dir);
+    skinned_obj.Render(context, view, projection, light_dir);
     if (acceleFlg)
     {
         skinned_obj1.pos = previous_pos1;
         skinned_obj1.angle.y = player.angle;
         skinned_obj1.color = { 0.0, 1.0, 1.0, 0.5 };
-        skinned_obj1.Render(view, projection, light_dir);
+        skinned_obj1.Render(context, view, projection, light_dir);
 
         skinned_obj2.pos = previous_pos2;
         skinned_obj2.angle.y = player.angle;
         skinned_obj2.color = { 0.0, 1.0, 1.0, 0.5 };
-        skinned_obj2.Render(view, projection, light_dir);
+        skinned_obj2.Render(context, view, projection, light_dir);
     }
 }
 
@@ -55,7 +55,7 @@ void	Player::Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& proj
 /*******************************************************************************
     「プレイヤー」クラスの移動
 *******************************************************************************/
-void	Player::Move()
+void	Player::Move(ID3D11Device* device)
 {
     const float dangle = DirectX::XMConvertToRadians(2.0f);		//	1度
     const float speed = 0.20f;									//	プレイヤーの速度
@@ -140,7 +140,7 @@ void	Player::Move()
         p.x += sinf(angle) * OFS_FRONT;
         p.z += cosf(angle) * OFS_FRONT;
         p.y += OFS_HEIGHT;
-        shotManager.Set(p, angle, SHOT_SPEED, 0.2f);
+        shotManager.Set(device, p, angle, SHOT_SPEED, 0.2f);
 
         //	パーティクル管理クラスの設置関数の呼び出し(実験用)
         //pParticleManager->Set(p, 1.0f, DirectX::XMFLOAT4(0.8f, 0.4f, 0.2f, 0.6f));
@@ -183,7 +183,7 @@ void	Player::Move()
         {
             float shotgun_angle = angle;
             shotgun_angle += ((rand() % 12 - 6) * DirectX::XM_PI) / 180;
-            shotManager.Set(p, shotgun_angle, SHOT_SPEED - shotgun * 0.02, 0.1f);
+            shotManager.Set(device, p, shotgun_angle, SHOT_SPEED - shotgun * 0.02, 0.1f);
         }
 
         //	パーティクル管理クラスの設置関数の呼び出し(実験用)
@@ -222,7 +222,7 @@ void	Player::Move()
         p.x += sinf(angle) * OFS_FRONT;
         p.z += cosf(angle) * OFS_FRONT;
         p.y += OFS_HEIGHT;
-        shotManager.Set(p, angle, SHOT_SPEED, 0.2f);
+        shotManager.Set(device, p, angle, SHOT_SPEED, 0.2f);
 
         //	パーティクル管理クラスの設置関数の呼び出し(実験用)
         //pParticleManager->Set(p, 1.0f, DirectX::XMFLOAT4(0.8f, 0.4f, 0.2f, 0.6f));

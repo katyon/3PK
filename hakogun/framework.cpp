@@ -160,7 +160,7 @@ bool framework::initialize()
 void framework::update(float elapsed_time/*Elapsed seconds from last frame*/)
 {
 	mouse->UpdateInput();
-	pGame.Update();
+	pGame.Update(device.Get());
 }
 void framework::render(float elapsed_time/*Elapsed seconds from last frame*/)
 {
@@ -234,7 +234,7 @@ void framework::render(float elapsed_time/*Elapsed seconds from last frame*/)
 
 		fbx_mesh->render(immediate_context.Get(), world_view_projection, world, light_direction, material_color, wireframe);
 
-		pGame.Render();
+		pGame.Render(immediate_context.Get());
 
 		DirectX::XMFLOAT2 pos = {};
 		pos = mouse->GetMousePos();

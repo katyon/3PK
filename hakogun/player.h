@@ -38,8 +38,8 @@ public:
 
 	void	Initialize(ID3D11Device* device, const char* fbx_filename);																							//	‰Šú‰»ŠÖ”
 	void	Release();																											//	‰ğ•úŠÖ”
-	void	Move();																												//	ˆÚ“®ŠÖ”
-	void	Render( const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir );	//	•`‰æŠÖ”
+	void	Move(ID3D11Device* device);																												//	ˆÚ“®ŠÖ”
+	void	Render(ID3D11DeviceContext* context,const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir );	//	•`‰æŠÖ”
 
 	DirectX::XMFLOAT3 GetPosition();
 };

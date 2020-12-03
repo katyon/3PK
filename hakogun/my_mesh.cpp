@@ -40,7 +40,7 @@ bool	MyMesh::Load(ID3D11Device* device, const char* fbx_filename)
         引数
             primitive:メッシュモデル
 *******************************************************************************/
-void	MyMesh::SetPrimitive(static_mesh* primitive)
+void	MyMesh::SetPrimitive(GeometricPrimitive* primitive)
 {
 	obj = primitive;
 	bLoad = true;
@@ -77,7 +77,7 @@ void	MyMesh::Release()
             projection:投影変換行列
             light_dir:平行光ベクトル
 *******************************************************************************/
-void	MyMesh::Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir)
+void	MyMesh::Render(ID3D11DeviceContext* context,const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir)
 {
     //	モデルが無ければ描画処理を一切行わない
     if (!obj)		return;
@@ -92,7 +92,7 @@ void	MyMesh::Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& proj
     DirectX::XMStoreFloat4x4(&world, worldM);
 
     //	描画
-    obj->render(pFramework.immediate_context.Get(), world_view_projection, world, light_dir, color);
+    obj->render(context, world_view_projection, world, light_dir, color);
 }
 
 

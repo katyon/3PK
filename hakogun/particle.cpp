@@ -23,7 +23,7 @@ void	ParticleManager::Update()
 /*******************************************************************************
 	パーティクル管理クラスの描画関数
 *******************************************************************************/
-void	ParticleManager::Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection)
+void	ParticleManager::Render(ID3D11DeviceContext* context,const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection)
 {
 	DirectX::XMFLOAT4X4	view2;
 	DirectX::XMMATRIX	inv_view2;
@@ -58,7 +58,7 @@ void	ParticleManager::Render(const DirectX::XMMATRIX& view, const DirectX::XMMAT
 		DirectX::XMStoreFloat4x4(&world, W);					//	ワールド変換行列を4x4に変換
 		W = inv_view2 * W * VP;									//	WorldViewProjection行列合成(view逆行列による打消し)
 		DirectX::XMStoreFloat4x4(&wvp, W);						//	WorldViewProjection行列を4x4に変換
-		polygon->render(pFramework.immediate_context.Get(), wvp, world, light_dir, pd.color ); 		//	描画
+		polygon->render(context, wvp, world, light_dir, pd.color ); 		//	描画
 	}
 
 	blender::Set(blender::ALPHA);
