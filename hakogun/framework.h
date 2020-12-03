@@ -20,7 +20,7 @@
 
 #include "input.h"
 
-#include	"blender.h"
+#include "blender.h"
 
 const LONG SCREEN_WIDTH = 1280;
 const LONG SCREEN_HEIGHT = 720;

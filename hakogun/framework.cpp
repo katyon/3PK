@@ -12,6 +12,8 @@
 #include "geometric_primitive.h"
 #include <stdlib.h>
 
+#include "game.h"
+
 bool framework::initialize()
 {
 	HRESULT hr = S_OK;
@@ -149,11 +151,16 @@ bool framework::initialize()
 
 	//fbx_mesh = std::make_unique<skinned_mesh>(device.Get(), "kikagaku500.fbx");
 
+	{
+		pGame.Initialize();
+	}
+
 	return true;
 }
 void framework::update(float elapsed_time/*Elapsed seconds from last frame*/)
 {
 	mouse->UpdateInput();
+	pGame.Update();
 }
 void framework::render(float elapsed_time/*Elapsed seconds from last frame*/)
 {
@@ -225,7 +232,9 @@ void framework::render(float elapsed_time/*Elapsed seconds from last frame*/)
 
 		DirectX::XMFLOAT4 material_color(1.0f, 1.0f, 1.0f, 1.0f);
 
-		fbx_mesh->render(immediate_context.Get(), world_view_projection, world, light_direction, material_color, wireframe);
+		//fbx_mesh->render(immediate_context.Get(), world_view_projection, world, light_direction, material_color, wireframe);
+
+		pGame.Render();
 
 		DirectX::XMFLOAT2 pos = {};
 		pos = mouse->GetMousePos();

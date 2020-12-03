@@ -23,4 +23,4 @@ public:
 	}
 };
 
-#define	GAME	Game::getInstance()
+#define	pGame Game::getInstance()
