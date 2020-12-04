@@ -7,8 +7,8 @@
 // cbuffer CONSTANT_BUFFER
 // {
 //
-//   row_major float4x4 world_view_projection;// Offset:    0 Size:    64
-//   row_major float4x4 world_inverse_transpose;// Offset:   64 Size:    64
+//   row_major float4x4 wvp;            // Offset:    0 Size:    64
+//   row_major float4x4 world;          // Offset:   64 Size:    64
 //   float4 material_color;             // Offset:  128 Size:    16
 //   float4 light_direction;            // Offset:  144 Size:    16
 //
@@ -58,10 +58,10 @@
 //
     vs_2_x
     def c10, 0, 0, 0, 0
-    dcl_texcoord v0  // position<0,1,2,3>
+    dcl_texcoord v0  // pos<0,1,2,3>
     dcl_texcoord1 v1  // normal<0,1,2,3>
 
-#line 6 "D:\gp\SourceTree\3PK\hakogun\geometric_primitive_vs.hlsl"
+#line 8 "D:\gp\SourceTree\3PK\hakogun\geometric_primitive_vs.hlsl"
     mul r0, v0.x, c1
     mul r1, v0.y, c2
     add r0, r0, r1
@@ -70,7 +70,7 @@
     mul r1, v0.w, c4
     add r0, r0, r1  // ::vout<0,1,2,3>
 
-#line 9
+#line 11
     mul r1, v1.x, c5
     mul r2, v1.y, c6
     add r1, r1, r2
@@ -92,7 +92,7 @@
     mov oT0.w, r1.w  // ::main<7>
     mov r0, r0  // ::main<0,1,2,3>
 
-#line 3
+#line 4
     mul r1.xy, r0.w, c0
     add oPos.xy, r0, r1  // ::main<0,1>
     mov oPos.zw, r0  // ::main<2,3>
@@ -107,12 +107,12 @@ dcl_output o1.xyzw
 dcl_temps 4
 //
 // Initial variable locations:
-//   v0.x <- position.x; v0.y <- position.y; v0.z <- position.z; v0.w <- position.w; 
+//   v0.x <- pos.x; v0.y <- pos.y; v0.z <- pos.z; v0.w <- pos.w; 
 //   v1.x <- normal.x; v1.y <- normal.y; v1.z <- normal.z; v1.w <- normal.w; 
 //   o1.x <- <main return value>.color.x; o1.y <- <main return value>.color.y; o1.z <- <main return value>.color.z; o1.w <- <main return value>.color.w; 
 //   o0.x <- <main return value>.position.x; o0.y <- <main return value>.position.y; o0.z <- <main return value>.position.z; o0.w <- <main return value>.position.w
 //
-#line 6 "D:\gp\SourceTree\3PK\hakogun\geometric_primitive_vs.hlsl"
+#line 8 "D:\gp\SourceTree\3PK\hakogun\geometric_primitive_vs.hlsl"
 mul r0.xyzw, v0.xxxx, cb0[0].xyzw
 mul r1.xyzw, v0.yyyy, cb0[1].xyzw
 add r0.xyzw, r0.xyzw, r1.xyzw
@@ -121,10 +121,10 @@ add r0.xyzw, r0.xyzw, r1.xyzw
 mul r1.xyzw, v0.wwww, cb0[3].xyzw
 add r0.xyzw, r0.xyzw, r1.xyzw  // r0.x <- vout.position.x; r0.y <- vout.position.y; r0.z <- vout.position.z; r0.w <- vout.position.w
 
-#line 8
+#line 10
 itof r1.x, l(0)  // r1.x <- normal.w
 
-#line 9
+#line 11
 mul r2.xyzw, v1.xxxx, cb0[4].xyzw
 mul r3.xyzw, v1.yyyy, cb0[5].xyzw
 add r2.xyzw, r2.xyzw, r3.xyzw
@@ -136,22 +136,22 @@ dp4 r2.x, r1.xyzw, r1.xyzw
 rsq r2.x, r2.x
 mul r1.xyzw, r1.xyzw, r2.xxxx  // r1.x <- N.x; r1.y <- N.y; r1.z <- N.z; r1.w <- N.w
 
-#line 11
+#line 12
 mov r2.xyzw, -cb0[9].xyzw
 dp4 r3.x, r2.xyzw, r2.xyzw
 rsq r3.x, r3.x
 mul r2.xyzw, r2.xyzw, r3.xxxx  // r2.x <- L.x; r2.y <- L.y; r2.z <- L.z; r2.w <- L.w
 
-#line 12
+#line 14
 itof r3.x, l(0)
 dp4 r1.x, r2.xyzw, r1.xyzw
 max r1.x, r1.x, r3.x
 mul r1.xyz, r1.xxxx, cb0[8].xyzx  // r1.x <- vout.color.x; r1.y <- vout.color.y; r1.z <- vout.color.z
 
-#line 13
+#line 15
 mov r1.w, cb0[8].w  // r1.w <- vout.color.w
 
-#line 15
+#line 17
 mov o0.xyzw, r0.xyzw
 mov o1.xyz, r1.xyzx
 mov o1.w, r1.w

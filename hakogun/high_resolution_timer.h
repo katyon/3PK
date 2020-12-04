@@ -31,7 +31,7 @@ public:
 
 		if (stopped)
 		{
-			return static_cast<float>(((stop_time - paused_time) - base_time)*seconds_per_count);
+			return static_cast<float>(((stop_time - paused_time) - base_time) * seconds_per_count);
 		}
 
 		// The distance this_time - mBaseTime includes paused time,
@@ -45,7 +45,7 @@ public:
 		//  base_time       stop_time        start_time     this_time
 		else
 		{
-			return static_cast<float>(((this_time - paused_time) - base_time)*seconds_per_count);
+			return static_cast<float>(((this_time - paused_time) - base_time) * seconds_per_count);
 		}
 	}
 
@@ -102,7 +102,7 @@ public:
 
 		QueryPerformanceCounter(reinterpret_cast<LARGE_INTEGER*>(&this_time));
 		// Time difference between this frame and the previous.
-		delta_time = (this_time - last_time)*seconds_per_count;
+		delta_time = (this_time - last_time) * seconds_per_count;
 
 		// Prepare for next frame.
 		last_time = this_time;

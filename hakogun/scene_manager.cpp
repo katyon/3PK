@@ -13,11 +13,11 @@ void SceneManager::init(void)
     scene_state = state_title;
 }
 
-void SceneManager::update(ID3D11Device* device)
+void SceneManager::update()
 {
     if (change_scene != keep)
     {
-        pSceneManager.changeSceneStateInit(device,change_scene);
+        pSceneManager.changeSceneStateInit(change_scene);
     }
 
     switch (scene_state)
@@ -26,7 +26,7 @@ void SceneManager::update(ID3D11Device* device)
         pSceneTitle.update();
         break;
     case state_game:
-        pSceneGame.update(device);
+        pSceneGame.update();
         break;
     case state_clear:
         pSceneClear.update();
@@ -35,7 +35,7 @@ void SceneManager::update(ID3D11Device* device)
     }
 }
 
-void SceneManager::render(ID3D11DeviceContext* context)
+void SceneManager::render()
 {
     switch (scene_state)
     {
@@ -43,7 +43,7 @@ void SceneManager::render(ID3D11DeviceContext* context)
         pSceneTitle.render();
         break;
     case state_game:
-        pSceneGame.render(context);
+        pSceneGame.render();
         break;
     case state_clear:
         pSceneClear.render();
@@ -52,7 +52,7 @@ void SceneManager::render(ID3D11DeviceContext* context)
     }
 }
 
-void SceneManager::changeSceneStateInit(ID3D11Device* device,SCENES _next_scene)
+void SceneManager::changeSceneStateInit(SCENES _next_scene)
 {
     // åªç›ÇÃÉVÅ[ÉìÇÃèIóπèàóù
     switch (getSceneState())
@@ -77,7 +77,7 @@ void SceneManager::changeSceneStateInit(ID3D11Device* device,SCENES _next_scene)
         pSceneTitle.init();
         break;
     case state_game:
-        pSceneGame.init(device);
+        pSceneGame.init();
         break;
     case state_clear:
         pSceneClear.init();
@@ -132,22 +132,22 @@ void SceneTitle::end(void)
 }
 
 // Game
-void SceneGame::init(ID3D11Device* device)
+void SceneGame::init()
 {
-    pGame.Initialize(device);
+    pGame.Initialize();
     timer = 0;
 }
 
-void SceneGame::update(ID3D11Device* device)
+void SceneGame::update()
 {
 
-    pGame.Update(device);
+    pGame.Update();
     timer++;
 }
 
-void SceneGame::render(ID3D11DeviceContext* context)
+void SceneGame::render()
 {
-    pGame.Render(context);
+    pGame.Render();
 }
 
 void SceneGame::end(void)

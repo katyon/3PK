@@ -91,7 +91,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\DirectXTK-master\Inc;.\FBX SDK\2016.1.2\include;.\DirectXTex-master\DirectXTex;.\DirectXTex-master\WICTextureLoader</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\DirectXTK-master\Inc;.\FBX SDK\2016.1.2\include;.\DirectXTex-master\DirectXTex;.\DirectXTex-master\WICTextureLoader;./FBXSDK/include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -179,13 +179,12 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="resource_manager.cpp" />
     <ClCompile Include="scene_manager.cpp" />
-    <ClCompile Include="shader.cpp" />
     <ClCompile Include="shot.cpp" />
     <ClCompile Include="skinned_mesh.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="static_mesh.cpp" />
-    <ClCompile Include="texture.cpp" />
     <ClCompile Include="title.cpp" />
+    <ClCompile Include="Utilcpp.cpp" />
     <ClCompile Include="wave.cpp" />
     <ClCompile Include="wave_data.cpp" />
   </ItemGroup>
@@ -206,12 +205,10 @@
     <ClInclude Include="player.h" />
     <ClInclude Include="resource_manager.h" />
     <ClInclude Include="scene_manager.h" />
-    <ClInclude Include="shader.h" />
     <ClInclude Include="shot.h" />
     <ClInclude Include="skinned_mesh.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="static_mesh.h" />
-    <ClInclude Include="texture.h" />
     <ClInclude Include="title.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="wave.h" />

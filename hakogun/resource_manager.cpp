@@ -27,14 +27,14 @@ bool	LoadCSOFile(BYTE** data, long* size, const char* filename)
 								//	ファイル読み込み用領域の確保
 	*data = new BYTE[sz];
 	//	ファイル読み込み
-	size_t s =fread_s( *data, sizeof(BYTE)*sz,
-		sizeof(BYTE), sz, fp );
+	size_t s = fread_s(*data, sizeof(BYTE) * sz,
+		sizeof(BYTE), sz, fp);
 
 	//	読み込み終了
 	fclose(fp);
 
 	//	エラーチェック
-	if (s != sizeof(BYTE)*sz)	return false;
+	if (s != sizeof(BYTE) * sz)	return false;
 
 	*size = sz;			//	ファイルサイズ保存
 	return	true;
@@ -51,7 +51,7 @@ bool ResourceManager::LoadShaderResourceView(ID3D11Device* device, const wchar_t
 	if (*srv)			return false;
 
 	HRESULT hr;
-//	ID3D11Resource* resource = nullptr;;
+	//	ID3D11Resource* resource = nullptr;;
 	ShaderResourceViewData* find = nullptr;
 	int no = -1;
 
@@ -77,7 +77,7 @@ bool ResourceManager::LoadShaderResourceView(ID3D11Device* device, const wchar_t
 	}
 
 	//	ファイルが見つからなかったら新規読み込み
-	if( !find )
+	if (!find)
 	{
 		if (no == -1)	return	false;		//	空きが無い
 
@@ -85,7 +85,7 @@ bool ResourceManager::LoadShaderResourceView(ID3D11Device* device, const wchar_t
 		//	テクスチャ読み込み
 		ID3D11Resource* resource = nullptr;
 		hr = DirectX::CreateWICTextureFromFile(device, filename, &resource,
-													&find->shader_resource_view);
+			&find->shader_resource_view);
 		//		→データが読み込めなかったら return false;
 		if (FAILED(hr))	return false;
 
@@ -107,7 +107,7 @@ bool ResourceManager::LoadShaderResourceView(ID3D11Device* device, const wchar_t
 		resource->Release();
 
 		//	ファイル名のコピー
-		wcscpy_s( find->filename, 256, filename );
+		wcscpy_s(find->filename, 256, filename);
 	}
 
 	//////////////////////////
@@ -115,7 +115,7 @@ bool ResourceManager::LoadShaderResourceView(ID3D11Device* device, const wchar_t
 	//////////////////////////
 
 	//	データを返す
-	*srv     = find->shader_resource_view;	//	ShaderResourceView保存
+	*srv = find->shader_resource_view;	//	ShaderResourceView保存
 	*texDesc = &find->texDesc;				//	texture2d_desc保存
 
 	//	保持数増加
@@ -147,7 +147,7 @@ void ResourceManager::ReleaseShaderResourceView(ID3D11ShaderResourceView* srv)
 
 
 bool ResourceManager::LoadVertexShaders(ID3D11Device* device, const char* filename,
-	D3D11_INPUT_ELEMENT_DESC *elementDescs, int numElement,
+	D3D11_INPUT_ELEMENT_DESC* elementDescs, int numElement,
 	ID3D11VertexShader** vs, ID3D11InputLayout** il)
 {
 	//	エラーチェック
@@ -157,13 +157,13 @@ bool ResourceManager::LoadVertexShaders(ID3D11Device* device, const char* filena
 	if (*il)			return false;
 
 	HRESULT hr;
-	VertexShadersData*	find = nullptr;
+	VertexShadersData* find = nullptr;
 	int no = -1;
 
 	//	対象のファイルが既に存在しているかを検索
 	for (int n = 0; n < RESOURCE_MAX; n++)
 	{
-		VertexShadersData*	p = &vsData[n];
+		VertexShadersData* p = &vsData[n];
 
 		//	データの有無確認
 		if (p->count == 0)
@@ -182,18 +182,18 @@ bool ResourceManager::LoadVertexShaders(ID3D11Device* device, const char* filena
 	}
 
 	//	ファイルが見つからなかったら新規読み込み
-	if( !find )
+	if (!find)
 	{
 		if (no == -1)	return	false;		//	空きが無い
 
 		find = &vsData[no];
 		//	新規読み込み
-		BYTE*				shader_data;
+		BYTE* shader_data;
 		long				size;
 		LoadCSOFile(&shader_data, &size, filename);
 		hr = device->CreateVertexShader(shader_data, size, nullptr, &find->vertex_shader);
 		//		→データが読み込めなかったら return false;
-		if( FAILED(hr) )	return	false;
+		if (FAILED(hr))	return	false;
 
 		hr = device->CreateInputLayout(elementDescs, numElement,
 			shader_data, size, &find->input_layout);
@@ -230,7 +230,7 @@ void ResourceManager::ReleaseVertexShaders(ID3D11VertexShader* vs, ID3D11InputLa
 {
 	if (!vs)			return;		//	検索対象Unknown　終了します
 	if (!il)			return;		//	検索対象Unknown　終了します
-	
+
 	//	Targetの検索開始
 	for (int n = 0; n < RESOURCE_MAX; n++)
 	{
@@ -240,7 +240,7 @@ void ResourceManager::ReleaseVertexShaders(ID3D11VertexShader* vs, ID3D11InputLa
 		if (p->count == 0)	continue;
 		//	検索対象と不一致なら、次のデータへ移行します
 		if (p->vertex_shader != vs)	continue;
-		if (p->input_layout  != il)	continue;
+		if (p->input_layout != il)	continue;
 
 		//	Targetを発見 Releaseします
 		p->Release();
@@ -258,13 +258,13 @@ bool ResourceManager::LoadPixelShaders(ID3D11Device* device, const char* filenam
 	if (*ps)			return false;
 
 	HRESULT hr;
-	PixelShadersData*	find = nullptr;
+	PixelShadersData* find = nullptr;
 	int no = -1;
 
 	//	対象のファイルが既に存在しているかを検索
 	for (int n = 0; n < RESOURCE_MAX; n++)
 	{
-		PixelShadersData*	p = &psData[n];
+		PixelShadersData* p = &psData[n];
 
 		//	データの有無確認
 		if (p->count == 0)
@@ -283,18 +283,18 @@ bool ResourceManager::LoadPixelShaders(ID3D11Device* device, const char* filenam
 	}
 
 	//	ファイルが見つからなかったら新規読み込み
-	if( !find )
+	if (!find)
 	{
 		if (no == -1)	return	false;		//	空きが無い
 
 		find = &psData[no];
 		//	新規読み込み
-		BYTE*				shader_data;
+		BYTE* shader_data;
 		long				size;
 		LoadCSOFile(&shader_data, &size, filename);
 		hr = device->CreatePixelShader(shader_data, size, nullptr, &find->pixel_shader);
 		//		→データが読み込めなかったら return false;
-		if( FAILED(hr) )	return	false;
+		if (FAILED(hr))	return	false;
 
 		//	ファイル名のコピー
 		strcpy_s(find->filename, 256, filename);

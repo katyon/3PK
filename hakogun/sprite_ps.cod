@@ -37,23 +37,34 @@
 // Level9 shader bytecode:
 //
     ps_2_x
+    def c0, 0, 1, -1, 0
     dcl t0  // pin<4,5,6,7>
     dcl t1.xy  // pin<8,9>
     dcl_2d s0
 
-#line 7 "D:\gp\SourceTree\3PK\hakogun\sprite_ps.hlsl"
+#line 8 "D:\gp\SourceTree\3PK\hakogun\sprite_ps.hlsl"
     texld r0, t1, s0
-    mul r0, r0, t0  // ::main<0,1,2,3>
+    mul r0, r0, t0  // ::psOut<0,1,2,3>
+
+#line 12
+    mov r1.w, -r0.w
+    add r1.x, r1.w, c0.x
+    cmp r1.x, r1.x, c0.y, c0.x
+    mul r1, r1.x, c0.z
+    texkill r1
+    mov r0, r0  // ::main<0,1,2,3>
+
+#line 6
     mov oC0, r0  // ::main<0,1,2,3>
 
-// approximately 3 instruction slots used (1 texture, 2 arithmetic)
+// approximately 9 instruction slots used (1 texture, 8 arithmetic)
 ps_4_0
 dcl_sampler s0, mode_default
 dcl_resource_texture2d (float,float,float,float) t0
 dcl_input_ps linear v1.xyzw
 dcl_input_ps linear v2.xy
 dcl_output o0.xyzw
-dcl_temps 1
+dcl_temps 2
 //
 // Initial variable locations:
 //   v0.x <- pin.pos.x; v0.y <- pin.pos.y; v0.z <- pin.pos.z; v0.w <- pin.pos.w; 
@@ -61,8 +72,18 @@ dcl_temps 1
 //   v2.x <- pin.texcoord.x; v2.y <- pin.texcoord.y; 
 //   o0.x <- <main return value>.x; o0.y <- <main return value>.y; o0.z <- <main return value>.z; o0.w <- <main return value>.w
 //
-#line 7 "D:\gp\SourceTree\3PK\hakogun\sprite_ps.hlsl"
+#line 8 "D:\gp\SourceTree\3PK\hakogun\sprite_ps.hlsl"
 sample r0.xyzw, v2.xyxx, t0.xyzw, s0
-mul o0.xyzw, r0.xyzw, v1.xyzw
+mul r0.xyzw, r0.xyzw, v1.xyzw  // r0.x <- psOut.x; r0.y <- psOut.y; r0.z <- psOut.z; r0.w <- psOut.w
+
+#line 12
+itof r1.x, l(0)
+ge r1.x, r1.x, r0.w
+if_nz r1.x
+  discard_nz l(-1)
+endif 
+
+#line 14
+mov o0.xyzw, r0.xyzw
 ret 
-// Approximately 3 instruction slots used
+// Approximately 9 instruction slots used

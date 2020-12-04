@@ -12,7 +12,7 @@ extern	Player player;
 *******************************************************************************/
 void	Shot::Move()
 {
-	
+
 	//	ç≈ëÂãóó£ÇÃ2èÊÇéñëOÇ…åvéZ
 	const float	 DIST_SQUARE = MAX_DISTANCE * MAX_DISTANCE;
 
@@ -82,7 +82,7 @@ void	ShotManager::Update()
 {
 	for (auto& s : data)
 	{
-		if( !s.exist )	continue;
+		if (!s.exist)	continue;
 		s.Move();
 	}
 }
@@ -91,17 +91,17 @@ void	ShotManager::Update()
 /*******************************************************************************
 	íeä€ä«óùÉNÉâÉXÇÃï`âÊä÷êî
 *******************************************************************************/
-void	ShotManager::Render(ID3D11DeviceContext* context,const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& proj, const DirectX::XMFLOAT4& light_dir)
+void	ShotManager::Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& proj, const DirectX::XMFLOAT4& light_dir)
 {
 	for (auto& s : data)
 	{
-		if( !s.exist )	continue;
+		if (!s.exist)	continue;
 
 		s.obj.pos = s.pos;
 		s.obj.angle.y = s.angle;
 		s.obj.color.w = s.alpha;
 
-		s.obj.Render(context,view, proj, light_dir);
+		s.obj.Render(view, proj, light_dir);
 	}
 }
 
@@ -109,19 +109,19 @@ void	ShotManager::Render(ID3D11DeviceContext* context,const DirectX::XMMATRIX& v
 /*******************************************************************************
 	íeä€ä«óùÉNÉâÉXÇÃî≠éÀä÷êî
 *******************************************************************************/
-Shot*	ShotManager::Set(ID3D11Device* device,DirectX::XMFLOAT3 pos, float angle, float speed, float scale, DirectX::XMFLOAT3 color)
+Shot* ShotManager::Set(DirectX::XMFLOAT3 pos, float angle, float speed, float scale, DirectX::XMFLOAT3 color)
 {
 	for (auto& s : data)
 	{
-		if( s.exist )	continue;
+		if (s.exist)	continue;
 
 		s.obj.Release();		//	îOÇÃà◊âï˙
-		s.obj.SetPrimitive(new GeometricSphere(device));
+		s.obj.SetPrimitive(new GeometricSphere(pFramework.getDevice()));
 		s.obj.scale = DirectX::XMFLOAT3(scale, scale, scale);
-		s.obj.color = DirectX::XMFLOAT4(color.x, color.y, color.z, 1.0f );
+		s.obj.color = DirectX::XMFLOAT4(color.x, color.y, color.z, 1.0f);
 		s.pos = pos;
 		s.angle = angle;
-		s.speed = DirectX::XMFLOAT3(sinf(angle)*speed, .0f, cosf(angle)*speed);
+		s.speed = DirectX::XMFLOAT3(sinf(angle) * speed, .0f, cosf(angle) * speed);
 		s.timer = Shot::FADE_TIMER;
 		s.alpha = 1.0f;
 		s.exist = true;

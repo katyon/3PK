@@ -2,21 +2,20 @@
 #include <memory>
 #include <assert.h>
 #include <tchar.h>
-#include <time.h>
 
 #include "framework.h"
 #include "input.h"
 
+
+
 LRESULT CALLBACK fnWndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
-	framework *f = reinterpret_cast<framework*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
+	framework* f = reinterpret_cast<framework*>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
 	return f ? f->handle_message(hwnd, msg, wparam, lparam) : DefWindowProc(hwnd, msg, wparam, lparam);
 }
 
 INT WINAPI wWinMain(HINSTANCE instance, HINSTANCE prev_instance, LPWSTR cmd_line, INT cmd_show)
 {
-	srand(static_cast<unsigned int>(time(nullptr)));
-
 #if defined(DEBUG) | defined(_DEBUG)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
@@ -31,18 +30,19 @@ INT WINAPI wWinMain(HINSTANCE instance, HINSTANCE prev_instance, LPWSTR cmd_line
 	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 	wcex.lpszMenuName = NULL;
-	wcex.lpszClassName = _T(WINDOW_CLASS_NAME);
+	wcex.lpszClassName = _T("3dgp");
 	wcex.hIconSm = 0;
 	RegisterClassEx(&wcex);
 
 	RECT rc = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
-	HWND hwnd = CreateWindow(_T(WINDOW_CLASS_NAME), _T(""), WS_OVERLAPPEDWINDOW ^ WS_MAXIMIZEBOX ^ WS_THICKFRAME | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, NULL, NULL, instance, NULL);
+	HWND hwnd = CreateWindow(_T("3dgp"), _T(""), WS_OVERLAPPEDWINDOW ^ WS_MAXIMIZEBOX ^ WS_THICKFRAME | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, NULL, NULL, instance, NULL);
 	ShowWindow(hwnd, cmd_show);
-	//UpdateWindow(hwnd);
+	UpdateWindow(hwnd);
 
 	pInputManager->InitializeManager(instance, hwnd);
 	pInputManager->InitializeKeyboard();
+
 
 	//framework f(hwnd);
 	framework& f = framework::getInstance(hwnd);

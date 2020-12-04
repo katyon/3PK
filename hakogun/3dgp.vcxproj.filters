@@ -76,12 +76,6 @@
     <ClCompile Include="wave_data.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="shader.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="texture.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="scene_manager.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
@@ -89,6 +83,9 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="clear.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilcpp.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -151,12 +148,6 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="wave.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="shader.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="texture.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="scene_manager.h">

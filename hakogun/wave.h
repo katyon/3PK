@@ -1,6 +1,5 @@
 #pragma once
 
-#include	<d3d11.h>
 #include	<directxmath.h>
 #include	"my_mesh.h"
 
@@ -24,7 +23,8 @@ public:
 	float pos_x;
 	float pos_z;
 	float angle;
-	DirectX::XMFLOAT4 color = { 0.8f, 0.4f, 0.2f, 1.0f };
+	DirectX::XMFLOAT4 color;
+	int hp;
 };
 
 /*******************************************************************************
@@ -44,7 +44,7 @@ TODO:02 WAVE管理クラスを定義する
 		・void	解放関数()
 		・bool	生成関数()
 		・void	WAVE進行関数()	{ 現WAVE番号を1つ増やす; }
-		
+
 	※必要に応じてシングルトン化、その他メンバの追加をしなさい
 *******************************************************************************/
 class WaveManager
@@ -58,13 +58,19 @@ private:
 	int ThisWave;
 
 public:
-	void init(ID3D11Device* device,char** filename, Wave* ed);
+
+	void init(char** filename, Wave* ed);
 	void release();
 	bool create();
 	void WaveProceed()
 	{
 		if (EnemyData[count].wave_num < 0) return;
 		ThisWave++;
+	}
+
+	int getThisWave()
+	{
+		return ThisWave;
 	}
 
 	static WaveManager* getInstance()
@@ -75,38 +81,3 @@ public:
 };
 
 #define pWaveManager WaveManager::getInstance()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

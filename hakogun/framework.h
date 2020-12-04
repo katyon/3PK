@@ -3,34 +3,47 @@
 #include <windows.h>
 #include <tchar.h>
 #include <sstream>
-#include <memory>
+
+#include <d3d11.h>
 
 #include "misc.h"
 #include "high_resolution_timer.h"
 
-#include <d3d11.h>
-#include <wrl.h>
-
+#include "blender.h"
 #include "sprite.h"
 
-#include "geometric_primitive.h"
+#include "Game.h"
 
-#include "static_mesh.h"
-#include "skinned_mesh.h"
 
-#include "input.h"
-
-#include "blender.h"
+//#define		BENCHMARK_RENDER
 
 const LONG SCREEN_WIDTH = 1280;
 const LONG SCREEN_HEIGHT = 720;
-const LONG FRAME_RATE = 60;
+const LONG FRAME_RATE = 60;			//	これを変更しても実際のフレームレートは変わらない　どこで変わっているかは自分で調査しなさい
 
-#define WINDOW_CLASS_NAME "3dgp"	// ウィンドウクラス名
 
-#define	pFramework framework::getInstance()
 class framework
 {
+	static const int _max = 1024;
+
+	const HWND hwnd;
+
+	framework(HWND hwnd) : hwnd(hwnd), device(nullptr), context(nullptr),
+		swap_chain(nullptr), render_target_view(nullptr), depth_stencil_view(nullptr)
+	{}
+	~framework()
+	{
+		blender::Release();
+
+		pGame.Release();
+
+		if (depth_stencil_view)	depth_stencil_view->Release();
+		if (render_target_view)	render_target_view->Release();
+		if (swap_chain)			swap_chain->Release();
+		if (context)				context->Release();
+		if (device)				device->Release();
+	}
+
 public:
 	static framework& getInstance(HWND hwnd = nullptr)
 	{
@@ -38,30 +51,6 @@ public:
 		return instance;
 	}
 
-	const HWND hwnd;
-
-	Microsoft::WRL::ComPtr<ID3D11Device> device;
-	Microsoft::WRL::ComPtr<ID3D11DeviceContext> immediate_context;
-	Microsoft::WRL::ComPtr<IDXGISwapChain> swap_chain;
-	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> render_target_view;
-	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> depth_stencil_view;
-
-	//std::unique_ptr<sprite> sprites[1024];
-
-	std::unique_ptr<sprite> font;
-
-	//std::unique_ptr<skinned_mesh> fbx_mesh;
-
-	//std::unique_ptr<input_mouse> mouse;
-
-	framework(HWND hwnd) : hwnd(hwnd)
-	{
-
-	}
-	~framework()
-	{
-
-	}
 	int run()
 	{
 		MSG msg = {};
@@ -121,9 +110,20 @@ public:
 	}
 
 private:
+	ID3D11Device* device;
+	ID3D11DeviceContext* context;
+	IDXGISwapChain* swap_chain;
+	ID3D11RenderTargetView* render_target_view;
+	ID3D11DepthStencilView* depth_stencil_view;
+
+	float						clearColor[4];
+
+	Text						text;
+
+
 	bool initialize();
-	void update(float elapsed_time/*Elapsed seconds from last frame*/);
-	void render(float elapsed_time/*Elapsed seconds from last frame*/);
+	void update(float elapsed_time);
+	void render(float elapsed_time);
 
 private:
 	high_resolution_timer timer;
@@ -132,15 +132,15 @@ private:
 		// Code computes the average frames per second, and also the 
 		// average time it takes to render one frame.  These stats 
 		// are appended to the window caption bar.
-		static int frames = 0;
-		static float time_tlapsed = 0.0f;
+		static int		frames = 0;
+		static float	time_tlapsed = 0.0f;
 
 		frames++;
 
 		// Compute averages over one second period.
 		if ((timer.time_stamp() - time_tlapsed) >= 1.0f)
 		{
-			float fps = static_cast<float>(frames); // fps = frameCnt / 1
+			float fps = static_cast<float>(frames);				// fps = frameCnt / 1
 			float mspf = 1000.0f / fps;
 			std::ostringstream outs;
 			outs.precision(6);
@@ -152,5 +152,19 @@ private:
 			time_tlapsed += 1.0f;
 		}
 	}
+
+public:
+	inline bool	SetText(const char* str, float x, float y, float dispSizeW = 0, float dispSizeH = 0)
+	{
+		return	text.Set(str, x, y, dispSizeW, dispSizeH);
+	}
+	inline void	SetClearColor(float r, float g, float b)
+	{
+		clearColor[0] = r, clearColor[1] = g, clearColor[2] = b;
+		clearColor[3] = 1.0f;										//	ここは常に1
+	}
+	inline static ID3D11Device* getDevice() { return	framework::getInstance().device; };
+	inline static ID3D11DeviceContext* getContext() { return	framework::getInstance().context; };
 };
 
+#define	pFramework			framework::getInstance()

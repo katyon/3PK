@@ -1,6 +1,5 @@
 #pragma once
 #include <dinput.h>
-#include <directxmath.h>
 
 class InputManager
 {

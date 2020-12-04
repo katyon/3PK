@@ -1,5 +1,5 @@
 #pragma once
-#include <d3d11.h>
+
 #include	"directxmath.h"
 
 class Game
@@ -9,11 +9,13 @@ public:
 	DirectX::XMMATRIX projection;
 	DirectX::XMFLOAT4 light_direction;
 
+	bool    warpFlg;
 
-	void	Initialize(ID3D11Device* device);
+
+	void	Initialize();
 	void	Release();
-	bool	Update(ID3D11Device* device);
-	void	Render(ID3D11DeviceContext* context);
+	bool	Update();
+	void	Render();
 
 
 	static Game& getInstance()
@@ -23,4 +25,4 @@ public:
 	}
 };
 
-#define	pGame Game::getInstance()
+#define	pGame	Game::getInstance()

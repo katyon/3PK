@@ -25,9 +25,9 @@ public:
 
 
     void init();
-    void update(ID3D11Device* device);
-    void render(ID3D11DeviceContext* context);
-    void changeSceneStateInit(ID3D11Device* device,SCENES _next_scene);    // シーン遷移処理
+    void update();
+    void render();
+    void changeSceneStateInit(SCENES _next_scene);    // シーン遷移処理
 
     void setChangeScene(SCENES _change_scene);  // シーン遷移時に使用
     void setSceneState(SCENES _scene_state);
@@ -74,9 +74,9 @@ public:
         return instance;
     }
 
-    void init(ID3D11Device* device);
-    void update(ID3D11Device* device);
-    void render(ID3D11DeviceContext* context);
+    void init();
+    void update();
+    void render();
     void end(void);
 
     int timer = 0;
