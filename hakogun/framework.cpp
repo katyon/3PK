@@ -120,7 +120,7 @@ bool framework::initialize()
 
     text.Initialize(device, L"./Data/fonts/font6.png", 32);
 
-    SetClearColor(0.0f, 0.125f, 0.3f);
+    SetClearColor(0.0f, 0.0f, 0.0f);
 
     ///////////////////////////////////////////////////
     //	DirectX‰Šú‰»I—¹ ˆÈ~•`‰æ•¨‘Ì‚Ì‰Šú‰»

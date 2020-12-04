@@ -16,7 +16,7 @@ Camera::Camera()
 
 	float	fov = DirectX::XMConvertToRadians(30.0f);
 	float	aspect = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
-	SetPerspectiveMatrix( fov, aspect, 0.1f, 1000.0f );
+	SetPerspectiveMatrix(fov, aspect, 0.1f, 1000.0f);
 
 	mode = MODE::WATCH;
 }
@@ -25,9 +25,9 @@ Camera::Camera()
 /*******************************************************************************
 	平行投影行列を算出する関数
 *******************************************************************************/
-DirectX::XMMATRIX	Camera::SetOrthographicMatrix( float w, float h, float znear, float zfar )
+DirectX::XMMATRIX	Camera::SetOrthographicMatrix(float w, float h, float znear, float zfar)
 {
-	projection = DirectX::XMMatrixOrthographicLH( w, h, znear, zfar );
+	projection = DirectX::XMMatrixOrthographicLH(w, h, znear, zfar);
 	return	projection;
 }
 
@@ -35,9 +35,9 @@ DirectX::XMMATRIX	Camera::SetOrthographicMatrix( float w, float h, float znear, 
 /*******************************************************************************
 	透視投影行列を算出する関数
 *******************************************************************************/
-DirectX::XMMATRIX	Camera::SetPerspectiveMatrix( float fov, float aspect, float znear, float zfar )
+DirectX::XMMATRIX	Camera::SetPerspectiveMatrix(float fov, float aspect, float znear, float zfar)
 {
-	projection = DirectX::XMMatrixPerspectiveFovLH( fov, aspect, znear, zfar );
+	projection = DirectX::XMMatrixPerspectiveFovLH(fov, aspect, znear, zfar);
 	return	projection;
 }
 
@@ -47,11 +47,11 @@ DirectX::XMMATRIX	Camera::SetPerspectiveMatrix( float fov, float aspect, float z
 *******************************************************************************/
 DirectX::XMMATRIX	Camera::GetViewMatrix()
 {
-	DirectX::XMVECTOR	p	= DirectX::XMVectorSet( pos.x, pos.y, pos.z, 1.0f );
-	DirectX::XMVECTOR	t	= DirectX::XMVectorSet( target.x, target.y, target.z, 1.0f );
-	DirectX::XMVECTOR	up	= DirectX::XMVectorSet( 0.0f, 1.0f, 0.0f, 0.0f );
+	DirectX::XMVECTOR	p = DirectX::XMVectorSet(pos.x, pos.y, pos.z, 1.0f);
+	DirectX::XMVECTOR	t = DirectX::XMVectorSet(target.x, target.y, target.z, 1.0f);
+	DirectX::XMVECTOR	up = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 
-	return	DirectX::XMMatrixLookAtLH( p, t, up );
+	return	DirectX::XMMatrixLookAtLH(p, t, up);
 }
 
 
@@ -61,7 +61,7 @@ DirectX::XMMATRIX	Camera::GetViewMatrix()
 void	Camera::Update()
 {
 	//	カメラの更新
-	switch( mode )
+	switch (mode)
 	{
 	case WATCH:			Watch();		break;		//	「監視カメラ」
 	case DIRECTIONAL:	Directional();	break;		//	「相対位置固定カメラ」
@@ -70,15 +70,16 @@ void	Camera::Update()
 	case FPS:			Fps();			break;		//	「1人称カメラ(FPS)」
 	}
 
+	mode = DIRECTIONAL;
 
 	//	カメラの切り替え
-	if (GetAsyncKeyState('C') & 1)
-	{
-		mode = (mode + 1) % MODE::MAX;		//	1行でこう書ける
-		//	複数行ならこれが王道?
-		//mode++;
-		//if (mode <= MODE::MAX)	mode = WATCH;
-	}
+	//if (GetAsyncKeyState('C') & 1)
+	//{
+	//	mode = (mode + 1) % MODE::MAX;		//	1行でこう書ける
+	//	//	複数行ならこれが王道?
+	//	//mode++;
+	//	//if (mode <= MODE::MAX)	mode = WATCH;
+	//}
 
 
 	////	カメラモード確認用デバッグ
@@ -145,12 +146,12 @@ void	Camera::Fps()
 *******************************************************************************/
 void	Camera::Chase()
 {
-	const float	minDistance =  5.0f;
+	const float	minDistance = 5.0f;
 	const float	maxDistance = 15.0f;
 
 	float	dx = player.pos.x - pos.x;
 	float	dz = player.pos.z - pos.z;
-	float	distance = sqrtf(dx*dx + dz*dz);
+	float	distance = sqrtf(dx * dx + dz * dz);
 
 	if (distance < minDistance)
 	{

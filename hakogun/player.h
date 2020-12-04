@@ -38,13 +38,17 @@ public:
 
 	DirectX::XMFLOAT3	turret_pos;
 	float				turret_angle;				//	u‰ñ“]Šp“xv
+	int                 turret_timer;
+
+	bool                resetFlg = false;
+	int                 teleport_time = 0;
 
 	void	Dash();
 
-	void	Initialize( const char* );																							//	‰Šú‰»ŠÖ”
+	void	Initialize(const char*);																							//	‰Šú‰»ŠÖ”
 	void	Release();																											//	‰ğ•úŠÖ”
 	void	Move();																												//	ˆÚ“®ŠÖ”
-	void	Render( const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir );	//	•`‰æŠÖ”
+	void	Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir);	//	•`‰æŠÖ”
 
 	DirectX::XMFLOAT3 GetPosition();
 };

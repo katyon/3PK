@@ -15,7 +15,7 @@ void	MyMesh::Initialize()
 	scale	= DirectX::XMFLOAT3(1, 1, 1);
 
 
-	color	= DirectX::XMFLOAT4(1, 0, 1, 1);
+	color	= DirectX::XMFLOAT4(1, 1, 1, 1);
 
 	//	ÉÇÉfÉãì«Ç›çûÇ›
 	obj = nullptr;

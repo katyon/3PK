@@ -29,5 +29,3 @@ public:
 	DirectX::XMMATRIX	GetWorldMatrix();
 
 };
-
-

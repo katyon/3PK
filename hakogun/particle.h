@@ -54,5 +54,3 @@ public:
 };
 
 #define	pParticleManager	ParticleManager::getInstance()
-
-
