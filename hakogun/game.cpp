@@ -8,6 +8,7 @@
 #include	"shot.h"
 #include	"particle.h"
 #include	"wave.h"
+#include	"stage.h"
 
 #include	"collision.h"
 
@@ -104,7 +105,12 @@ void	Game::Initialize()
 
 	pWaveManager->init(modelNames01, waveData01);
 
-
+	pStage.Initialize("./Data/Fbx/stage.fbx");
+	pStage.pos.y -= 1.0f;
+	//pStage.angle = 0.0f;
+	pStage.obj.scale.x = 0.01f;
+	pStage.obj.scale.y = 0.01f;
+	pStage.obj.scale.z = 0.01f;
 }
 
 
@@ -116,6 +122,7 @@ void	Game::Release()
 	player.Release();			//	「プレイヤー」の解放処理
 	enemyManager.Release();		//	敵管理」の解放処理
 	shotManager.Release();		//	弾丸管理を解放
+	pStage.Release();
 }
 
 
@@ -131,6 +138,7 @@ bool	Game::Update()
 	player_after_image.Move();
 
 	pWaveManager->create();
+	pStage.Update();
 
 	//if (GetAsyncKeyState(' ') & 1)
 	//{
@@ -274,7 +282,8 @@ void	Game::Render()
 	//	ビュー変換行列
 	view = camera.GetViewMatrix();
 
-	field.Render(view, projection, light_direction);			//	「地面」の描画処理
+	pStage.Render(view, projection, light_direction);
+	//field.Render(view, projection, light_direction);			//	「地面」の描画処理
 	player.Render(view, projection, light_direction);			//	「プレイヤー」の描画処理
 	player_after_image.Render(view, projection, light_direction);
 	enemyManager.Render(view, projection, light_direction);		//	「敵管理」の描画処理

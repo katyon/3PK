@@ -6,6 +6,8 @@
 
 extern Player player;
 
+#define MOVELIMIT (20.f)
+
 /*******************************************************************************
 	「プレイヤー」クラスの初期化
 *******************************************************************************/
@@ -112,7 +114,7 @@ void	Player::Move()
 						right_dash = true;
 					}
 				}
-				else { pos.x += speed; }
+				else if (player.pos.x < MOVELIMIT) { pos.x += speed; }
 			}
 			if (pInputManager->inputKeyState(DIK_LEFT))
 			{
@@ -123,7 +125,7 @@ void	Player::Move()
 						left_dash = true;
 					}
 				}
-				else { pos.x -= speed; }
+				else if (player.pos.x > -MOVELIMIT) { pos.x -= speed; }
 			}
 			if (pInputManager->inputKeyState(DIK_UP))
 			{
@@ -134,7 +136,7 @@ void	Player::Move()
 						up_dash = true;
 					}
 				}
-				else { pos.z += speed; }
+				else if (player.pos.z < MOVELIMIT) { pos.z += speed; }
 			}
 			if (pInputManager->inputKeyState(DIK_DOWN))
 			{
@@ -145,7 +147,7 @@ void	Player::Move()
 						down_dash = true;
 					}
 				}
-				else { pos.z -= speed; }
+				else if (player.pos.z > -MOVELIMIT) { pos.z -= speed; }
 			}
 
 			//　ダッシュ回避
@@ -308,19 +310,23 @@ void Player::Dash()
 		accele -= 0.1f;
 		if (right_dash)
 		{
+			if (player.pos.x < MOVELIMIT)
 			pos.x += speed * accele;
 		}
 		else if (left_dash)
 		{
+			if (player.pos.x > -MOVELIMIT)
 			pos.x -= speed * accele;
 		}
 
 		if (up_dash)
 		{
+			if (player.pos.z < MOVELIMIT)
 			pos.z += speed * accele;
 		}
 		else if (down_dash)
 		{
+			if (player.pos.z > -MOVELIMIT)
 			pos.z -= speed * accele;
 		}
 

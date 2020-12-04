@@ -170,6 +170,7 @@
     <ClCompile Include="shot.cpp" />
     <ClCompile Include="skinned_mesh.cpp" />
     <ClCompile Include="sprite.cpp" />
+    <ClCompile Include="stage.cpp" />
     <ClCompile Include="static_mesh.cpp" />
     <ClCompile Include="title.cpp" />
     <ClCompile Include="Util.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="shot.h" />
     <ClInclude Include="skinned_mesh.h" />
     <ClInclude Include="sprite.h" />
+    <ClInclude Include="stage.h" />
     <ClInclude Include="static_mesh.h" />
     <ClInclude Include="title.h" />
     <ClInclude Include="Util.h" />

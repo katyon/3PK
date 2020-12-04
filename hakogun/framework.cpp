@@ -2,6 +2,8 @@
 #include "input.h"
 #include "scene_manager.h"
 
+#include "player.h"
+
 #pragma comment( lib, "d3d11.lib" )
 #pragma comment( lib, "dxgi.lib" )
 
@@ -318,6 +320,17 @@ void framework::render(float elapsed_time/*Elapsed seconds from last frame*/)
     text.Set(str, 0, 0);
 
 #endif // BENCHMARK_RENDER
+#ifdef _DEBUG
+    char str[128];
+    extern Player player;
+    sprintf_s(str, "plpos.x:%f", player.pos.x);
+    text.Set(str, 0, 0);
+    sprintf_s(str, "plpos.y:%f", player.pos.y);
+    text.Set(str, 0, 30);
+    sprintf_s(str, "plpos.z:%f", player.pos.z);
+    text.Set(str, 0, 60);
+#endif // _DEBUG
+
 
     text.Render(context);
 

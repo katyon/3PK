@@ -1,5 +1,6 @@
 // インクルード ----------------------------------------------------------------------------------
 #include "framework.h"
+#include "input.h"
 #include "scene_manager.h"
 #include "title.h"
 
@@ -11,7 +12,7 @@ void Title::init(void)
 
 void Title::update(void)
 {
-    if (GetAsyncKeyState(VK_SPACE) & 1)
+    if (pInputManager->inputKeyState(DIK_SPACE))
     {
         pSceneManager.playChoice = true;
 

@@ -122,6 +122,9 @@
     <ClCompile Include="skinned_mesh.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="stage.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blender.h">
@@ -191,6 +194,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="skinned_mesh.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="stage.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
