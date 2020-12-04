@@ -129,6 +129,10 @@ bool framework::initialize()
     sprites[0] = std::make_unique<Sprite>(device, L"./Data/Sprites/title.png");
     sprites[1] = std::make_unique<Sprite>(device, L"./Data/Sprites/clear.png");
 
+    sprites[6] = std::make_unique<Sprite>(device, L"./Data/Sprites/Explanation1.png");
+    sprites[7] = std::make_unique<Sprite>(device, L"./Data/Sprites/Explanation2.png");
+    sprites[8] = std::make_unique<Sprite>(device, L"./Data/Sprites/Explanation3.png");
+
     pSceneManager.init();
 
     return true;

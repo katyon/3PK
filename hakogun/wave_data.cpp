@@ -13,7 +13,7 @@ TODO:06 WAVE管理用のデータを作成する
 *******************************************************************************/
 char* modelNames01[] =
 {
-	"./Data/Fbx/ziki.fbx",
+	"./Data/Fbx/tinko.fbx",
 	NULL					//	終端
 };
 
@@ -21,35 +21,35 @@ char* modelNames01[] =
 Wave waveData01[] =
 {
 	//	  番号    ﾓﾃﾞﾙ 座標X,Z    角度   色　　HP
-		{ 0,	  0,	-5,	+5,	  180,	 DirectX::XMFLOAT4(1.0f,0,0,1.0f), 3 },
-		{ 0,	  0,	 0,	+5,	  180,	 DirectX::XMFLOAT4(1.0f,0,0,1.0f), 3 },
-		{ 0,	  0,	+5,	-5,	  180,	 DirectX::XMFLOAT4(1.0f,0,0,1.0f), 3 },
-		{ 0,	  0,   -10,	+7,	  180,	 DirectX::XMFLOAT4(1.0f,0,0,1.0f), 3 },
-		{ 0,	  0,	 3, +9,   180,	 DirectX::XMFLOAT4(1.0f,0,0,1.0f), 3 },
-		{ 0,	  0,   -12, -6,	  180,	 DirectX::XMFLOAT4(1.0f,0,0,1.0f), 3 },
-		{ 0,	  0,	-5,-12,	  180,	 DirectX::XMFLOAT4(1.0f,0,0,1.0f), 3 },
-		{ 0,	  0,	+9,+14,	  180,	 DirectX::XMFLOAT4(1.0f,0,0,1.0f), 3 },
-		{ 0,	  0,	+11,-9,	  180,	 DirectX::XMFLOAT4(1.0f,0,0,1.0f), 3 },
+		{ 1,	  0,	-5,	+5,	  180,	 DirectX::XMFLOAT4(1.0f,0.6f,0,1.0f), 3 },
+		{ 1,	  0,	 0,	+5,	  180,	 DirectX::XMFLOAT4(1.0f,0.6f,0,1.0f), 3 },
+		{ 1,	  0,	+5,	-5,	  180,	 DirectX::XMFLOAT4(1.0f,0.6f,0,1.0f), 3 },
+		{ 1,	  0,   -10,	+7,	  180,	 DirectX::XMFLOAT4(1.0f,0.6f,0,1.0f), 3 },
+		{ 1,	  0,	 3, +9,   180,	 DirectX::XMFLOAT4(1.0f,0.6f,0,1.0f), 3 },
+		{ 1,	  0,   -12, -6,	  180,	 DirectX::XMFLOAT4(1.0f,0.6f,0,1.0f), 3 },
+		{ 1,	  0,	-5,-12,	  180,	 DirectX::XMFLOAT4(1.0f,0.6f,0,1.0f), 3 },
+		{ 1,	  0,	+9,+14,	  180,	 DirectX::XMFLOAT4(1.0f,0.6f,0,1.0f), 3 },
+		{ 1,	  0,	+11,-9,	  180,	 DirectX::XMFLOAT4(1.0f,0.6f,0,1.0f), 3 },
 
-		{ 1,	  0,	-3, +3,	  180,	 DirectX::XMFLOAT4(0,1.0f,0,1.0f), 3 },
-		{ 1,	  0,	+7,	+5,	  180,	 DirectX::XMFLOAT4(0,1.0f,0,1.0f), 3 },
-		{ 1,	  0,   -11,	+9,	  180,	 DirectX::XMFLOAT4(0,1.0f,0,1.0f), 3 },
-		{ 1,	  0,   +13,+11,	  180,	 DirectX::XMFLOAT4(0,1.0f,0,1.0f), 3 },
-		{ 1,	  0,	-9,	-7,	  180,	 DirectX::XMFLOAT4(0,1.0f,0,1.0f), 3 },
-		{ 1,	  0,   +11,	-9,	  180,	 DirectX::XMFLOAT4(0,1.0f,0,1.0f), 3 },
-		{ 1,	  0,	-7,-15,	  180,	 DirectX::XMFLOAT4(0,1.0f,0,1.0f), 3 },
-		{ 1,	  0,   -15,-11,	  180,	 DirectX::XMFLOAT4(0,1.0f,0,1.0f), 3 },
+		{ 2,	  0,	-3, +3,	  180,	 DirectX::XMFLOAT4(1.0f,0.4f,0,1.0f), 3 },
+		{ 2,	  0,	+7,	+5,	  180,	 DirectX::XMFLOAT4(1.0f,0.4f,0,1.0f), 3 },
+		{ 2,	  0,   -11,	+9,	  180,	 DirectX::XMFLOAT4(1.0f,0.4f,0,1.0f), 3 },
+		{ 2,	  0,   +13,+11,	  180,	 DirectX::XMFLOAT4(1.0f,0.4f,0,1.0f), 3 },
+		{ 2,	  0,	-9,	-7,	  180,	 DirectX::XMFLOAT4(1.0f,0.4f,0,1.0f), 3 },
+		{ 2,	  0,   +11,	-9,	  180,	 DirectX::XMFLOAT4(1.0f,0.4f,0,1.0f), 3 },
+		{ 2,	  0,	-7,-15,	  180,	 DirectX::XMFLOAT4(1.0f,0.4f,0,1.0f), 3 },
+		{ 2,	  0,   -15,-11,	  180,	 DirectX::XMFLOAT4(1.0f,0.4f,0,1.0f), 3 },
 
-		{ 2,	  0,	-3, -3,	  180,	 DirectX::XMFLOAT4(0,0,1.0f,1.0f), 3 },
-		{ 2,	  0,	-7,	+5,	  180,	 DirectX::XMFLOAT4(0,0,1.0f,1.0f), 3 },
-		{ 2,	  0,   +11,	-9,	  180,	 DirectX::XMFLOAT4(0,0,1.0f,1.0f), 3 },
-		{ 2,	  0,   +13,+11,	  180,	 DirectX::XMFLOAT4(0,0,1.0f,1.0f), 3 },
-		{ 2,	  0,	-9,	-7,	  180,	 DirectX::XMFLOAT4(0,0,1.0f,1.0f), 3 },
-		{ 2,	  0,   -11,	+9,	  180,	 DirectX::XMFLOAT4(0,0,1.0f,1.0f), 3 },
-		{ 2,	  0,	+7,-15,	  180,	 DirectX::XMFLOAT4(0,0,1.0f,1.0f), 3 },
-		{ 2,	  0,   -15,+11,	  180,	 DirectX::XMFLOAT4(0,0,1.0f,1.0f), 3 },
+		{ 3,	  0,	-3, -3,	  180,	 DirectX::XMFLOAT4(1.0f,0.4f,0,1.0f), 3 },
+		{ 3,	  0,	-7,	+5,	  180,	 DirectX::XMFLOAT4(1.0f,0.4f,0,1.0f), 3 },
+		{ 3,	  0,   +11,	-9,	  180,	 DirectX::XMFLOAT4(1.0f,0.4f,0,1.0f), 3 },
+		{ 3,	  0,   +13,+11,	  180,	 DirectX::XMFLOAT4(1.0f,0.4f,0,1.0f), 3 },
+		{ 3,	  0,	-9,	-7,	  180,	 DirectX::XMFLOAT4(1.0f,0.4f,0,1.0f), 3 },
+		{ 3,	  0,   -11,	+9,	  180,	 DirectX::XMFLOAT4(1.0f,0.4f,0,1.0f), 3 },
+		{ 3,	  0,	+7,-15,	  180,	 DirectX::XMFLOAT4(1.0f,0.4f,0,1.0f), 3 },
+		{ 3,	  0,   -15,+11,	  180,	 DirectX::XMFLOAT4(1.0f,0.4f,0,1.0f), 3 },
 
-		{ 3,	  0,	 0,+10,	  180,	 DirectX::XMFLOAT4(1.0f,1.0f,1.0f,1.0f), 70 },
+		{ 4,	  0,	 0,+10,	  180,	 DirectX::XMFLOAT4(1.0f,0.0f,0.0f,1.0f), 70 },
 
 		{ -1,	-1,	0, 0, 0,	DirectX::XMFLOAT4(0,0,0,0) }		//	終端
 };

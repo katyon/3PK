@@ -17,6 +17,7 @@ public:
 	bool	Update();
 	void	Render();
 
+	bool	Explanation[8];
 
 	static Game& getInstance()
 	{
