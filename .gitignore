@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 hakogun/.vs/
 hakogun/Debug/
 hakogun/DirectXTex-master/
@@ -12,3 +13,16 @@ no title/DirectXTex-master/
 no title/DirectXTK-master/
 no title/FBX SDK/
 hakogun/FBXSDK/
+=======
+no title/.vs/
+no title/Debug/
+no title/DirectXTK-master/
+no title/FBXSDK/include/fbxsdk/core/fbxpropertyhandle.h
+no title/FBXSDK/
+hakogun/FBXSDK/include/fbxsdk/utils/fbxrenamingstrategyfbx6.h
+hakogun/FBXSDK/
+hakogun/DirectXTK-master/
+hakogun/Debug/
+hakogun/.vs/
+hakogun/
+>>>>>>> izanagi_develop
