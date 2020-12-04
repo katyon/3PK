@@ -36,36 +36,26 @@
 // Level9 shader bytecode:
 //
     vs_2_x
-    dcl_texcoord v0  // position<0,1,2,3>
-    dcl_texcoord1 v1  // texcoord<0,1>
-    dcl_texcoord2 v2  // ndc_transform<0,4,8,12>
-    dcl_texcoord3 v3  // ndc_transform<1,5,9,13>
-    dcl_texcoord4 v4  // ndc_transform<2,6,10,14>
-    dcl_texcoord5 v5  // ndc_transform<3,7,11,15>
-    dcl_texcoord6 v6  // texcoord_transform<0,1,2,3>
-    dcl_texcoord7 v7  // color<0,1,2,3>
+    dcl_texcoord v0
+    dcl_texcoord1 v1
+    dcl_texcoord2 v2
+    dcl_texcoord3 v3
+    dcl_texcoord4 v4
+    dcl_texcoord5 v5
+    dcl_texcoord6 v6
+    dcl_texcoord7 v7
+    mov r0, v0
+    dp4 oPos.z, r0, v4
+    mov r1, v6
+    mad oT1.xy, v1, r1.zwzw, r1
+    dp4 r1.x, r0, v2
+    dp4 r1.y, r0, v3
+    dp4 r0.x, r0, v5
+    mad oPos.xy, r0.x, c0, r1
+    mov oPos.w, r0.x
+    mov oT0, v7
 
-#line 13 "C:\Users\2190195\Desktop\チ�Eム制作　倉庫\3PK\hakogun\Data\Shader\sprite_batch_vs.hlsl"
-    mov r0, v0  // position<0,1,2,3>
-    dp4 r1.x, r0, v2  // ::vout<0>
-    dp4 r1.y, r0, v3  // ::vout<1>
-    dp4 r1.z, r0, v4  // ::vout<2>
-    dp4 r1.w, r0, v5  // ::vout<3>
-    mov r0, v7  // ::vout<4,5,6,7>
-    mov r2.zw, v6  // texcoord_transform<2,3>
-    mul r2.xy, r2.zwzw, v1
-    add r2.xy, r2, v6  // ::vout<8,9>
-    mov oT0, r0  // ::main<4,5,6,7>
-    mov r1.xy, r1  // ::main<0,1>
-    mov r1.zw, r1  // ::main<2,3>
-    mov oT1.xy, r2  // ::main<8,9>
-
-#line 3
-    mul r0.xy, r1.w, c0
-    add oPos.xy, r0, r1  // ::main<0,1>
-    mov oPos.zw, r1  // ::main<2,3>
-
-// approximately 16 instruction slots used
+// approximately 10 instruction slots used
 vs_4_0
 dcl_input v0.xyzw
 dcl_input v1.xy
@@ -78,37 +68,11 @@ dcl_input v7.xyzw
 dcl_output_siv o0.xyzw, position
 dcl_output o1.xyzw
 dcl_output o2.xy
-dcl_temps 3
-//
-// Initial variable locations:
-//   v0.x <- position.x; v0.y <- position.y; v0.z <- position.z; v0.w <- position.w; 
-//   v1.x <- texcoord.x; v1.y <- texcoord.y; 
-//   v2.x <- ndc_transform._m00; v2.y <- ndc_transform._m10; v2.z <- ndc_transform._m20; v2.w <- ndc_transform._m30; 
-//   v3.x <- ndc_transform._m01; v3.y <- ndc_transform._m11; v3.z <- ndc_transform._m21; v3.w <- ndc_transform._m31; 
-//   v4.x <- ndc_transform._m02; v4.y <- ndc_transform._m12; v4.z <- ndc_transform._m22; v4.w <- ndc_transform._m32; 
-//   v5.x <- ndc_transform._m03; v5.y <- ndc_transform._m13; v5.z <- ndc_transform._m23; v5.w <- ndc_transform._m33; 
-//   v6.x <- texcoord_transform.x; v6.y <- texcoord_transform.y; v6.z <- texcoord_transform.z; v6.w <- texcoord_transform.w; 
-//   v7.x <- color.x; v7.y <- color.y; v7.z <- color.z; v7.w <- color.w; 
-//   o2.x <- <main return value>.texcoord.x; o2.y <- <main return value>.texcoord.y; 
-//   o1.x <- <main return value>.color.x; o1.y <- <main return value>.color.y; o1.z <- <main return value>.color.z; o1.w <- <main return value>.color.w; 
-//   o0.x <- <main return value>.pos.x; o0.y <- <main return value>.pos.y; o0.z <- <main return value>.pos.z; o0.w <- <main return value>.pos.w
-//
-#line 13 "C:\Users\2190195\Desktop\チE"
-dp4 r0.x, v0.xyzw, v2.xyzw  // r0.x <- vout.pos.x
-dp4 r0.y, v0.xyzw, v3.xyzw  // r0.y <- vout.pos.y
-dp4 r0.z, v0.xyzw, v4.xyzw  // r0.z <- vout.pos.z
-dp4 r0.w, v0.xyzw, v5.xyzw  // r0.w <- vout.pos.w
-
-#line 14
-mov r1.xyzw, v7.xyzw  // r1.x <- vout.color.x; r1.y <- vout.color.y; r1.z <- vout.color.z; r1.w <- vout.color.w
-
-#line 15
-mul r2.xy, v1.xyxx, v6.zwzz
-add r2.xy, r2.xyxx, v6.xyxx  // r2.x <- vout.texcoord.x; r2.y <- vout.texcoord.y
-
-#line 17
-mov o0.xyzw, r0.xyzw
-mov o1.xyzw, r1.xyzw
-mov o2.xy, r2.xyxx
+dp4 o0.x, v0.xyzw, v2.xyzw
+dp4 o0.y, v0.xyzw, v3.xyzw
+dp4 o0.z, v0.xyzw, v4.xyzw
+dp4 o0.w, v0.xyzw, v5.xyzw
+mov o1.xyzw, v7.xyzw
+mad o2.xy, v1.xyxx, v6.zwzz, v6.xyxx
 ret 
-// Approximately 11 instruction slots used
+// Approximately 7 instruction slots used

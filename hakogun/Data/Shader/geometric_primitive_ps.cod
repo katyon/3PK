@@ -21,39 +21,20 @@
 // Level9 shader bytecode:
 //
     ps_2_x
-    def c0, 0, 1, -1, 0
-    dcl t0  // pin<4,5,6,7>
-
-#line 5 "C:\Users\2190195\Desktop\チ�Eム制作　倉庫\3PK\hakogun\Data\Shader\geometric_primitive_ps.hlsl"
-    mov r0.w, -t0.w
-    add r0.x, r0.w, c0.x
-    cmp r0.x, r0.x, c0.y, c0.x
-    mul r0, r0.x, c0.z
+    def c0, -1, -0, 0, 0
+    dcl t0
+    cmp r0, -t0.w, c0.x, c0.y
     texkill r0
-    mov r0, t0  // ::main<0,1,2,3>
+    mov r0, t0
+    mov oC0, r0
 
-#line 3
-    mov oC0, r0  // ::main<0,1,2,3>
-
-// approximately 7 instruction slots used
+// approximately 4 instruction slots used
 ps_4_0
 dcl_input_ps linear v1.xyzw
 dcl_output o0.xyzw
 dcl_temps 1
-//
-// Initial variable locations:
-//   v0.x <- pin.position.x; v0.y <- pin.position.y; v0.z <- pin.position.z; v0.w <- pin.position.w; 
-//   v1.x <- pin.color.x; v1.y <- pin.color.y; v1.z <- pin.color.z; v1.w <- pin.color.w; 
-//   o0.x <- <main return value>.x; o0.y <- <main return value>.y; o0.z <- <main return value>.z; o0.w <- <main return value>.w
-//
-#line 5 "C:\Users\2190195\Desktop\チE"
-itof r0.x, l(0)
-ge r0.x, r0.x, v1.w
-if_nz r0.x
-  discard_nz l(-1)
-endif 
-
-#line 6
+ge r0.x, l(0.000000), v1.w
+discard_nz r0.x
 mov o0.xyzw, v1.xyzw
 ret 
-// Approximately 7 instruction slots used
+// Approximately 4 instruction slots used
