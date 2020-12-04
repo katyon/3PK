@@ -19,48 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\blender.cpp" />
-    <ClCompile Include="Source\camera.cpp" />
-    <ClCompile Include="Source\collision.cpp" />
-    <ClCompile Include="Source\enemy.cpp" />
-    <ClCompile Include="Source\input.cpp" />
-    <ClCompile Include="Source\wave_data.cpp" />
-    <ClCompile Include="Source\framework.cpp" />
-    <ClCompile Include="Source\game.cpp" />
-    <ClCompile Include="Source\geometric_primitive.cpp" />
-    <ClCompile Include="Source\main.cpp" />
-    <ClCompile Include="Source\my_mesh.cpp" />
-    <ClCompile Include="Source\particle.cpp" />
-    <ClCompile Include="Source\player.cpp" />
-    <ClCompile Include="Source\resource_manager.cpp" />
-    <ClCompile Include="Source\shot.cpp" />
-    <ClCompile Include="Source\static_mesh.cpp" />
-    <ClCompile Include="Source\sprite.cpp" />
-    <ClCompile Include="Source\Util.cpp" />
-    <ClCompile Include="Source\wave.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Source\blender.h" />
-    <ClInclude Include="Source\camera.h" />
-    <ClInclude Include="Source\collision.h" />
-    <ClInclude Include="Source\enemy.h" />
-    <ClInclude Include="Source\framework.h" />
-    <ClInclude Include="Source\game.h" />
-    <ClInclude Include="Source\geometric_primitive.h" />
-    <ClInclude Include="Source\high_resolution_timer.h" />
-    <ClInclude Include="Source\input.h" />
-    <ClInclude Include="Source\misc.h" />
-    <ClInclude Include="Source\my_mesh.h" />
-    <ClInclude Include="Source\particle.h" />
-    <ClInclude Include="Source\player.h" />
-    <ClInclude Include="Source\resource_manager.h" />
-    <ClInclude Include="Source\shot.h" />
-    <ClInclude Include="Source\static_mesh.h" />
-    <ClInclude Include="Source\sprite.h" />
-    <ClInclude Include="Source\Util.h" />
-    <ClInclude Include="Source\wave.h" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Data\Shader\geometric_primitive.hlsli" />
     <None Include="Data\Shader\static_mesh.hlsli" />
     <None Include="Data\Shader\sprite.hlsli" />
@@ -193,12 +151,66 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="blender.cpp" />
+    <ClCompile Include="camera.cpp" />
+    <ClCompile Include="change.cpp" />
+    <ClCompile Include="clear.cpp" />
+    <ClCompile Include="collision.cpp" />
+    <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="framework.cpp" />
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="geometric_primitive.cpp" />
+    <ClCompile Include="input.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="my_mesh.cpp" />
+    <ClCompile Include="particle.cpp" />
+    <ClCompile Include="player.cpp" />
+    <ClCompile Include="resource_manager.cpp" />
+    <ClCompile Include="scene_manager.cpp" />
+    <ClCompile Include="shot.cpp" />
+    <ClCompile Include="skinned_mesh.cpp" />
+    <ClCompile Include="sprite.cpp" />
+    <ClCompile Include="stage.cpp" />
+    <ClCompile Include="static_mesh.cpp" />
+    <ClCompile Include="title.cpp" />
+    <ClCompile Include="Util.cpp" />
+    <ClCompile Include="wave.cpp" />
+    <ClCompile Include="wave_data.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="blender.h" />
+    <ClInclude Include="camera.h" />
+    <ClInclude Include="change.h" />
+    <ClInclude Include="clear.h" />
+    <ClInclude Include="collision.h" />
+    <ClInclude Include="enemy.h" />
+    <ClInclude Include="framework.h" />
+    <ClInclude Include="game.h" />
+    <ClInclude Include="geometric_primitive.h" />
+    <ClInclude Include="high_resolution_timer.h" />
+    <ClInclude Include="input.h" />
+    <ClInclude Include="misc.h" />
+    <ClInclude Include="my_mesh.h" />
+    <ClInclude Include="particle.h" />
+    <ClInclude Include="player.h" />
+    <ClInclude Include="resource_manager.h" />
+    <ClInclude Include="scene_manager.h" />
+    <ClInclude Include="shot.h" />
+    <ClInclude Include="skinned_mesh.h" />
+    <ClInclude Include="sprite.h" />
+    <ClInclude Include="stage.h" />
+    <ClInclude Include="static_mesh.h" />
+    <ClInclude Include="title.h" />
+    <ClInclude Include="Util.h" />
+    <ClInclude Include="wave.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0DDBE550-8551-4506-9A5A-4DD100C00C48}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>MyProjectBase</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>ProjectBase</ProjectName>
+    <ProjectName>3dgp</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
