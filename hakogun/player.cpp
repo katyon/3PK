@@ -12,7 +12,7 @@ extern Player player;
 void	Player::Initialize(const char* filename)
 {
 	obj.Initialize();
-	obj.Load(filename);
+	obj.Load( filename );
 
 	obj1 = obj2 = obj;
 
@@ -26,7 +26,7 @@ void	Player::Initialize(const char* filename)
 
 
 
-/*******************************************************************************
+/*******************************************************************************	
 	「プレイヤー」クラスの解放
 *******************************************************************************/
 void	Player::Release()
@@ -40,7 +40,7 @@ void	Player::Release()
 /*******************************************************************************
 	「プレイヤー」クラスの描画
 *******************************************************************************/
-void	Player::Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir)
+void	Player::Render( const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir )
 {
 	if (exist)
 	{
@@ -53,7 +53,7 @@ void	Player::Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& proj
 			obj1.angle.y = player.angle;
 			obj1.color = { 0.0, 1.0, 1.0, 0.5 };
 			obj1.Render(view, projection, light_dir);
-
+			
 			obj2.pos = previous_pos2;
 			obj2.angle.y = player.angle;
 			obj2.color = { 1.0, 0.0, 1.0, 0.3 };
@@ -73,8 +73,8 @@ void	Player::Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& proj
 *******************************************************************************/
 void	Player::Move()
 {
-	const float dangle = DirectX::XMConvertToRadians(2.0f);		//	1度
-	const float speed = 0.20f;									//	プレイヤーの速度
+	const float dangle	= DirectX::XMConvertToRadians( 2.0f );		//	1度
+	const float speed	= 0.20f;									//	プレイヤーの速度
 
 	////	回転
 	//if (pInputManager->inputKeyState(DIK_LEFT))	 angle -= dangle;

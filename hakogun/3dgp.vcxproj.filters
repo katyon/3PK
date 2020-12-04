@@ -19,144 +19,69 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="skinned_mesh.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="blender.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="camera.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="collision.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="enemy.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="framework.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="game.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="geometric_primitive.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="input.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="my_mesh.cpp">
+    <ClCompile Include="mock.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="particle.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="player.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="resource_manager.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="shot.cpp">
+    <ClCompile Include="shader.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="sprite.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="texture.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="geometric_primitive.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
     <ClCompile Include="static_mesh.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="wave.cpp">
+    <ClCompile Include="skinned_mesh.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="wave_data.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="scene_manager.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="title.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="clear.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Utilcpp.cpp">
+    <ClCompile Include="input.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="skinned_mesh.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="blender.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="camera.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="collision.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="enemy.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="framework.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="game.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="geometric_primitive.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="high_resolution_timer.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="input.h">
+    <ClInclude Include="sprite.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="misc.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="my_mesh.h">
+    <ClInclude Include="shader.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="particle.h">
+    <ClInclude Include="texture.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="player.h">
+    <ClInclude Include="blender.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="resource_manager.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="shot.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="sprite.h">
+    <ClInclude Include="geometric_primitive.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="static_mesh.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Util.h">
+    <ClInclude Include="skinned_mesh.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="wave.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="scene_manager.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="title.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="clear.h">
+    <ClInclude Include="input.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

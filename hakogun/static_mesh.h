@@ -25,11 +25,11 @@ public:
 		_fbxInit(device, fbx_filename);
 	}
 	StaticMesh(ID3D11Device* device, const char* fbx_filename,
-		const char* vsName, D3D11_INPUT_ELEMENT_DESC* inputElementDescs, int numElement,
+		const char* vsName, D3D11_INPUT_ELEMENT_DESC *inputElementDescs, int numElement,
 		const char* psName) : GeometricPrimitive()
 	{
 		_init(device, vsName, inputElementDescs, numElement, psName);
 		_fbxInit(device, fbx_filename);
 	}
-	~StaticMesh() {}
+	~StaticMesh(){}
 };

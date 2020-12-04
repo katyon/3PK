@@ -12,7 +12,7 @@ extern	Player player;
 *******************************************************************************/
 void	Shot::Move()
 {
-
+	
 	//	ç≈ëÂãóó£ÇÃ2èÊÇéñëOÇ…åvéZ
 	const float	 DIST_SQUARE = MAX_DISTANCE * MAX_DISTANCE;
 
@@ -82,7 +82,7 @@ void	ShotManager::Update()
 {
 	for (auto& s : data)
 	{
-		if (!s.exist)	continue;
+		if( !s.exist )	continue;
 		s.Move();
 	}
 }
@@ -95,7 +95,7 @@ void	ShotManager::Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX&
 {
 	for (auto& s : data)
 	{
-		if (!s.exist)	continue;
+		if( !s.exist )	continue;
 
 		s.obj.pos = s.pos;
 		s.obj.angle.y = s.angle;
@@ -109,19 +109,19 @@ void	ShotManager::Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX&
 /*******************************************************************************
 	íeä€ä«óùÉNÉâÉXÇÃî≠éÀä÷êî
 *******************************************************************************/
-Shot* ShotManager::Set(DirectX::XMFLOAT3 pos, float angle, float speed, float scale, DirectX::XMFLOAT3 color)
+Shot*	ShotManager::Set(DirectX::XMFLOAT3 pos, float angle, float speed, float scale, DirectX::XMFLOAT3 color)
 {
 	for (auto& s : data)
 	{
-		if (s.exist)	continue;
+		if( s.exist )	continue;
 
 		s.obj.Release();		//	îOÇÃà◊âï˙
-		s.obj.SetPrimitive(new GeometricSphere(pFramework.getDevice()));
+		s.obj.SetPrimitive(new GeometricSphere(pframework.getDevice()));
 		s.obj.scale = DirectX::XMFLOAT3(scale, scale, scale);
-		s.obj.color = DirectX::XMFLOAT4(color.x, color.y, color.z, 1.0f);
+		s.obj.color = DirectX::XMFLOAT4(color.x, color.y, color.z, 1.0f );
 		s.pos = pos;
 		s.angle = angle;
-		s.speed = DirectX::XMFLOAT3(sinf(angle) * speed, .0f, cosf(angle) * speed);
+		s.speed = DirectX::XMFLOAT3(sinf(angle)*speed, .0f, cosf(angle)*speed);
 		s.timer = Shot::FADE_TIMER;
 		s.alpha = 1.0f;
 		s.exist = true;

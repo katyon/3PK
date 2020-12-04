@@ -25,7 +25,7 @@ void StaticMesh::_fbxInit(ID3D11Device* device, const char* fbx_filename)
 	// Initialize the importer.
 	bool import_status = false;
 	import_status = importer->Initialize(fbx_filename, -1, manager->GetIOSettings());
-	if (!import_status)
+	if(!import_status)
 	{
 		assert(importer->GetStatus().GetErrorString());
 		return;
@@ -36,7 +36,7 @@ void StaticMesh::_fbxInit(ID3D11Device* device, const char* fbx_filename)
 
 	// Import the contents of the file into the scene.
 	import_status = importer->Import(scene);
-	if (!import_status)
+	if(!import_status)
 	{
 		assert(importer->GetStatus().GetErrorString());
 		return;
@@ -50,7 +50,7 @@ void StaticMesh::_fbxInit(ID3D11Device* device, const char* fbx_filename)
 	std::vector<FbxNode*> fetched_meshes;
 	std::function<void(FbxNode*)> traverse = [&](FbxNode* node) {
 		if (node) {
-			FbxNodeAttribute* fbx_node_attribute = node->GetNodeAttribute();
+			FbxNodeAttribute *fbx_node_attribute = node->GetNodeAttribute();
 			if (fbx_node_attribute) {
 				switch (fbx_node_attribute->GetAttributeType()) {
 				case FbxNodeAttribute::eMesh:
@@ -64,14 +64,14 @@ void StaticMesh::_fbxInit(ID3D11Device* device, const char* fbx_filename)
 	};
 	traverse(scene->GetRootNode());
 
-	FbxMesh* fbx_mesh = fetched_meshes.at(0)->GetMesh();  // Currently only one mesh.
+	FbxMesh *fbx_mesh = fetched_meshes.at(0)->GetMesh();  // Currently only one mesh.
 
 	// Fetch mesh data
 	std::vector<Vertex> vertices;	// Vertex buffer
 	std::vector<u_int> indices;		// Index buffer
 	u_int vertex_count = 0;
 
-	const FbxVector4* array_of_control_points = fbx_mesh->GetControlPoints();
+	const FbxVector4 *array_of_control_points = fbx_mesh->GetControlPoints();
 	const int number_of_polygons = fbx_mesh->GetPolygonCount();
 	for (int index_of_polygon = 0; index_of_polygon < number_of_polygons; index_of_polygon++) {
 		for (int index_of_vertex = 0; index_of_vertex < 3; index_of_vertex++) {

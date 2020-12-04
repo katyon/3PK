@@ -1,7 +1,7 @@
 #include "geometric_primitive.hlsli"
 
 
-VS_OUT main(float4 pos : POSITION, float4 normal : NORMAL)
+VS_OUT main( float4 pos : POSITION, float4 normal : NORMAL )
 {
 	VS_OUT vout;
 

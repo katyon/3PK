@@ -37,11 +37,11 @@ class framework
 
 		pGame.Release();
 
-		if (depth_stencil_view)	depth_stencil_view->Release();
-		if (render_target_view)	render_target_view->Release();
-		if (swap_chain)			swap_chain->Release();
-		if (context)				context->Release();
-		if (device)				device->Release();
+		if(depth_stencil_view)	depth_stencil_view->Release();
+		if(render_target_view)	render_target_view->Release();
+		if(swap_chain)			swap_chain->Release();
+		if(context)				context->Release();
+		if(device)				device->Release();
 	}
 
 public:
@@ -110,11 +110,11 @@ public:
 	}
 
 private:
-	ID3D11Device* device;
-	ID3D11DeviceContext* context;
-	IDXGISwapChain* swap_chain;
-	ID3D11RenderTargetView* render_target_view;
-	ID3D11DepthStencilView* depth_stencil_view;
+	ID3D11Device*				device;
+	ID3D11DeviceContext*		context;
+	IDXGISwapChain*				swap_chain;
+	ID3D11RenderTargetView*		render_target_view;
+	ID3D11DepthStencilView*		depth_stencil_view;
 
 	float						clearColor[4];
 
@@ -163,8 +163,8 @@ public:
 		clearColor[0] = r, clearColor[1] = g, clearColor[2] = b;
 		clearColor[3] = 1.0f;										//	Ç±Ç±ÇÕèÌÇ…1
 	}
-	inline static ID3D11Device* getDevice() { return	framework::getInstance().device; };
-	inline static ID3D11DeviceContext* getContext() { return	framework::getInstance().context; };
+	inline static ID3D11Device*			getDevice()	{ return	framework::getInstance().device;	};
+	inline static ID3D11DeviceContext*	getContext(){ return	framework::getInstance().context;	};
 };
 
-#define	pFramework			framework::getInstance()
+#define	pframework framework::getInstance()

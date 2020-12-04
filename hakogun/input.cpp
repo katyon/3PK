@@ -39,7 +39,7 @@ InputManager::~InputManager()
 HRESULT InputManager::InitializeManager(HINSTANCE _hInstance, HWND hwnd)
 {
     HRESULT hr = S_OK;
-
+    
     hr = DirectInput8Create(
         _hInstance,
         DIRECTINPUT_VERSION,
@@ -57,7 +57,7 @@ HRESULT InputManager::InitializeManager(HINSTANCE _hInstance, HWND hwnd)
     hr = lpKeyboard->SetCooperativeLevel(hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE | DISCL_NOWINKEY);
     _ASSERT(SUCCEEDED(hr));
 
-    return S_OK;
+    return S_OK; 
 }
 
 HRESULT InputManager::InitializeKeyboard()
@@ -88,8 +88,6 @@ void InputManager::Run()
 {
     UpdateKeyboard();
 }
-
-
 
 //bool input_mouse::InitInput()
 //{

@@ -13,7 +13,7 @@ bool	Collision::HitSphere(const DirectX::XMFLOAT3& p1, float r1, const DirectX::
 	vec.x = p1.x - p2.x;
 	vec.y = p1.y - p2.y;
 	vec.z = p1.z - p2.z;
-	float L2 = vec.x * vec.x + vec.y * vec.y + vec.z * vec.z;
+	float L2 = vec.x*vec.x + vec.y*vec.y + vec.z*vec.z;
 
 	//	è’ìÀîªíË
 	if (L2 < R2)	return	true;

@@ -10,12 +10,12 @@
 void	MyMesh::Initialize()
 {
 	//	情報初期値
-	pos = DirectX::XMFLOAT3(0, 0, 0);
-	angle = DirectX::XMFLOAT3(0, 0, 0);
-	scale = DirectX::XMFLOAT3(1, 1, 1);
+	pos		= DirectX::XMFLOAT3(0, 0, 0);
+	angle	= DirectX::XMFLOAT3(0, 0, 0);
+	scale	= DirectX::XMFLOAT3(1, 1, 1);
 
 
-	color = DirectX::XMFLOAT4(1, 1, 1, 1);
+	color	= DirectX::XMFLOAT4(1, 1, 1, 1);
 
 	//	モデル読み込み
 	obj = nullptr;
@@ -29,7 +29,7 @@ void	MyMesh::Initialize()
 bool	MyMesh::Load(const char* fbx_filename)
 {
 	//	モデル読み込み
-	obj = new StaticMesh(pFramework.getDevice(), fbx_filename);
+	obj = new StaticMesh(pframework.getDevice(), fbx_filename);
 	bLoad = true;
 
 	return	true;
@@ -80,7 +80,7 @@ void	MyMesh::Release()
 void	MyMesh::Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir)
 {
 	//	モデルが無ければ描画処理を一切行わない
-	if (!obj)		return;
+	if( !obj )		return;
 
 	//	ワールド変換行列取得
 	DirectX::XMMATRIX worldM = GetWorldMatrix();
@@ -92,7 +92,7 @@ void	MyMesh::Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& proj
 	DirectX::XMStoreFloat4x4(&world, worldM);
 
 	//	描画
-	obj->render(pFramework.getContext(), world_view_projection, world, light_dir, color);
+	obj->render(pframework.getContext(), world_view_projection, world, light_dir, color);
 }
 
 

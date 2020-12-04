@@ -36,15 +36,15 @@ private:
 	Shot				data[MAX];
 
 public:
-	ShotManager() { Initialize(); }
-	virtual ~ShotManager() { Release(); }
+	ShotManager(){ Initialize(); }
+	virtual ~ShotManager(){ Release(); }
 
 	void	Initialize();
 	void	Release();
 	void	Update();
 	void	Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& proj, const DirectX::XMFLOAT4& light_dir);
-	Shot* Set(DirectX::XMFLOAT3 pos, float angle, float speed, float scale = 1.0f, DirectX::XMFLOAT3 color = DirectX::XMFLOAT3(1, 1, 1));
-	Shot* Get(int no)
+	Shot*	Set(DirectX::XMFLOAT3 pos, float angle, float speed, float scale = 1.0f , DirectX::XMFLOAT3 color = DirectX::XMFLOAT3(1,1,1));
+	Shot*	Get(int no)
 	{
 		if ((unsigned int)no >= MAX)	return	nullptr;
 		return	&data[no];

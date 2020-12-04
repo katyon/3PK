@@ -22,32 +22,32 @@
     <ProjectGuid>{0DDBE550-8551-4506-9A5A-4DD100C00C48}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>My3dgp</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -91,7 +91,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\DirectXTK-master\Inc;.\FBX SDK\2016.1.2\include;.\DirectXTex-master\DirectXTex;.\DirectXTex-master\WICTextureLoader;./FBXSDK/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\DirectXTK-master\Inc;.\FBX SDK\2016.1.2\include;.\DirectXTex-master\DirectXTex;.\DirectXTex-master\WICTextureLoader</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -164,54 +164,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="blender.cpp" />
-    <ClCompile Include="camera.cpp" />
-    <ClCompile Include="clear.cpp" />
-    <ClCompile Include="collision.cpp" />
-    <ClCompile Include="enemy.cpp" />
-    <ClCompile Include="framework.cpp" />
-    <ClCompile Include="game.cpp" />
     <ClCompile Include="geometric_primitive.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="my_mesh.cpp" />
-    <ClCompile Include="particle.cpp" />
-    <ClCompile Include="player.cpp" />
-    <ClCompile Include="resource_manager.cpp" />
-    <ClCompile Include="scene_manager.cpp" />
-    <ClCompile Include="shot.cpp" />
+    <ClCompile Include="framework.cpp" />
+    <ClCompile Include="mock.cpp" />
+    <ClCompile Include="shader.cpp" />
     <ClCompile Include="skinned_mesh.cpp" />
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="static_mesh.cpp" />
-    <ClCompile Include="title.cpp" />
-    <ClCompile Include="Utilcpp.cpp" />
-    <ClCompile Include="wave.cpp" />
-    <ClCompile Include="wave_data.cpp" />
+    <ClCompile Include="texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blender.h" />
-    <ClInclude Include="camera.h" />
-    <ClInclude Include="clear.h" />
-    <ClInclude Include="collision.h" />
-    <ClInclude Include="enemy.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="game.h" />
     <ClInclude Include="geometric_primitive.h" />
     <ClInclude Include="high_resolution_timer.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="misc.h" />
-    <ClInclude Include="my_mesh.h" />
-    <ClInclude Include="particle.h" />
-    <ClInclude Include="player.h" />
-    <ClInclude Include="resource_manager.h" />
-    <ClInclude Include="scene_manager.h" />
-    <ClInclude Include="shot.h" />
+    <ClInclude Include="shader.h" />
     <ClInclude Include="skinned_mesh.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="static_mesh.h" />
-    <ClInclude Include="title.h" />
-    <ClInclude Include="Util.h" />
-    <ClInclude Include="wave.h" />
+    <ClInclude Include="texture.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="geometric_primitive_ps.hlsl">

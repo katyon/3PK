@@ -20,15 +20,15 @@ protected:
 		DirectX::XMFLOAT4	light_direction;	//	
 	};
 
-	ID3D11VertexShader* vertex_shader;
-	ID3D11PixelShader* pixel_shader;
-	ID3D11InputLayout* input_layout;
-	ID3D11Buffer* vertex_buffer;
-	ID3D11Buffer* index_buffer;
-	ID3D11Buffer* constant_buffer;
-	ID3D11RasterizerState* wireframe_rasterizer_state;
-	ID3D11RasterizerState* solid_rasterizer_state;
-	ID3D11DepthStencilState* depth_stencil_state;
+	ID3D11VertexShader*			vertex_shader;
+	ID3D11PixelShader*			pixel_shader;
+	ID3D11InputLayout*			input_layout;
+	ID3D11Buffer*				vertex_buffer;
+	ID3D11Buffer*				index_buffer;
+	ID3D11Buffer*				constant_buffer;
+	ID3D11RasterizerState*		wireframe_rasterizer_state;
+	ID3D11RasterizerState*		solid_rasterizer_state;
+	ID3D11DepthStencilState*	depth_stencil_state;
 
 	int							numIndices;
 	bool						isMakeBuffer;
@@ -38,23 +38,23 @@ protected:
 		unsigned int* indices, int numI);
 
 	void	_init(ID3D11Device* device,
-		const char* vsName, D3D11_INPUT_ELEMENT_DESC* inputElementDescs, int numElement,
+		const char* vsName, D3D11_INPUT_ELEMENT_DESC *inputElementDescs, int numElement,
 		const char* psName);
 
 protected:
-	GeometricPrimitive() :
-		vertex_shader(nullptr), pixel_shader(nullptr), input_layout(nullptr),
-		vertex_buffer(nullptr), index_buffer(nullptr), constant_buffer(nullptr),
-		wireframe_rasterizer_state(nullptr), solid_rasterizer_state(nullptr),
-		depth_stencil_state(nullptr), numIndices(0), isMakeBuffer(false)
+	GeometricPrimitive():
+		vertex_shader(nullptr),	pixel_shader(nullptr),	input_layout(nullptr),
+		vertex_buffer(nullptr),	index_buffer(nullptr),	constant_buffer(nullptr),
+		wireframe_rasterizer_state(nullptr),	solid_rasterizer_state(nullptr),
+		depth_stencil_state(nullptr) ,numIndices(0), isMakeBuffer(false)
 	{}
 
 public:
 	GeometricPrimitive(ID3D11Device* device) :
-		vertex_shader(nullptr), pixel_shader(nullptr), input_layout(nullptr),
-		vertex_buffer(nullptr), index_buffer(nullptr), constant_buffer(nullptr),
-		wireframe_rasterizer_state(nullptr), solid_rasterizer_state(nullptr),
-		depth_stencil_state(nullptr), numIndices(0), isMakeBuffer(false)
+		vertex_shader(nullptr),	pixel_shader(nullptr),	input_layout(nullptr),
+		vertex_buffer(nullptr),	index_buffer(nullptr),	constant_buffer(nullptr),
+		wireframe_rasterizer_state(nullptr),	solid_rasterizer_state(nullptr),
+		depth_stencil_state(nullptr) ,numIndices(0), isMakeBuffer(false)
 	{
 		// 入力レイアウトの定義
 		D3D11_INPUT_ELEMENT_DESC layout[] =
@@ -69,24 +69,24 @@ public:
 		_init(device, vsName, layout, ARRAYSIZE(layout), psName);
 	}
 	GeometricPrimitive(ID3D11Device* device,
-		const char* vsName, D3D11_INPUT_ELEMENT_DESC* inputElementDescs, int numElement,
+		const char* vsName, D3D11_INPUT_ELEMENT_DESC *inputElementDescs, int numElement,
 		const char* psName) :
-		vertex_shader(nullptr), pixel_shader(nullptr), input_layout(nullptr),
-		vertex_buffer(nullptr), index_buffer(nullptr), constant_buffer(nullptr),
-		wireframe_rasterizer_state(nullptr), solid_rasterizer_state(nullptr),
-		depth_stencil_state(nullptr), numIndices(0), isMakeBuffer(false)
+		vertex_shader(nullptr),	pixel_shader(nullptr),	input_layout(nullptr),
+		vertex_buffer(nullptr),	index_buffer(nullptr),	constant_buffer(nullptr),
+		wireframe_rasterizer_state(nullptr),	solid_rasterizer_state(nullptr),
+		depth_stencil_state(nullptr) ,numIndices(0), isMakeBuffer(false)
 
 	{
 		_init(device, vsName, inputElementDescs, numElement, psName);
 	}
 	virtual ~GeometricPrimitive();
 
-	virtual void render(ID3D11DeviceContext* context,
+	virtual void render( ID3D11DeviceContext* context,
 		const DirectX::XMFLOAT4X4& wvp,
 		const DirectX::XMFLOAT4X4& world,
 		const DirectX::XMFLOAT4& light_direction,
-		const DirectX::XMFLOAT4& material_color = DirectX::XMFLOAT4(1, 1, 1, 1),
-		bool bSolid = true);
+		const DirectX::XMFLOAT4& material_color = DirectX::XMFLOAT4(1,1,1,1),
+		bool bSolid = true );
 };
 
 
@@ -94,7 +94,7 @@ class GeometricRect : public GeometricPrimitive
 {
 public:
 	GeometricRect(ID3D11Device* device);
-	~GeometricRect() {};
+	~GeometricRect(){};
 };
 
 
@@ -102,7 +102,7 @@ class GeometricBoard : public GeometricPrimitive
 {
 public:
 	GeometricBoard(ID3D11Device* device);
-	~GeometricBoard() {};
+	~GeometricBoard(){};
 };
 
 
@@ -110,15 +110,15 @@ class GeometricCube : public GeometricPrimitive
 {
 public:
 	GeometricCube(ID3D11Device* device);
-	~GeometricCube() {};
+	~GeometricCube(){};
 };
 
 
 class GeometricSphere : public GeometricPrimitive
 {
 public:
-	GeometricSphere(ID3D11Device* device, u_int slices = 16, u_int stacks = 16);
-	~GeometricSphere() {};
+	GeometricSphere(ID3D11Device* device, u_int slices=16, u_int stacks=16);
+	~GeometricSphere(){};
 };
 
 
@@ -129,14 +129,14 @@ private:
 	inline Vertex _makeVertex(const DirectX::XMFLOAT3& p);
 public:
 	//	形状は slices = (div-1) * 4, stacks = (div-1) * 2 と同じ
-	GeometricSphere2(ID3D11Device* device, u_int div = 8);
-	~GeometricSphere2() {};
+	GeometricSphere2(ID3D11Device* device, u_int div=8);
+	~GeometricSphere2(){};
 
-	virtual void render(ID3D11DeviceContext* context,
+	virtual void render( ID3D11DeviceContext* context,
 		const DirectX::XMFLOAT4X4& wvp,
 		const DirectX::XMFLOAT4X4& world,
 		const DirectX::XMFLOAT4& light_direction,
-		const DirectX::XMFLOAT4& material_color = DirectX::XMFLOAT4(1, 1, 1, 1),
-		bool bSolid = true);
+		const DirectX::XMFLOAT4& material_color = DirectX::XMFLOAT4(1,1,1,1),
+		bool bSolid = true );
 };
 

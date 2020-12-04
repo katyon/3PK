@@ -9,13 +9,13 @@ class ResourceManager
 	struct ShaderResourceViewData
 	{
 		wchar_t						filename[256];
-		ID3D11ShaderResourceView* shader_resource_view;
+		ID3D11ShaderResourceView*	shader_resource_view;
 		D3D11_TEXTURE2D_DESC		texDesc;
 		int							count;
 
 		ShaderResourceViewData() : shader_resource_view(nullptr), count(0)
 		{
-			ZeroMemory(filename, sizeof(filename));
+			ZeroMemory( filename, sizeof(filename) );
 		}
 
 		void Release(bool bForce = false)
@@ -37,13 +37,13 @@ class ResourceManager
 	struct VertexShadersData
 	{
 		char						filename[256];
-		ID3D11VertexShader* vertex_shader;
-		ID3D11InputLayout* input_layout;
+		ID3D11VertexShader*			vertex_shader;
+		ID3D11InputLayout*			input_layout;
 		int							count;
 
 		VertexShadersData() : vertex_shader(nullptr), input_layout(nullptr), count(0)
 		{
-			ZeroMemory(filename, sizeof(filename));
+			ZeroMemory( filename, sizeof(filename) );
 		}
 
 		void Release(bool bForce = false)
@@ -66,12 +66,12 @@ class ResourceManager
 	struct PixelShadersData
 	{
 		char						filename[256];
-		ID3D11PixelShader* pixel_shader;
+		ID3D11PixelShader*			pixel_shader;
 		int							count;
 
 		PixelShadersData() : pixel_shader(nullptr), count(0)
 		{
-			ZeroMemory(filename, sizeof(filename));
+			ZeroMemory( filename, sizeof(filename) );
 		}
 
 		void Release(bool bForce = false)
@@ -95,8 +95,8 @@ class ResourceManager
 	static VertexShadersData		vsData[RESOURCE_MAX];
 	static PixelShadersData			psData[RESOURCE_MAX];
 
-	ResourceManager() {}
-	~ResourceManager() { Release(); }
+	ResourceManager(){}
+	~ResourceManager(){ Release(); }
 
 public:
 	static void Release()
@@ -114,7 +114,7 @@ public:
 	static void ReleaseShaderResourceView(ID3D11ShaderResourceView* srv);
 
 	static bool LoadVertexShaders(ID3D11Device* device, const char* filename,
-		D3D11_INPUT_ELEMENT_DESC* elementDescs, int numElement,
+		D3D11_INPUT_ELEMENT_DESC *elementDescs, int numElement,
 		ID3D11VertexShader** vs, ID3D11InputLayout** il);
 	static void ReleaseVertexShaders(ID3D11VertexShader* vs, ID3D11InputLayout* il);
 

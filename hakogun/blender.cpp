@@ -2,10 +2,10 @@
 
 #include	<assert.h>
 
-ID3D11BlendState* blender::blend_state[MODE_MAX] = { 0 };
+ID3D11BlendState*		blender::blend_state[MODE_MAX] = {0};
 bool					blender::bLoad = false;
 blender::BLEND_MODE		blender::nowMode;
-ID3D11DeviceContext* blender::keepContext;
+ID3D11DeviceContext*	blender::keepContext;
 
 
 struct _blend_data
@@ -108,14 +108,14 @@ void	blender::Init(ID3D11Device* device, ID3D11DeviceContext* context)
 		bDesc.AlphaToCoverageEnable = FALSE;
 		bDesc.IndependentBlendEnable = FALSE;
 
-		D3D11_RENDER_TARGET_BLEND_DESC& rtbd = bDesc.RenderTarget[0];
-		rtbd.BlendEnable = (i != NONE ? TRUE : FALSE);
-		rtbd.SrcBlend = _bd.SrcBlend;
-		rtbd.DestBlend = _bd.DestBlend;
-		rtbd.BlendOp = _bd.BlendOp;
-		rtbd.SrcBlendAlpha = _bd.SrcBlendAlpha;
-		rtbd.DestBlendAlpha = _bd.DestBlendAlpha;
-		rtbd.BlendOpAlpha = _bd.BlendOpAlpha;
+		D3D11_RENDER_TARGET_BLEND_DESC &rtbd = bDesc.RenderTarget[0];
+		rtbd.BlendEnable			= (i != NONE ? TRUE : FALSE);
+		rtbd.SrcBlend				= _bd.SrcBlend;
+		rtbd.DestBlend				= _bd.DestBlend;
+		rtbd.BlendOp				= _bd.BlendOp;
+		rtbd.SrcBlendAlpha			= _bd.SrcBlendAlpha;
+		rtbd.DestBlendAlpha			= _bd.DestBlendAlpha;
+		rtbd.BlendOpAlpha			= _bd.BlendOpAlpha;
 		rtbd.RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 		hr = device->CreateBlendState(&bDesc, &blend_state[i]);
 		if (FAILED(hr))		assert(0 && "ƒuƒŒƒ“ƒhì¬Ž¸”s");
@@ -144,7 +144,7 @@ void	blender::Set(BLEND_MODE mode, ID3D11DeviceContext* context)
 
 void blender::Release()
 {
-	for (auto& p : blend_state)
+	for (auto &p : blend_state)
 	{
 		if (p)		p->Release();
 		p = nullptr;

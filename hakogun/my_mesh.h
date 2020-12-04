@@ -11,7 +11,7 @@ private:
 	bool				bLoad;
 
 public:
-	GeometricPrimitive* obj;
+	GeometricPrimitive*	obj;
 
 	DirectX::XMFLOAT3	pos;				//	「位置」
 	DirectX::XMFLOAT3	angle;				//	「(回転)角度」

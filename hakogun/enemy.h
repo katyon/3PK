@@ -24,7 +24,7 @@ private:
 	//	敵行動管理番号の宣言
 	enum	ENEMY_ACT
 	{
-		INITIALIZE = 0,		//	「初期化」
+		INITIALIZE	= 0,		//	「初期化」
 		SELECT,					//	「行動選択」
 		WAIT_INIT,				//	「待機_初期化」
 		WAIT_PROC,				//	「待機_処理」
@@ -67,11 +67,11 @@ public:
 
 	float               tank_rotate;
 
-	void	Initialize(const char*);																							//	初期化関数
+	void	Initialize( const char* );																							//	初期化関数
 
 	void	Release();																											//	解放関数
 	void	Move();																												//	移動関数
-	void	Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir);	//	描画関数
+	void	Render( const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir );	//	描画関数
 };
 
 
@@ -93,14 +93,14 @@ public:
 	void	Initialize();																										//	初期化関数
 	void	Release();																											//	解放関数
 	void	Update();																											//	更新関数
-	void	Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir);	//	描画関数
-
+	void	Render( const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir );	//	描画関数
+  
 	bool    AP();
 
-	Enemy* Set(const char* filename, DirectX::XMFLOAT3 pos, float angle, DirectX::XMFLOAT4 color, int hp);								//	敵設定関数
+	Enemy*	Set(const char* filename, DirectX::XMFLOAT3 pos, float angle, DirectX::XMFLOAT4 color, int hp);								//	敵設定関数
 	Enemy* EnemyManager::Set(MyMesh& mesh, DirectX::XMFLOAT3 pos, float angle, DirectX::XMFLOAT4 color, int hp);
 
-	Enemy* Get(int no) {
+	Enemy*	Get(int no){
 		if ((unsigned int)no >= MAX) return	nullptr;
 		return		&data[no];
 	}

@@ -15,7 +15,7 @@ extern  EnemyManager enemyManager;
 void	Enemy::Initialize(const char* filename)
 {
 	obj.Initialize();
-	obj.Load(filename);
+	obj.Load( filename );
 	obj.scale = { 2.0f, 2.0f, 2.0f };
 
 	state = INITIALIZE;
@@ -52,24 +52,24 @@ void	Enemy::Move()
 		//	—pˆÓ‚·‚é•K—v‚ª‚ ‚é
 		if (enemyManager.select_action_count == 0)
 		{
-			rateSelect[0] = 10;		rateSelect[1] = 30;		rateSelect[2] = 20;		rateSelect[3] = 20;		rateSelect[4] = 10;		rateSelect[5] = 10;
+			rateSelect[0] = 10;		rateSelect[1] = 30;		rateSelect[2] = 20;		rateSelect[3] = 20;		rateSelect[4] = 10;		rateSelect[5] = 10;	
 			rateSelect[6] = 0;		rateSelect[7] = 0;		rateSelect[8] = 0;		rateSelect[9] = -1;
 		}
 		if (enemyManager.select_action_count == 1)
 		{
 			//rateSelect[0] = 10;		rateSelect[1] = 15;		rateSelect[2] = 15;		rateSelect[3] = 20;		rateSelect[4] = 20;		rateSelect[5] = 20;		rateSelect[6] = -1;
-			rateSelect[0] = 10;		rateSelect[1] = 20;		rateSelect[2] = 20;		rateSelect[3] = 20;		rateSelect[4] = 15;		rateSelect[5] = 15;
+			rateSelect[0] = 10;		rateSelect[1] = 20;		rateSelect[2] = 20;		rateSelect[3] = 20;		rateSelect[4] = 15;		rateSelect[5] = 15;	
 			rateSelect[6] = 0;		rateSelect[7] = 0;		rateSelect[8] = 0;		rateSelect[9] = -1;
 		}
 		if (enemyManager.select_action_count == 2)
 		{
 			//rateSelect[0] = 10;		rateSelect[1] = 15;		rateSelect[2] = 15;		rateSelect[3] = 20;		rateSelect[4] = 20;		rateSelect[5] = 20;		rateSelect[6] = -1;
-			rateSelect[0] = 0;		rateSelect[1] = 10;		rateSelect[2] = 20;		rateSelect[3] = 20;		rateSelect[4] = 25;		rateSelect[5] = 25;
+			rateSelect[0] = 0;		rateSelect[1] = 10;		rateSelect[2] = 20;		rateSelect[3] = 20;		rateSelect[4] = 25;		rateSelect[5] = 25;	
 			rateSelect[6] = 0;		rateSelect[7] = 0;		rateSelect[8] = 0;		rateSelect[9] = -1;
 		}
 		if (enemyManager.select_action_count == 3)
 		{
-			rateSelect[0] = 0;		rateSelect[1] = 0;		rateSelect[2] = 0;		rateSelect[3] = 0;		rateSelect[4] = 0;		rateSelect[5] = 0;
+			rateSelect[0] = 0;		rateSelect[1] = 0;		rateSelect[2] = 0;		rateSelect[3] = 0;		rateSelect[4] = 0;		rateSelect[5] = 0;		
 			rateSelect[6] = 35;		rateSelect[7] = 35;		rateSelect[8] = 30;		rateSelect[9] = -1;
 		}
 
@@ -297,9 +297,9 @@ void	Enemy::Move()
 
 void	Enemy::Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir)
 {
-	obj.pos = this->pos;
+	obj.pos		= this->pos;
 	obj.angle.y = this->angle;
-	obj.color = this->color;
+	obj.color	= this->color;
 
 	obj.Render(view, projection, light_dir);
 }
@@ -318,7 +318,7 @@ void	EnemyManager::Release()
 {
 	for (auto& d : data)
 	{
-		if (d.exist)
+		if(d.exist)
 			d.Release();
 	}
 }
@@ -338,20 +338,20 @@ void	EnemyManager::Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX
 {
 	for (auto& d : data)
 	{
-		if (d.exist)	d.Render(view, projection, light_dir);
+		if(d.exist)	d.Render(view, projection, light_dir);
 	}
 }
 
-Enemy* EnemyManager::Set(const char* filename, DirectX::XMFLOAT3 pos, float angle, DirectX::XMFLOAT4 color, int hp)
+Enemy*	EnemyManager::Set( const char* filename, DirectX::XMFLOAT3 pos, float angle, DirectX::XMFLOAT4 color, int hp)
 {
 	for (auto& d : data)
 	{
 		if (d.exist)	continue;
 
-		d.Initialize(filename);
-		d.pos = pos;
-		d.angle = angle;
-		d.color = color;
+		d.Initialize( filename );
+		d.pos	= pos;
+		d.angle	= angle;
+		d.color	= color;
 		d.hp = hp;
 		d.exist = true;
 		return	&d;
