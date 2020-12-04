@@ -18,7 +18,7 @@ void	Player::Initialize(const char* filename)
 
 	obj1 = obj2 = obj;
 
-	hp = 10;
+	hp = 30;
 	exist = true;
 
 	player.pos = { .0f, .0f, -15.0f };
@@ -205,23 +205,24 @@ void	Player::Move()
 		}
 
 		////	散弾銃 Xキー
-		//if (pInputManager->inputKeyTrigger(DIK_X))
-		//{
-		//	const float	SHOT_SPEED = 0.5f;
-		//	const float OFS_FRONT = 1.0f;
-		//	const float OFS_HEIGHT = 0.55f;
+		if (pInputManager->inputKeyTrigger(DIK_X))
+		{
+			const float	SHOT_SPEED = 0.5f;
+			const float OFS_FRONT = 1.0f;
+			const float OFS_HEIGHT = 0.55f;
 
-		//	DirectX::XMFLOAT3 p = pos;
-		//	p.x += sinf(angle) * OFS_FRONT;
-		//	p.z += cosf(angle) * OFS_FRONT;
-		//	p.y += OFS_HEIGHT;
+			DirectX::XMFLOAT3 p = pos;
+			p.x += sinf(angle) * OFS_FRONT;
+			p.z += cosf(angle) * OFS_FRONT;
+			p.y += OFS_HEIGHT;
 
-		//	for (int shotgun = 0; shotgun < 10; shotgun++)
-		//	{
-		//		float shotgun_angle = angle;
-		//		shotgun_angle += ((rand() % 12 - 6) * DirectX::XM_PI) / 180;
-		//		shotManager.Set(p, shotgun_angle, SHOT_SPEED - shotgun * 0.02, 0.1f);
-		//	}
+			for (int shotgun = 0; shotgun < 10; shotgun++)
+			{
+				float shotgun_angle = angle;
+				shotgun_angle += ((rand() % 12 - 6) * DirectX::XM_PI) / 180;
+				shotManager.Set(p, shotgun_angle, SHOT_SPEED - shotgun * 0.02, 0.1f);
+			}
+		}
 
 		//	//	パーティクル管理クラスの設置関数の呼び出し(実験用)
 		//	//pParticleManager->Set(p, 1.0f, DirectX::XMFLOAT4(0.8f, 0.4f, 0.2f, 0.6f));

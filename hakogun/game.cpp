@@ -11,6 +11,7 @@
 #include	"stage.h"
 
 #include	"collision.h"
+#include    "scene_manager.h"
 
 #include	<time.h>
 #include    <Windows.h>
@@ -84,6 +85,7 @@ void	Game::Initialize()
 
 	//	敵を生成
 	enemyManager.Initialize();
+	enemyManager.select_action_count = 0;
 	//const char*			tank  = "./Data/tank.fbx";
 	//float				angle = DirectX::XMConvertToRadians(180.0f);
 	//DirectX::XMFLOAT4	color = DirectX::XMFLOAT4(1.0f, .0f, .0f, 1.0f);
@@ -111,6 +113,10 @@ void	Game::Initialize()
 	pStage.obj.scale.x = 0.01f;
 	pStage.obj.scale.y = 0.01f;
 	pStage.obj.scale.z = 0.01f;
+
+	α = 1.0f;
+	player.teleport_time = 0;
+	player.resetFlg = false;
 }
 
 
@@ -272,7 +278,6 @@ bool	Game::Update()
 		if (player.resetFlg)
 		{
 			player.teleport_time += 1;
-
 			if (player.teleport_time > 60)
 			{
 				player.pos = { .0f, .0f, -15.0f };
@@ -286,12 +291,21 @@ bool	Game::Update()
 
 				player.turret_pos = { 0, 0, 500 };
 				pWaveManager->WaveProceed();
+				α = 1.0f;
 				enemyManager.select_action_count += 1;
 				warpFlg = false;
 			}
 		}
 	}
-
+	α -= 0.01f;
+	if (enemyManager.select_action_count == 5) // ゲームクリア
+	{
+		pSceneManager.setChangeScene(state_clear);
+	}
+	if (!player.exist)  // ゲームオーバー
+	{
+		pSceneManager.setChangeScene(state_over);
+	}
 	return	true;
 }
 
@@ -313,6 +327,23 @@ void	Game::Render()
 	if (warpFlg)
 	{
 		portal.Render(view, projection, light_direction);			//	「ポータル」の描画処理
+	}
+
+	if (enemyManager.select_action_count == 1)
+	{
+		pFramework.sprites[2]->Render(pFramework.getContext(), 0, 0, 1920, 1080, 0, 0, 1920, 1080, DirectX::XMFLOAT4(1, 1, 1, α));
+	}
+	if (enemyManager.select_action_count == 2)
+	{
+		pFramework.sprites[3]->Render(pFramework.getContext(), 0, 0, 1920, 1080, 0, 0, 1920, 1080, DirectX::XMFLOAT4(1, 1, 1, α));
+	}
+	if (enemyManager.select_action_count == 3)
+	{
+		pFramework.sprites[4]->Render(pFramework.getContext(), 0, 0, 1920, 1080, 0, 0, 1920, 1080, DirectX::XMFLOAT4(1, 1, 1, α));
+	}
+	if (enemyManager.select_action_count == 4)
+	{
+		pFramework.sprites[5]->Render(pFramework.getContext(), 0, 0, 1920, 1080, 0, 0, 1920, 1080, DirectX::XMFLOAT4(1, 1, 1, α));
 	}
 
 	/*******************************************************************************

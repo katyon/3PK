@@ -10,6 +10,7 @@ public:
 	DirectX::XMFLOAT4 light_direction;
 
 	bool    warpFlg;
+	float	ƒ¿ = 1.0f;  //@•`‰æ—p•Ï”
 
 
 	void	Initialize();
