@@ -50,24 +50,24 @@ void	Enemy::Move()
 		//	以下の配列などはswitchの外で宣言しても良いが、
 		//	ここに配置する場合は"{}"を使う事でブロック変数として
 		//	用意する必要がある
-		if (enemyManager.select_action_count == 0)
-		{
-			rateSelect[0] = 10;		rateSelect[1] = 30;		rateSelect[2] = 20;		rateSelect[3] = 20;		rateSelect[4] = 10;		rateSelect[5] = 10;
-			rateSelect[6] = 0;		rateSelect[7] = 0;		rateSelect[8] = 0;		rateSelect[9] = -1;
-		}
 		if (enemyManager.select_action_count == 1)
 		{
-			//rateSelect[0] = 10;		rateSelect[1] = 15;		rateSelect[2] = 15;		rateSelect[3] = 20;		rateSelect[4] = 20;		rateSelect[5] = 20;		rateSelect[6] = -1;
-			rateSelect[0] = 10;		rateSelect[1] = 20;		rateSelect[2] = 20;		rateSelect[3] = 20;		rateSelect[4] = 15;		rateSelect[5] = 15;
+			rateSelect[0] = 10;		rateSelect[1] = 30;		rateSelect[2] = 20;		rateSelect[3] = 20;		rateSelect[4] = 10;		rateSelect[5] = 10;
 			rateSelect[6] = 0;		rateSelect[7] = 0;		rateSelect[8] = 0;		rateSelect[9] = -1;
 		}
 		if (enemyManager.select_action_count == 2)
 		{
 			//rateSelect[0] = 10;		rateSelect[1] = 15;		rateSelect[2] = 15;		rateSelect[3] = 20;		rateSelect[4] = 20;		rateSelect[5] = 20;		rateSelect[6] = -1;
-			rateSelect[0] = 0;		rateSelect[1] = 10;		rateSelect[2] = 20;		rateSelect[3] = 20;		rateSelect[4] = 25;		rateSelect[5] = 25;
+			rateSelect[0] = 10;		rateSelect[1] = 20;		rateSelect[2] = 20;		rateSelect[3] = 20;		rateSelect[4] = 15;		rateSelect[5] = 15;
 			rateSelect[6] = 0;		rateSelect[7] = 0;		rateSelect[8] = 0;		rateSelect[9] = -1;
 		}
 		if (enemyManager.select_action_count == 3)
+		{
+			//rateSelect[0] = 10;		rateSelect[1] = 15;		rateSelect[2] = 15;		rateSelect[3] = 20;		rateSelect[4] = 20;		rateSelect[5] = 20;		rateSelect[6] = -1;
+			rateSelect[0] = 0;		rateSelect[1] = 10;		rateSelect[2] = 20;		rateSelect[3] = 20;		rateSelect[4] = 25;		rateSelect[5] = 25;
+			rateSelect[6] = 0;		rateSelect[7] = 0;		rateSelect[8] = 0;		rateSelect[9] = -1;
+		}
+		if (enemyManager.select_action_count == 4)
 		{
 			rateSelect[0] = 0;		rateSelect[1] = 0;		rateSelect[2] = 0;		rateSelect[3] = 0;		rateSelect[4] = 0;		rateSelect[5] = 0;
 			rateSelect[6] = 35;		rateSelect[7] = 35;		rateSelect[8] = 30;		rateSelect[9] = -1;

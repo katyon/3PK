@@ -12,6 +12,7 @@
 
 #include	"collision.h"
 #include    "input.h"
+#include    "scene_manager.h"
 
 #include	<time.h>
 #include    <Windows.h>
@@ -84,14 +85,15 @@ void	Game::Initialize()
     player.Initialize("./Data/Fbx/ziki.fbx");
     player_after_image.Initialize("./Data/Fbx/ziki.fbx");
 
-    //	敵を生成
-    enemyManager.Initialize();
-    //const char*			tank  = "./Data/tank.fbx";
-    //float				angle = DirectX::XMConvertToRadians(180.0f);
-    //DirectX::XMFLOAT4	color = DirectX::XMFLOAT4(1.0f, .0f, .0f, 1.0f);
-    //enemyManager.Set(tank, DirectX::XMFLOAT3(-5.0f, .0f, +5.0f), angle, color);
-    //enemyManager.Set(tank, DirectX::XMFLOAT3(  .0f, .0f, +5.0f), angle, color);
-    //enemyManager.Set(tank, DirectX::XMFLOAT3(+5.0f, .0f, +5.0f), angle, color);
+	//	敵を生成
+	enemyManager.Initialize();
+	enemyManager.select_action_count = 0;
+	//const char*			tank  = "./Data/tank.fbx";
+	//float				angle = DirectX::XMConvertToRadians(180.0f);
+	//DirectX::XMFLOAT4	color = DirectX::XMFLOAT4(1.0f, .0f, .0f, 1.0f);
+	//enemyManager.Set(tank, DirectX::XMFLOAT3(-5.0f, .0f, +5.0f), angle, color);
+	//enemyManager.Set(tank, DirectX::XMFLOAT3(  .0f, .0f, +5.0f), angle, color);
+	//enemyManager.Set(tank, DirectX::XMFLOAT3(+5.0f, .0f, +5.0f), angle, color);
 
     //　ポータルを設置
     portal.Initialize();
@@ -117,6 +119,10 @@ void	Game::Initialize()
     {
         Explanation[i] = false;
     }
+
+	α = 1.0f;
+	player.teleport_time = 0;
+	player.resetFlg = false;
 }
 
 
@@ -140,7 +146,6 @@ void	Game::Release()
 
 bool	Game::Update()
 {
-
     player.Move();					//	「プレイヤー」の移動処理
     enemyManager.Update();			//	「敵管理」の更新処理
     camera.Update();
@@ -315,6 +320,16 @@ bool	Game::Update()
         if (Explanation[5] && pInputManager->inputKeyTrigger(DIK_Z)) Explanation[6] = true;
         if (Explanation[6] && pInputManager->inputKeyTrigger(DIK_SPACE)) Explanation[7] = true;
     }
+
+    α -= 0.01f;
+    if (enemyManager.select_action_count == 5) // ゲームクリア
+    {
+        pSceneManager.setChangeScene(state_clear);
+    }
+    if (!player.exist)  // ゲームオーバー
+    {
+        pSceneManager.setChangeScene(state_over);
+    }
     return	true;
 }
 
@@ -338,6 +353,22 @@ void	Game::Render()
         portal.Render(view, projection, light_direction);			//	「ポータル」の描画処理
     }
 
+    if (enemyManager.select_action_count == 1)
+    {
+        pFramework.sprites[2]->Render(pFramework.getContext(), 0, 0, 1920, 1080, 0, 0, 1920, 1080, DirectX::XMFLOAT4(1, 1, 1, α));
+    }
+    if (enemyManager.select_action_count == 2)
+    {
+        pFramework.sprites[3]->Render(pFramework.getContext(), 0, 0, 1920, 1080, 0, 0, 1920, 1080, DirectX::XMFLOAT4(1, 1, 1, α));
+    }
+    if (enemyManager.select_action_count == 3)
+    {
+        pFramework.sprites[4]->Render(pFramework.getContext(), 0, 0, 1920, 1080, 0, 0, 1920, 1080, DirectX::XMFLOAT4(1, 1, 1, α));
+    }
+    if (enemyManager.select_action_count == 4)
+    {
+        pFramework.sprites[5]->Render(pFramework.getContext(), 0, 0, 1920, 1080, 0, 0, 1920, 1080, DirectX::XMFLOAT4(1, 1, 1, α));
+    }
     /*******************************************************************************
         パーティクル管理を描画
     *******************************************************************************/

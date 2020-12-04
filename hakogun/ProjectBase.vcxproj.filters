@@ -128,6 +128,9 @@
     <ClCompile Include="change.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="gameover.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blender.h">
@@ -203,6 +206,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="change.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="gameover.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

@@ -18,8 +18,8 @@ void	Player::Initialize(const char* filename)
 
     obj1 = obj2 = obj;
 
-    hp = 10;
-    exist = true;
+	hp = 30;
+	exist = true;
 
     player.pos = { .0f, .0f, -15.0f };
     turret.Initialize();

@@ -128,6 +128,12 @@ bool framework::initialize()
 
     sprites[0] = std::make_unique<Sprite>(device, L"./Data/Sprites/title.png");
     sprites[1] = std::make_unique<Sprite>(device, L"./Data/Sprites/clear.png");
+    sprites[2] = std::make_unique<Sprite>(device, L"./Data/Sprites/WAVE1.png");
+    sprites[3] = std::make_unique<Sprite>(device, L"./Data/Sprites/WAVE2.png");
+    sprites[4] = std::make_unique<Sprite>(device, L"./Data/Sprites/WAVE3.png");
+    sprites[5] = std::make_unique<Sprite>(device, L"./Data/Sprites/BOSS.png");
+    sprites[10] = std::make_unique<Sprite>(device, L"./Data/Sprites/GAMEOVER.png");
+
 
     sprites[6] = std::make_unique<Sprite>(device, L"./Data/Sprites/Explanation1.png");
     sprites[7] = std::make_unique<Sprite>(device, L"./Data/Sprites/Explanation2.png");

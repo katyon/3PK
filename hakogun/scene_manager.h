@@ -10,6 +10,7 @@ enum SCENES
     state_title,
     state_game,
     state_clear,
+    state_over,
     state_change,
 };
 

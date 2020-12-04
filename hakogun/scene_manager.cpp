@@ -5,6 +5,7 @@
 #include "clear.h"
 #include "game.h"
 #include "title.h"
+#include "gameover.h"
 
 // ä÷êî ----------------------------------------------------------------------------------------
 void SceneManager::init(void)
@@ -32,6 +33,9 @@ void SceneManager::update()
     case state_clear:
         pSceneClear.update();
         break;
+    case state_over:
+        pSceneOver.update();
+        break;
     case state_change:
         pSceneChange.update();
         break;
@@ -51,6 +55,9 @@ void SceneManager::render()
         break;
     case state_clear:
         pSceneClear.render();
+        break;
+    case state_over:
+        pSceneOver.render();
         break;
     case state_change:
         pSceneChange.render();
@@ -73,6 +80,9 @@ void SceneManager::changeSceneStateInit(SCENES _next_scene)
     case state_clear:
         pSceneClear.end();
         break;
+    case state_over:
+        pSceneOver.end();
+        break;
     case state_change:
         pSceneChange.end();
         break;
@@ -91,6 +101,9 @@ void SceneManager::changeSceneStateInit(SCENES _next_scene)
         break;
     case state_clear:
         pSceneClear.init();
+        break;
+    case state_over:
+        pSceneOver.init();
         break;
     case state_change:
         pSceneChange.init();
