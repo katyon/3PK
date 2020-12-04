@@ -83,9 +83,9 @@ void	Game::Initialize()
 
 	//	敵を生成
 	enemyManager.Initialize();
-	const char*			tank  = "./Data/tank.fbx";
-	float				angle = DirectX::XMConvertToRadians(180.0f);
-	DirectX::XMFLOAT4	color = DirectX::XMFLOAT4(1.0f, .0f, .0f, 1.0f);
+	//const char*			tank  = "./Data/tank.fbx";
+	//float				angle = DirectX::XMConvertToRadians(180.0f);
+	//DirectX::XMFLOAT4	color = DirectX::XMFLOAT4(1.0f, .0f, .0f, 1.0f);
 	//enemyManager.Set(tank, DirectX::XMFLOAT3(-5.0f, .0f, +5.0f), angle, color);
 	//enemyManager.Set(tank, DirectX::XMFLOAT3(  .0f, .0f, +5.0f), angle, color);
 	//enemyManager.Set(tank, DirectX::XMFLOAT3(+5.0f, .0f, +5.0f), angle, color);
@@ -96,6 +96,8 @@ void	Game::Initialize()
 	portal.color = DirectX::XMFLOAT4(0.8f, 0.2f, 0.2f, 1.0f);
 	portal.scale = DirectX::XMFLOAT3(2.0f, 2.0f, 2.0f);
 	portal.pos = DirectX::XMFLOAT3(.0f, .0f, +15.0f);
+
+	warpFlg = false;
 
 	//	弾丸管理を初期化
 	shotManager.Initialize();
@@ -137,7 +139,8 @@ bool	Game::Update()
 
 	if (enemyManager.AP())
 	{
-		pWaveManager->WaveProceed();
+		warpFlg = true;
+		//pWaveManager->WaveProceed();
 	}
 
 	/*******************************************************************************
@@ -145,6 +148,56 @@ bool	Game::Update()
 	*******************************************************************************/
 	pParticleManager->Update();
 
+
+	//	プレイヤーと弾丸との衝突判定
+	for (int sn = 0; sn < ShotManager::MAX; sn++)
+	{
+		Shot* s = shotManager.Get(sn);
+		if (!s || !s->exist)	continue;
+
+		if (!player.exist)	continue;
+
+		if (!player.acceleFlg)
+		{
+			if (Collision::HitSphere(s->pos, 0.2f, player.pos, player.obj.scale.x))
+			{
+				s->obj.Release();
+				s->exist = false;
+				player.hp--;
+				if (player.hp < 0)
+				{
+					player.obj.Release();
+					player.exist = false;
+				}
+
+
+				/*******************************************************************************
+					パーティクルを用いた破壊演出の作成
+				*******************************************************************************/
+				DirectX::XMFLOAT3	pos = s->pos;
+				pos.x += player.pos.x;		pos.x /= 2.0f;
+				pos.y += player.pos.y;		pos.y /= 2.0f;
+				pos.z += player.pos.z;		pos.z /= 2.0f;
+				for (int n = 0; n < 10; n++)
+				{
+					DirectX::XMFLOAT3	vec, power;
+					const float scale = 0.15f;
+					const DirectX::XMFLOAT4 color(0.8f, 0.4f, 0.2f, 0.5f);
+
+					vec.x = ((rand() % 2001) - 1000) * 0.001f * 0.03f;
+					vec.y = ((rand() % 2001) - 1000) * 0.001f * 0.03f;
+					vec.z = ((rand() % 2001) - 1000) * 0.001f * 0.03f;
+
+
+					power.x = 0.0f;
+					power.z = 0.0f;
+					power.y = -0.001f;
+
+					pParticleManager->Set(pos, vec, power, scale, color, 30);
+				}
+			}
+		}
+	}
 
 	//	敵と弾丸との衝突判定
 	for (int sn = 0; sn < ShotManager::MAX; sn++)
@@ -157,44 +210,58 @@ bool	Game::Update()
 			Enemy* e = enemyManager.Get(en);
 			if (!e || !e->exist)	continue;
 
-			if (Collision::HitSphere(s->pos, 0.2f, e->pos, e->obj.scale.x))
+			if (s->obj.scale.x != 0.3f)
 			{
-				s->obj.Release();
-				s->exist = false;
-				e->obj.Release();
-				e->exist = false;
-				
-				/*******************************************************************************
-					パーティクルを用いた破壊演出の作成
-				*******************************************************************************/
-				DirectX::XMFLOAT3	pos = s->pos;
-				pos.x += e->pos.x;		pos.x /= 2.0f;
-				pos.y += e->pos.y;		pos.y /= 2.0f;
-				pos.z += e->pos.z;		pos.z /= 2.0f;
-				for (int n = 0; n < 10; n++)
+				if (Collision::HitSphere(s->pos, 0.2f, e->pos, e->obj.scale.x))
 				{
-					DirectX::XMFLOAT3	vec, power;
-					const float scale = 0.15f;
-					const DirectX::XMFLOAT4 color(0.8f, 0.4f, 0.2f, 0.5f);
+					s->obj.Release();
+					s->exist = false;
+					e->hp--;
+					if (e->hp < 0)
+					{
+						e->obj.Release();
+						e->exist = false;
+					}
 
-					vec.x = ((rand() % 2001) - 1000) * 0.001f * 0.03f;
-					vec.y = ((rand() % 2001) - 1000) * 0.001f * 0.03f;
-					vec.z = ((rand() % 2001) - 1000) * 0.001f * 0.03f;
 
-				
-					power.x = 0.0f;
-					power.z = 0.0f;
-					power.y = -0.001f;
+					/*******************************************************************************
+						パーティクルを用いた破壊演出の作成
+					*******************************************************************************/
+					DirectX::XMFLOAT3	pos = s->pos;
+					pos.x += e->pos.x;		pos.x /= 2.0f;
+					pos.y += e->pos.y;		pos.y /= 2.0f;
+					pos.z += e->pos.z;		pos.z /= 2.0f;
+					for (int n = 0; n < 10; n++)
+					{
+						DirectX::XMFLOAT3	vec, power;
+						const float scale = 0.15f;
+						const DirectX::XMFLOAT4 color(0.8f, 0.4f, 0.2f, 0.5f);
 
-					pParticleManager->Set(pos, vec, power, scale, color, 30);
+						vec.x = ((rand() % 2001) - 1000) * 0.001f * 0.03f;
+						vec.y = ((rand() % 2001) - 1000) * 0.001f * 0.03f;
+						vec.z = ((rand() % 2001) - 1000) * 0.001f * 0.03f;
+
+
+						power.x = 0.0f;
+						power.z = 0.0f;
+						power.y = -0.001f;
+
+						pParticleManager->Set(pos, vec, power, scale, color, 30);
+					}
 				}
 			}
 		}
 	}
-	if (Collision::HitSphere(portal.pos, 1.0f, player.pos, player.obj.scale.x))
+	if (warpFlg)
 	{
-		player.angle++;
+		if (Collision::HitSphere(portal.pos, 1.0f, player.pos, player.obj.scale.x))
+		{
+			pWaveManager->WaveProceed();
+			enemyManager.select_action_count += 1;
+			warpFlg = false;
+		}
 	}
+
 
 	return	true;
 }
@@ -208,12 +275,15 @@ void	Game::Render()
 	view = camera.GetViewMatrix();
 
 	field.Render(view, projection, light_direction);			//	「地面」の描画処理
-	portal.Render(view, projection, light_direction);			//	「ポータル」の描画処理
 	player.Render(view, projection, light_direction);			//	「プレイヤー」の描画処理
+	player_after_image.Render(view, projection, light_direction);
 	enemyManager.Render(view, projection, light_direction);		//	「敵管理」の描画処理
 	shotManager.Render(view, projection, light_direction);		//	弾丸管理を描画
 
-	player_after_image.Render(view, projection, light_direction);
+	if (warpFlg)
+	{
+		portal.Render(view, projection, light_direction);			//	「ポータル」の描画処理
+	}
 
 	/*******************************************************************************
 		パーティクル管理を描画

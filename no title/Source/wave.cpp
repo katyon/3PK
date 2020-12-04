@@ -79,10 +79,9 @@ bool WaveManager::create()
 {
 	Wave* d = &EnemyData[count];
 	if (d->wave_num < 0) { return false; }
-
 	while (d->wave_num >= 0 && d->wave_num <= ThisWave)
 	{
-		enemyManager.Set(myModel[d->model_num], DirectX::XMFLOAT3(d->pos_x, 0, d->pos_z), DirectX::XMConvertToRadians(d->angle), d->color);
+		enemyManager.Set(myModel[d->model_num], DirectX::XMFLOAT3(d->pos_x, 0, d->pos_z), DirectX::XMConvertToRadians(d->angle), d->color, d->hp);
 		count++;
 		d++;
 	}

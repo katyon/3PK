@@ -23,7 +23,8 @@ public:
 	float pos_x;
 	float pos_z;
 	float angle;
-	DirectX::XMFLOAT4 color = { 0.8f, 0.4f, 0.2f, 1.0f };
+	DirectX::XMFLOAT4 color;
+	int hp;
 };
 
 /*******************************************************************************
@@ -57,6 +58,7 @@ private:
 	int ThisWave;
 
 public:
+
 	void init(char** filename, Wave* ed);
 	void release();
 	bool create();
@@ -64,6 +66,11 @@ public:
 	{
 		if (EnemyData[count].wave_num < 0) return;
 		ThisWave++;
+	}
+
+	int getThisWave()
+	{
+		return ThisWave;
 	}
 
 	static WaveManager* getInstance()

@@ -9,6 +9,8 @@ public:
 	DirectX::XMMATRIX projection;
 	DirectX::XMFLOAT4 light_direction;
 
+	bool    warpFlg;
+
 
 	void	Initialize();
 	void	Release();

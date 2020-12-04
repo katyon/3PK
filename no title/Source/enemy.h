@@ -37,7 +37,13 @@ private:
 		SHOT_NORMAL_INIT,
 		SHOT_NORMAL_PROC,
 		SHOT_FAN_INIT,
-		SHOT_FAN_PROC
+		SHOT_FAN_PROC,
+		BOSS_NORMAL_INIT,
+		BOSS_NORMAL_PROC,
+		BOSS_FAN_INIT,
+		BOSS_FAN_PROC,
+		BOSS_TORNADO_INIT,
+		BOSS_TORNADO_PROC,
 	};
 
 public:
@@ -45,13 +51,19 @@ public:
 	DirectX::XMFLOAT3	pos;		//	「位置(座標)」
 	float				angle;		//	「回転角度」
 
+	float				before_angle; // 現在の向き
+	float				after_angle;  // 目標の向き(プレイヤー方向)
+	float               slerp_angle;  // なす角 
+
 	DirectX::XMFLOAT4	color;		//	「色」
 	bool				exist;		//	「存在フラグ」
+	int					rateSelect[10] = {};
 
 
 	//	敵」クラスに情報を追加
 	int					state;		//	「状態」
 	int					timer;		//	「タイマー」
+	int                 hp;
 
 	float               tank_rotate;
 
@@ -76,15 +88,17 @@ private:
 
 
 public:
+	int     select_action_count = 0;
+
 	void	Initialize();																										//	初期化関数
 	void	Release();																											//	解放関数
 	void	Update();																											//	更新関数
 	void	Render( const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& projection, const DirectX::XMFLOAT4& light_dir );	//	描画関数
-
+  
 	bool    AP();
 
-	Enemy*	Set(const char* filename, DirectX::XMFLOAT3 pos, float angle, DirectX::XMFLOAT4 color);								//	敵設定関数
-	Enemy* EnemyManager::Set(MyMesh& mesh, DirectX::XMFLOAT3 pos, float angle, DirectX::XMFLOAT4 color);
+	Enemy*	Set(const char* filename, DirectX::XMFLOAT3 pos, float angle, DirectX::XMFLOAT4 color, int hp);								//	敵設定関数
+	Enemy* EnemyManager::Set(MyMesh& mesh, DirectX::XMFLOAT3 pos, float angle, DirectX::XMFLOAT4 color, int hp);
 
 	Enemy*	Get(int no){
 		if ((unsigned int)no >= MAX) return	nullptr;

@@ -18,17 +18,17 @@ public:
 
 	DirectX::XMFLOAT3	pos;				//	「位置(座標)」
 	float				angle;				//	「回転角度」
+	bool                exist;
+
 	float				accele = 0.0f;
 	int                 accele_timer = 2.0;
 	bool                acceleFlg = false;
 
+	int                 hp;
 	bool				left_dash = false;
 	bool				right_dash = false;
 	bool				up_dash = false;
 	bool				down_dash = false;
-
-	float				X_movement;
-	float				Z_movement;
 
 	int					previous_timer = 0;
 	DirectX::XMFLOAT3	previous_pos1;
