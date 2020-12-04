@@ -42,7 +42,7 @@
     dcl t1.xy  // pin<8,9>
     dcl_2d s0
 
-#line 8 "C:\Users\2190195\Desktop\チ�Eム制作　倉庫\3PK\no title\Data\Shader\sprite_ps.hlsl"
+#line 8 "C:\Users\2190195\Desktop\チ�Eム制作　倉庫\3PK\hakogun\Data\Shader\sprite_ps.hlsl"
     texld r0, t1, s0
     mul r0, r0, t0  // ::psOut<0,1,2,3>
 

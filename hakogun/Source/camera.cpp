@@ -70,15 +70,16 @@ void	Camera::Update()
 	case FPS:			Fps();			break;		//	「1人称カメラ(FPS)」
 	}
 
+	mode = DIRECTIONAL;
 
 	//	カメラの切り替え
-	if (GetAsyncKeyState('C') & 1)
-	{
-		mode = (mode + 1) % MODE::MAX;		//	1行でこう書ける
-		//	複数行ならこれが王道?
-		//mode++;
-		//if (mode <= MODE::MAX)	mode = WATCH;
-	}
+	//if (GetAsyncKeyState('C') & 1)
+	//{
+	//	mode = (mode + 1) % MODE::MAX;		//	1行でこう書ける
+	//	//	複数行ならこれが王道?
+	//	//mode++;
+	//	//if (mode <= MODE::MAX)	mode = WATCH;
+	//}
 
 
 	////	カメラモード確認用デバッグ

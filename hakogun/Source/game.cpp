@@ -157,43 +157,46 @@ bool	Game::Update()
 
 		if (!player.exist)	continue;
 
-		if (!player.acceleFlg)
+		if (s->obj.scale.x != 0.15f)
 		{
-			if (Collision::HitSphere(s->pos, 0.2f, player.pos, player.obj.scale.x))
+			if (!player.acceleFlg)
 			{
-				s->obj.Release();
-				s->exist = false;
-				player.hp--;
-				if (player.hp < 0)
+				if (Collision::HitSphere(s->pos, 0.2f, player.pos, player.obj.scale.x))
 				{
-					player.obj.Release();
-					player.exist = false;
-				}
+					s->obj.Release();
+					s->exist = false;
+					player.hp--;
+					if (player.hp < 0)
+					{
+						player.obj.Release();
+						player.exist = false;
+					}
 
 
-				/*******************************************************************************
-					パーティクルを用いた破壊演出の作成
-				*******************************************************************************/
-				DirectX::XMFLOAT3	pos = s->pos;
-				pos.x += player.pos.x;		pos.x /= 2.0f;
-				pos.y += player.pos.y;		pos.y /= 2.0f;
-				pos.z += player.pos.z;		pos.z /= 2.0f;
-				for (int n = 0; n < 10; n++)
-				{
-					DirectX::XMFLOAT3	vec, power;
-					const float scale = 0.15f;
-					const DirectX::XMFLOAT4 color(0.8f, 0.4f, 0.2f, 0.5f);
+					/*******************************************************************************
+						パーティクルを用いた破壊演出の作成
+					*******************************************************************************/
+					DirectX::XMFLOAT3	pos = s->pos;
+					pos.x += player.pos.x;		pos.x /= 2.0f;
+					pos.y += player.pos.y;		pos.y /= 2.0f;
+					pos.z += player.pos.z;		pos.z /= 2.0f;
+					for (int n = 0; n < 10; n++)
+					{
+						DirectX::XMFLOAT3	vec, power;
+						const float scale = 0.15f;
+						const DirectX::XMFLOAT4 color(0.8f, 0.4f, 0.2f, 0.5f);
 
-					vec.x = ((rand() % 2001) - 1000) * 0.001f * 0.03f;
-					vec.y = ((rand() % 2001) - 1000) * 0.001f * 0.03f;
-					vec.z = ((rand() % 2001) - 1000) * 0.001f * 0.03f;
+						vec.x = ((rand() % 2001) - 1000) * 0.001f * 0.03f;
+						vec.y = ((rand() % 2001) - 1000) * 0.001f * 0.03f;
+						vec.z = ((rand() % 2001) - 1000) * 0.001f * 0.03f;
 
 
-					power.x = 0.0f;
-					power.z = 0.0f;
-					power.y = -0.001f;
+						power.x = 0.0f;
+						power.z = 0.0f;
+						power.y = -0.001f;
 
-					pParticleManager->Set(pos, vec, power, scale, color, 30);
+						pParticleManager->Set(pos, vec, power, scale, color, 30);
+					}
 				}
 			}
 		}
@@ -256,9 +259,28 @@ bool	Game::Update()
 	{
 		if (Collision::HitSphere(portal.pos, 1.0f, player.pos, player.obj.scale.x))
 		{
-			pWaveManager->WaveProceed();
-			enemyManager.select_action_count += 1;
-			warpFlg = false;
+			player.resetFlg = true;
+		}
+		if (player.resetFlg)
+		{
+			player.teleport_time += 1;
+
+			if (player.teleport_time > 60)
+			{
+				player.pos = { .0f, .0f, -15.0f };
+				player.obj.scale.x = 1;
+				player.obj.scale.y = 1;
+				player.obj.scale.z = 1;
+				//teleport_time = 0;
+				//turret_pos = { 0, 0, 500 };
+				player.resetFlg = false;
+				player.teleport_time = 0;
+
+				player.turret_pos = { 0, 0, 500 };
+				pWaveManager->WaveProceed();
+				enemyManager.select_action_count += 1;
+				warpFlg = false;
+			}
 		}
 	}
 

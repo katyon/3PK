@@ -16,6 +16,8 @@ public:
 	MyMesh				obj1;				//	 残像用
 	MyMesh				obj2;				//	 残像用
 
+	MyMesh				turret;             //   攻撃用タレット
+
 	DirectX::XMFLOAT3	pos;				//	「位置(座標)」
 	float				angle;				//	「回転角度」
 	bool                exist;
@@ -33,6 +35,13 @@ public:
 	int					previous_timer = 0;
 	DirectX::XMFLOAT3	previous_pos1;
 	DirectX::XMFLOAT3	previous_pos2;
+
+	DirectX::XMFLOAT3	turret_pos;
+	float				turret_angle;				//	「回転角度」
+	int                 turret_timer;
+
+	bool                resetFlg = false;
+	int                 teleport_time = 0;
 
 	void	Dash();
 
