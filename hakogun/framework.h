@@ -17,8 +17,8 @@
 
 //#define		BENCHMARK_RENDER
 
-const LONG SCREEN_WIDTH = 1280;
-const LONG SCREEN_HEIGHT = 720;
+const LONG SCREEN_WIDTH = 1920;
+const LONG SCREEN_HEIGHT = 1080;
 const LONG FRAME_RATE = 60;			//	これを変更しても実際のフレームレートは変わらない　どこで変わっているかは自分で調査しなさい
 
 
@@ -50,6 +50,8 @@ public:
 		static framework instance(hwnd);
 		return instance;
 	}
+
+	std::unique_ptr<Sprite> sprites[1024];
 
 	int run()
 	{
@@ -167,4 +169,4 @@ public:
 	inline static ID3D11DeviceContext*	getContext(){ return	framework::getInstance().context;	};
 };
 
-#define	pframework framework::getInstance()
+#define	pFramework framework::getInstance()

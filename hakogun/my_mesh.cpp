@@ -15,7 +15,7 @@ void	MyMesh::Initialize()
 	scale	= DirectX::XMFLOAT3(1, 1, 1);
 
 
-	color	= DirectX::XMFLOAT4(1, 1, 1, 1);
+	color	= DirectX::XMFLOAT4(1, 0, 1, 1);
 
 	//	ƒ‚ƒfƒ‹“Ç‚Ýž‚Ý
 	obj = nullptr;
@@ -29,7 +29,7 @@ void	MyMesh::Initialize()
 bool	MyMesh::Load(const char* fbx_filename)
 {
 	//	ƒ‚ƒfƒ‹“Ç‚Ýž‚Ý
-	obj = new StaticMesh(pframework.getDevice(), fbx_filename);
+	obj = new StaticMesh(pFramework.getDevice(), fbx_filename);
 	bLoad = true;
 
 	return	true;
@@ -92,7 +92,7 @@ void	MyMesh::Render(const DirectX::XMMATRIX& view, const DirectX::XMMATRIX& proj
 	DirectX::XMStoreFloat4x4(&world, worldM);
 
 	//	•`‰æ
-	obj->render(pframework.getContext(), world_view_projection, world, light_dir, color);
+	obj->render(pFramework.getContext(), world_view_projection, world, light_dir, color);
 }
 
 

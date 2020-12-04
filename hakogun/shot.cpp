@@ -116,7 +116,7 @@ Shot*	ShotManager::Set(DirectX::XMFLOAT3 pos, float angle, float speed, float sc
 		if( s.exist )	continue;
 
 		s.obj.Release();		//	”O‚Ìˆ×‰ð•ú
-		s.obj.SetPrimitive(new GeometricSphere(pframework.getDevice()));
+		s.obj.SetPrimitive(new GeometricSphere(pFramework.getDevice()));
 		s.obj.scale = DirectX::XMFLOAT3(scale, scale, scale);
 		s.obj.color = DirectX::XMFLOAT4(color.x, color.y, color.z, 1.0f );
 		s.pos = pos;

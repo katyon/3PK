@@ -33,7 +33,7 @@ private:
 	GeometricBoard			*polygon;
 
 	ParticleManager() : polygon(nullptr){
-		polygon = new GeometricBoard(pframework.getDevice());
+		polygon = new GeometricBoard(pFramework.getDevice());
 	}
 	~ParticleManager()	{
 		if (polygon)		delete	polygon;

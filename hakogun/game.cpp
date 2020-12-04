@@ -73,7 +73,7 @@ void	Game::Initialize()
 
 	//	「地面」を初期化
 	field.Initialize();
-	field.SetPrimitive( new GeometricRect( pframework.getDevice() ) );
+	field.SetPrimitive( new GeometricRect( pFramework.getDevice() ) );
 	field.color = DirectX::XMFLOAT4(0.4f, 0.2f, 0.6f, 1.0f);
 	field.scale = DirectX::XMFLOAT3(40.0f, 20.0f, 40.0f);
 
@@ -93,7 +93,7 @@ void	Game::Initialize()
 
 	//　ポータルを設置
 	portal.Initialize();
-	portal.SetPrimitive(new GeometricSphere(pframework.getDevice()));
+	portal.SetPrimitive(new GeometricSphere(pFramework.getDevice()));
 	portal.color = DirectX::XMFLOAT4(0.8f, 0.2f, 0.2f, 1.0f);
 	portal.scale = DirectX::XMFLOAT3(2.0f, 2.0f, 2.0f);
 	portal.pos = DirectX::XMFLOAT3(.0f, .0f, +15.0f);

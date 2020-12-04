@@ -59,7 +59,7 @@ void	ParticleManager::Render(const DirectX::XMMATRIX& view, const DirectX::XMMAT
 		DirectX::XMStoreFloat4x4(&world, W);					//	ƒ[ƒ‹ƒh•ÏŠ·s—ñ‚ð4x4‚É•ÏŠ·
 		W = inv_view2 * W * VP;									//	WorldViewProjections—ñ‡¬(view‹ts—ñ‚É‚æ‚é‘ÅÁ‚µ)
 		DirectX::XMStoreFloat4x4(&wvp, W);						//	WorldViewProjections—ñ‚ð4x4‚É•ÏŠ·
-		polygon->render( pframework.getContext(), wvp, world, light_dir, pd.color ); 		//	•`‰æ
+		polygon->render( pFramework.getContext(), wvp, world, light_dir, pd.color ); 		//	•`‰æ
 	}
 
 	blender::Set(blender::ALPHA);

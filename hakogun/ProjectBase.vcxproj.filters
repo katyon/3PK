@@ -125,6 +125,9 @@
     <ClCompile Include="stage.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="change.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="blender.h">
@@ -197,6 +200,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="stage.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="change.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

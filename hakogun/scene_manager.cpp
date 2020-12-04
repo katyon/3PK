@@ -1,6 +1,7 @@
 // インクルード ----------------------------------------------------------------------------------
 #include "scene_manager.h"
 
+#include "change.h"
 #include "clear.h"
 #include "game.h"
 #include "title.h"
@@ -31,6 +32,9 @@ void SceneManager::update()
     case state_clear:
         pSceneClear.update();
         break;
+    case state_change:
+        pSceneChange.update();
+        break;
     default: break;
     }
 }
@@ -47,6 +51,9 @@ void SceneManager::render()
         break;
     case state_clear:
         pSceneClear.render();
+        break;
+    case state_change:
+        pSceneChange.render();
         break;
     default: break;
     }
@@ -66,6 +73,9 @@ void SceneManager::changeSceneStateInit(SCENES _next_scene)
     case state_clear:
         pSceneClear.end();
         break;
+    case state_change:
+        pSceneChange.end();
+        break;
     default:
         break;
     }
@@ -81,6 +91,9 @@ void SceneManager::changeSceneStateInit(SCENES _next_scene)
         break;
     case state_clear:
         pSceneClear.init();
+        break;
+    case state_change:
+        pSceneChange.init();
         break;
     default:
         break;
@@ -177,4 +190,28 @@ void SceneClear::render(void)
 void SceneClear::end(void)
 {
     pClear.end();
+}
+
+// Change
+void SceneChange::init(void)
+{
+    pChange.init();
+    timer = 0;
+}
+
+void SceneChange::update(void)
+{
+
+    pChange.update();
+    timer++;
+}
+
+void SceneChange::render(void)
+{
+    pChange.render();
+}
+
+void SceneChange::end(void)
+{
+    pChange.end();
 }

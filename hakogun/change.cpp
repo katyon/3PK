@@ -2,15 +2,15 @@
 #include "framework.h"
 #include "input.h"
 #include "scene_manager.h"
-#include "title.h"
+#include "change.h"
 
 // ŠÖ” ----------------------------------------------------------------------------------------
-void Title::init(void)
+void Change::init(void)
 {
 
 }
 
-void Title::update(void)
+void Change::update(void)
 {
     if (pInputManager->inputKeyTrigger(DIK_SPACE))
     {
@@ -20,19 +20,12 @@ void Title::update(void)
     }
 }
 
-void Title::render(void)
+void Change::render(void)
 {
-    if (pSceneTitle.timer % 60 > 30)
-    {
-        pFramework.sprites[0]->Render(pFramework.getContext(), 0, 0, 1920, 1080, 0, 0, 1920, 1080);
-    }
-    else
-    {
-        pFramework.sprites[0]->Render(pFramework.getContext(), 0, 0, 1920, 1080, 1920, 0, 1920, 1080);
-    }
+
 }
 
-void Title::end(void)
+void Change::end(void)
 {
 
 }

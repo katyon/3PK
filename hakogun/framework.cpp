@@ -126,6 +126,9 @@ bool framework::initialize()
     //	DirectX‰Šú‰»I—¹ ˆÈ~•`‰æ•¨‘Ì‚Ì‰Šú‰»
     ////////////////////////////////////////////////////
 
+    sprites[0] = std::make_unique<Sprite>(device, L"./Data/Sprites/title.png");
+    sprites[1] = std::make_unique<Sprite>(device, L"./Data/Sprites/clear.png");
+
     pSceneManager.init();
 
     return true;
